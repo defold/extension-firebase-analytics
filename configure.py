@@ -332,9 +332,9 @@ def generate_info_plist(google_services_plist_filename):
 
     google_services_xmldoc = minidom.parse(google_services_plist_filename)
     dict = get_xml_element(google_services_xmldoc, "dict")
-    plist = plist.replace("</dict>\n</plist>", "\t<!-- {} --></dict>\n</plist>".format(google_services_plist_filename))
+    plist = plist.replace("</dict>\n</plist>", "\n        <!-- {} --></dict>\n</plist>".format(google_services_plist_filename))
     for child in dict.childNodes:
-        plist = plist.replace("</dict>\n</plist>", "{}</dict>\n</plist>".format(child.toxml()))
+        plist = plist.replace("</dict>\n</plist>", "{}</dict>\n</plist>".format(child.toxml().replace("\t", "        ")))
 
     with open("Info.plist", "w") as file:
         file.write(plist)

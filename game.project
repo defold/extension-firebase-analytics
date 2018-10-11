@@ -22,6 +22,7 @@ include_dirs = firebase
 
 [ios]
 bundle_identifier = com.defold.firebase
+infoplist = /Info.plist
 
 [android]
 package = com.defold.firebase
