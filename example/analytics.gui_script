@@ -1,0 +1,75 @@
+local analytics = firebase.analytics
+local dirtylarry = require "gooey.themes.dirtylarry.dirtylarry"
+
+local STRINGS = { "Yoda", "Luke", "Leia", "Han-Solo", "Darth Vader" }
+local SCREENS = {
+	"A New Hope",
+	"The Empire Strikes Back",
+	"Return of the Jedi",
+	"Phantom Menace",
+	"Attack of the Clones",
+	"Revenge of the Sith",
+	"The Force Awakens",
+	"The Last Jedi"
+}
+
+local function random(t)
+	return t[math.random(1, #t)]
+end
+
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	math.randomseed(os.time()) math.random()
+
+	firebase.init()
+end
+
+function on_input(self, action_id, action)
+	dirtylarry.button("set_screen", action_id, action, function()
+		local s = random(SCREENS):gsub(" ", "_")
+		print("set_screen()", s)
+		analytics.set_screen(s, "analytics.collection")
+	end)
+	dirtylarry.button("set_user_id", action_id, action, function()
+		local id = "user_" .. random(STRINGS) .. "_" .. tostring(os.time())
+		print("set_user_id()", id)
+		analytics.set_user_id(id)
+	end)
+	dirtylarry.button("set_user_property", action_id, action, function()
+		local property = "prop1"
+		local value = "value" .. random(STRINGS)
+		print("set_user_property()", property, value)
+		analytics.set_user_property(property, value)
+	end)
+	dirtylarry.button("set_minimum_session_duration", action_id, action, function()
+		local duration = math.random(1, 10) * 1000
+		print("set_minimum_session_duration()", duration)
+		analytics.set_minimum_session_duration(duration)
+	end)
+			
+	dirtylarry.button("log", action_id, action, function()
+		local s = random(STRINGS):gsub(" ", "_")
+		print("log()", s)
+		analytics.log(s)
+	end)
+		dirtylarry.button("log_string", action_id, action, function()
+		local s = random(STRINGS):gsub(" ", "_")
+		print("log_string()", s)
+		analytics.log_string("analytics", "string", s)
+	end)
+	dirtylarry.button("log_int", action_id, action, function()
+		local i = math.random(1, 10000)
+		print("log_int()", i)
+		analytics.log_int("analytics", "int", i)
+	end)
+	dirtylarry.button("log_number", action_id, action, function()
+		local n = math.random()
+		print("log_number()", n)
+		analytics.log_int("analytics", "number", n)
+	end)
+end
+
+function on_reload(self)
+	-- Add input-handling code here
+	-- Remove this function if not needed
+end

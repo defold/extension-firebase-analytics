@@ -1,0 +1,12 @@
+name: "Firebase"
+
+platforms:
+  x86_64-osx:
+    context:
+        frameworks: ["CoreFoundation", "Security"]
+        flags:      ["-stdlib=libc++"]
+        libs:       ["c++"]
+
+  armv7-android:
+    context:
+        flags:      ["-std=c++11"]
