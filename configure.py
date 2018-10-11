@@ -130,14 +130,22 @@ def download_string(url):
     return handle.read()
 
 
-def download_android_manifest(destination):
+def download_from_builtins(filename, destination):
     stable = download_string("http://d.defold.com/stable/info.json")
     stable_json = json.loads(stable)
     builtins_url = "http://d.defold.com/archive/%s/engine/share/builtins.zip" % (stable_json.get("sha1"))
     with tmpdir() as tmp_dir:
         builtins_file = download_file(builtins_url, tmp_dir)
         unzip(builtins_file, tmp_dir)
-        shutil.move(os.path.join(tmp_dir, "builtins/manifests/android/AndroidManifest.xml"), destination)
+        shutil.move(os.path.join(tmp_dir, filename), destination)
+
+
+def download_android_manifest(destination):
+    return download_from_builtins("builtins/manifests/android/AndroidManifest.xml", destination)
+
+
+def download_info_plist(destination):
+    return download_from_builtins("builtins/manifests/ios/Info.plist", destination)
 
 
 def copy_merge(src, dst):
@@ -315,28 +323,51 @@ def process_poms():
     return dependencies
 
 
-def add_argument(parser, short, long, dest, help):
-    parser.add_argument(short, dest=dest, help=help)
-    parser.add_argument(long, dest=dest, help=help)
+def generate_info_plist(google_services_plist_filename):
+    with tmpdir() as tmp_dir:
+        tmp_plist = os.path.join(tmp_dir, "Info.plist")
+        download_info_plist(tmp_plist)
+        with open(tmp_plist, "r") as file:
+            plist = file.read()
+
+    google_services_xmldoc = minidom.parse(google_services_plist_filename)
+    dict = get_xml_element(google_services_xmldoc, "dict")
+    plist = plist.replace("</dict>\n</plist>", "\t<!-- {} --></dict>\n</plist>".format(google_services_plist_filename))
+    for child in dict.childNodes:
+        plist = plist.replace("</dict>\n</plist>", "{}</dict>\n</plist>".format(child.toxml()))
+
+    with open("Info.plist", "w") as file:
+        file.write(plist)
+
+
+def add_argument(parser, short, long, dest, help, default=None, required=False):
+    parser.add_argument(short, dest=dest, help=help, default=default, required=required)
+    parser.add_argument(long, dest=dest, help=help, default=default, required=required)
 
 
 parser = ArgumentParser()
-parser.add_argument('commands', nargs="+", help='Commands (poms, deps)')
-add_argument(parser, "-d", "--deps", "deps", "Filename to read/write dependencies json from")
-add_argument(parser, "-btv", "--build-tools-version", "build_tools_version", "Android build tools version")
-add_argument(parser, "-apv", "--android-platform-version", "android_platform_version", "Android platform version")
+parser.add_argument('commands', nargs="+", help='Commands (poms, deps, plist, help)')
+add_argument(parser, "-d", "--deps", "deps", "Filename to read/write dependencies json from", default="dependencies.json")
+add_argument(parser, "-btv", "--build-tools-version", "build_tools_version", "Android build tools version. Optional, for use with 'deps' command.", default="28.0.2")
+add_argument(parser, "-apv", "--android-platform-version", "android_platform_version", "Android platform version. Optional, for use with 'deps' command.", default="26")
+add_argument(parser, "-pl", "--plist", "google_services_plist", "GoogleServices-Info.plist as downloaded from Firebase Console. Optional, for use with 'plist' command.", default="GoogleServices-Info.plist")
 args = parser.parse_args()
 
-if not args.build_tools_version:
-    args.build_tools_version = "28.0.2"
+help = """
+COMMANDS:
+poms = [Android] Process POMs. This will download, parse and generate a list of all dependencies (direct and transitive) to the file specified by [-d|--deps].
 
-if not args.android_platform_version:
-    args.android_platform_version = "26"
+deps = [Android] Process dependencies. This will parse the file specified by [-d|--deps], download the .aar or .jar files, copy resources and generate an AndroidManifest.xml.
 
-if not args.deps:
-    args.deps = "dependencies.json"
+plist - [iOS] Generate an Info.plist with the values from builtins merged with the values downloaded from the Firebase Console and stored in the file specified by [-pl|--plist].
+"""
 
 for command in args.commands:
+    if command == "help":
+        parser.print_help()
+        print(help)
+        sys.exit(0)
+
     if command == "poms":
         with open(args.deps, "w") as file:
             file.write(json.dumps(process_poms()))
@@ -348,6 +379,9 @@ for command in args.commands:
         with open(args.deps, "r") as file:
             dependencies = json.loads(file.read())
             process_dependencies(dependencies, args)
+
+    if command == "plist":
+        generate_info_plist(args.google_services_plist)
 
 # Success!
 print("Done")
