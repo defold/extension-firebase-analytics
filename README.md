@@ -43,13 +43,13 @@ $ ./generate_xml_from_google_services_json.py -i google-services.json -o google-
  |
  +-bundle
     |
-	+-android
-	   |
-	   +-res
-	      |
-		  +-values
-		     |
-			 +-google-services.xml
+    +-android
+       |
+       +-res
+          |
+          +-values
+             |
+             +-google-services.xml
 ```
 
 * Open `game.project` in a text editor and manually add a `bundle_resources` entry under `[project]` and set it to `/bundle` to match the folder created in the step above. Read more about the bundle_resources setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project). It should look like this:
