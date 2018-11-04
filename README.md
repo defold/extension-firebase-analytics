@@ -1,6 +1,9 @@
 # Firebase
 Google Firebase extension for the [Defold](https://www.defold.com) game engine.
 
+# NOT PRODUCTION READY
+This extension is still under development. The extension works on Android but for iOS some librarys need to be extracted from their respective POD files before it will work on iOS. Please get in touch (bjorn.ritzl@king.com) if you plan to use the extension.
+
 # Setup
 ## 1. Firebase setup
 The steps below taken from the [official Google Firebase Guides](https://firebase.google.com/docs/cpp/setup).
