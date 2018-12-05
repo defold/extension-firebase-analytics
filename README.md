@@ -67,6 +67,7 @@ bundle_resources = /bundle
 * Merge `GoogleService-Info.plist` with a copy of `builtins/manifests/ios/Info.plist`
 * Open `game.project` and scroll to the iOS section. Select the created `Info.plist` in the Info.plist field.
 
+
 # Usage
 ## Firebase API
 ### firebase.init([config])
@@ -102,3 +103,14 @@ Clears all analytics data for this app from the device and resets the app instan
 
 ### firebase.analytics.get_id()
 Get the instance ID from the analytics service. [Official docs](https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#getanalyticsinstanceid).
+
+
+# Notes on setup of this extension
+The extension uses the [Firebase C++ SDK](https://firebase.google.com/docs/cpp/setup). The libs and includes have been copied from the SDK to the extension.
+
+
+## Android
+
+## iOS
+For iOS setup is made without CocoaPods:
+https://firebase.google.com/docs/ios/setup#frameworks
