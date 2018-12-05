@@ -1,6 +1,9 @@
 # Firebase
 Google Firebase extension for the [Defold](https://www.defold.com) game engine.
 
+# NOT PRODUCTION READY
+This extension is still under development. The extension works on Android but for iOS some librarys need to be extracted from their respective POD files before it will work on iOS. Please get in touch (bjorn.ritzl@king.com) if you plan to use the extension.
+
 # Setup
 ## 1. Firebase setup
 The steps below taken from the [official Google Firebase Guides](https://firebase.google.com/docs/cpp/setup).
@@ -52,14 +55,7 @@ $ ./generate_xml_from_google_services_json.py -i google-services.json -o google-
              +-google-services.xml
 ```
 
-* Open `game.project` in a text editor and manually add a `bundle_resources` entry under `[project]` and set it to `/bundle` to match the folder created in the step above. Read more about the bundle_resources setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project). It should look like this:
-
-```
-[project]
-...
-bundle_resources = /bundle
-
-```
+* Open `game.project` set the `Bundle Resources` entry under the `Project` section to `/bundle` to match the folder created in the step above. Read more about the `Bundle Resources` setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project).
 
 * Finally you also need to make sure that the default Android Support and Google Play Services libs are excluded from Defold engine in favor of the ones provided by this extension. You do this by setting `firebase/firebase.appmanifest` as the App Manifest in the Native Extension section of `game.project` (or merging with an existing `.appmanifest` if you already have one).
 
