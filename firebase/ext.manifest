@@ -13,14 +13,14 @@ platforms:
 
   armv7-ios:
     context:
-        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit"]
+        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
         flags:      ["-stdlib=libc++"]
         linkFlags:  ["-ObjC"]
         libs:       ["c++", "z", "sqlite3"]
 
   arm64-ios:
     context:
-        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit"]
+        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
         flags:      ["-stdlib=libc++"]
         linkFlags:  ["-ObjC"]
         libs:       ["c++", "z", "sqlite3"]
