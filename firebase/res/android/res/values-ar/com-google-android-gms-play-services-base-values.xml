@@ -2,9 +2,9 @@
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 <!-- blaze-out/k8-opt/genfiles/java/com/google/android/gmscore/integ/client/base/res/values-ar/strings.xml -->
 <eat-comment/>
-<string name="common_google_play_services_enable_button" msgid="8585111718777012708">"تمكين"</string>
-<string name="common_google_play_services_enable_text" msgid="7045129128108380659">"‏لن يعمل <xliff:g id="APP_NAME">%1$s</xliff:g> ما لم يتم تمكين خدمات Google Play."</string>
-<string name="common_google_play_services_enable_title" msgid="3147157405986503375">"‏تمكين خدمات Google Play"</string>
+<string name="common_google_play_services_enable_button" msgid="8585111718777012708">"تفعيل"</string>
+<string name="common_google_play_services_enable_text" msgid="7045129128108380659">"‏لن يعمل <xliff:g id="APP_NAME">%1$s</xliff:g> ما لم يتم تفعيل خدمات Google Play."</string>
+<string name="common_google_play_services_enable_title" msgid="3147157405986503375">"‏تفعيل خدمات Google Play"</string>
 <string name="common_google_play_services_install_button" msgid="9115728400623041681">"تثبيت"</string>
 <string name="common_google_play_services_install_text" msgid="8179894293032530091">"‏لن يتم تشغيل <xliff:g id="APP_NAME">%1$s</xliff:g> بدون خدمات Google Play، والتي لا تتوفر على جهازك."</string>
 <string name="common_google_play_services_install_title" msgid="7442193194585196676">"‏الحصول على خدمات Google Play"</string>

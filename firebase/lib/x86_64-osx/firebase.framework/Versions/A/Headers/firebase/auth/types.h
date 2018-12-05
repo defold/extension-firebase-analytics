@@ -277,13 +277,9 @@ enum AuthError {
 
   /// Indicates that an attempt was made to present a new web context while one
   /// was already being presented.
-  ///
-  /// @note This error is iOS-specific.
   kAuthErrorWebContextAlreadyPresented,
 
   /// Indicates that the URL presentation was cancelled prematurely by the user.
-  ///
-  /// @note This error is iOS-specific.
   kAuthErrorWebContextCancelled,
 
   /// Indicates that Dynamic Links in the Firebase Console is not activated.
@@ -294,6 +290,33 @@ enum AuthError {
 
   /// Indicates that the provider id given for the web operation is invalid.
   kAuthErrorInvalidProviderId,
+
+  /// Indicates that an internal error occurred during a web operation.
+  kAuthErrorWebInternalError,
+
+  /// Indicates that 3rd party cookies or data are disabled, or that there was
+  /// a problem with the browser.
+  kAuthErrorWebStorateUnsupported,
+
+  /// Indicates that an attempt was made to update the current user with a
+  /// different tenant ID.
+  kAuthErrorTenantIdMismatch,
+
+  /// Indicates that a request was made to the backend with an associated tenant
+  /// ID for an operation that does not support multi-tenancy.
+  kAuthErrorUnsupportedTenantOperation,
+
+  /// Indicates that an FDL domain used for an out of band code flow is either
+  /// not configured or is unauthorized for the current project.
+  kAuthErrorInvalidLinkDomain,
+
+  /// Indicates that credential related request data is invalid. This can occur
+  /// when there is a project number mismatch (sessionInfo, spatula header,
+  /// temporary proof),
+  /// an incorrect temporary proof phone number, or during game center sign in
+  /// when the user is
+  /// already signed into a different game center account.
+  kAuthErrorRejectedCredential,
 };
 
 }  // namespace auth

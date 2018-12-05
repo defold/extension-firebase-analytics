@@ -17,6 +17,6 @@
 <string name="common_google_play_services_updating_text" msgid="7894275749778928941">"<xliff:g id="APP_NAME">%1$s</xliff:g> tidak akan berjalan tanpa layanan Google Play, yang saat ini sedang diperbarui."</string>
 <string name="common_google_play_services_wear_update_text" msgid="2804989272736383918">"Perlu versi baru layanan Google Play. Akan segera memperbarui sendiri."</string>
 <string name="common_open_on_phone" msgid="5201977337835724196">"Buka di ponsel"</string>
-<string name="common_signin_button_text" msgid="3441753203274453993">"Masuk"</string>
-<string name="common_signin_button_text_long" msgid="669893613918351210">"Masuk dengan Google"</string>
+<string name="common_signin_button_text" msgid="3441753203274453993">"Login"</string>
+<string name="common_signin_button_text_long" msgid="669893613918351210">"Login dengan Google"</string>
 </resources>

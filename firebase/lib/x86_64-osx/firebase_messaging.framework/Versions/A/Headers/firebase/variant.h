@@ -7,6 +7,7 @@
 #include <cstring>
 #include <map>
 #include <string>
+#include <utility>
 #include <vector>
 #include "firebase/internal/common.h"
 

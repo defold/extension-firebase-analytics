@@ -103,15 +103,6 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.defold.adtruth.InstallReceiver"/>
-        <receiver
-            android:name="com.defold.adtruth.InstallReceiver"
-            android:exported="true">
-          <intent-filter>
-            <action android:name="com.android.vending.INSTALL_REFERRER"/>
-          </intent-filter>
-        </receiver>
-
         <!-- For Amazon IAP -->
         <receiver android:name="com.amazon.device.iap.ResponseReceiver" >
             <intent-filter>
@@ -133,7 +124,7 @@
 		<!--com.google.firebase.iid-->
 		<meta-data android:name="com.google.firebase.components:com.google.firebase.iid.Registrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
 		<!--com.google.firebase.iid-->
-		<service android:name="com.google.firebase.components.ComponentDiscoveryService">
+		<service android:exported="false" android:name="com.google.firebase.components.ComponentDiscoveryService">
             <meta-data android:name="com.google.firebase.components:com.google.firebase.iid.Registrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
         </service>
 		<!--com.google.firebase.iid-->
@@ -146,8 +137,6 @@
 		<receiver android:exported="true" android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver" android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.android.c2dm.intent.RECEIVE"/>
-
-                <category android:name="{{android.package}}"/>
             </intent-filter>
         </receiver>
 		<!--com.google.firebase.measurement-->

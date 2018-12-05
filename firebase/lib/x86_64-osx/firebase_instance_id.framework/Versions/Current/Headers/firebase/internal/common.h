@@ -19,6 +19,23 @@
 #define FIREBASE_USE_STD_FUNCTION
 #endif  // !defined(_STLPORT_VERSION)
 
+// stlport doesn't implement std::aligned_storage.
+#if defined(_STLPORT_VERSION)
+#include <cstddef>
+namespace firebase {
+template <std::size_t Length, std::size_t Alignment>
+struct AlignedStorage {
+  struct type {
+    alignas(Alignment) unsigned char data[Length];
+  };
+};
+}  // namespace firebase
+#define FIREBASE_ALIGNED_STORAGE ::firebase::AlignedStorage
+#else
+#include <type_traits>
+#define FIREBASE_ALIGNED_STORAGE std::aligned_storage
+#endif  // defined(_STLPORT_VERSION)
+
 // Visual Studio 2013 does not support snprintf, so use streams instead.
 #if !(defined(_MSC_VER) && _MSC_VER <= 1800)
 #define FIREBASE_USE_SNPRINTF

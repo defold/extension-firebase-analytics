@@ -212,7 +212,6 @@ class FutureBase {
 ///   }
 /// }
 ///
-
 /// // Or, set an OnCompletion callback, which accepts a C++11 lambda or
 /// // function pointer. You can pass your own user data to the callback. In
 /// // most cases, the callback will be running in a different thread, so take

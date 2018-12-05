@@ -76,6 +76,9 @@ class Functions {
   /// @brief Get a FunctionsReference for the specified path.
   HttpsCallableReference GetHttpsCallable(const char* name) const;
 
+  /// @brief Sets an origin for a Cloud Functions emulator to use.
+  void UseFunctionsEmulator(const char* origin);
+
  private:
   /// @cond FIREBASE_APP_INTERNAL
   Functions(::firebase::App* app, const char* region);

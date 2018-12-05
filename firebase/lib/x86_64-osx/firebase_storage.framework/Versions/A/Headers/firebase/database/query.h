@@ -3,6 +3,7 @@
 #ifndef FIREBASE_DATABASE_CLIENT_CPP_SRC_INCLUDE_FIREBASE_DATABASE_QUERY_H_
 #define FIREBASE_DATABASE_CLIENT_CPP_SRC_INCLUDE_FIREBASE_DATABASE_QUERY_H_
 
+#include <string>
 #include "firebase/future.h"
 #include "firebase/internal/common.h"
 #include "firebase/database/listener.h"
@@ -305,6 +306,8 @@ class Query {
   /// @cond FIREBASE_APP_INTERNAL
   explicit Query(internal::QueryInternal* internal);
   void SetInternal(internal::QueryInternal* internal);
+  void RegisterCleanup();
+  void UnregisterCleanup();
   /// @endcond
 
  private:

@@ -30,6 +30,7 @@ class DatabaseReference;
 /// use DatabaseReference::SetValue() or DatabaseReference::RunTransaction().
 class DataSnapshot {
  public:
+
   /// @brief Copy constructor. DataSnapshots are immutable, so they can be
   /// efficiently copied.
   ///
@@ -163,7 +164,7 @@ class DataSnapshot {
   friend class internal::ValueEventRegistration;
   /// @endcond
 
-  DataSnapshot(internal::DataSnapshotInternal* internal);
+  explicit DataSnapshot(internal::DataSnapshotInternal* internal);
 
   internal::DataSnapshotInternal* internal_;
 };

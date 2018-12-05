@@ -312,10 +312,11 @@ def process_pom(pom_url, dependencies_out):
 
 def process_poms():
     print("Downloading and processing POMs")
+    # From https://firebase.google.com/docs/cpp/setup#dependencies_2
     POMS = [
-        "https://maven.google.com/com/google/firebase/firebase-core/16.0.3/firebase-core-16.0.3.pom",
-        "https://maven.google.com/com/google/firebase/firebase-analytics/16.0.3/firebase-analytics-16.0.3.pom",
-        "https://maven.google.com/com/google/android/gms/play-services-base/15.0.1/play-services-base-15.0.1.pom"
+        "https://maven.google.com/com/google/firebase/firebase-core/16.0.5/firebase-core-16.0.5.pom",
+        "https://maven.google.com/com/google/firebase/firebase-analytics/16.0.5/firebase-analytics-16.0.5.pom",
+        "https://maven.google.com/com/google/android/gms/play-services-base/16.0.1/play-services-base-16.0.1.pom"
     ]
     dependencies = {}
     for pom in POMS:
