@@ -10,3 +10,15 @@ platforms:
   armv7-android:
     context:
         flags:      ["-std=c++11"]
+
+  armv7-ios:
+    context:
+        flags:      ["-stdlib=libc++"]
+        linkFlags:  ["-ObjC"]
+        libs:       ["c++"]
+
+  arm64-ios:
+    context:
+        flags:      ["-stdlib=libc++"]
+        linkFlags:  ["-ObjC"]
+        libs:       ["c++"]
