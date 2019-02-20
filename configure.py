@@ -351,7 +351,7 @@ parser.add_argument('commands', nargs="+", help='Commands (poms, deps, plist, he
 add_argument(parser, "-d", "--deps", "deps", "Filename to read/write dependencies json from", default="dependencies.json")
 add_argument(parser, "-btv", "--build-tools-version", "build_tools_version", "Android build tools version. Optional, for use with 'deps' command.", default="28.0.2")
 add_argument(parser, "-apv", "--android-platform-version", "android_platform_version", "Android platform version. Optional, for use with 'deps' command.", default="26")
-add_argument(parser, "-pl", "--plist", "google_services_plist", "GoogleServices-Info.plist as downloaded from Firebase Console. Optional, for use with 'plist' command.", default="GoogleServices-Info.plist")
+add_argument(parser, "-pl", "--plist", "google_services_plist", "GoogleService-Info.plist as downloaded from Firebase Console. Optional, for use with 'plist' command.", default="GoogleService-Info.plist")
 args = parser.parse_args()
 
 help = """
