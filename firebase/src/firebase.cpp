@@ -1,9 +1,9 @@
-#include "luautils.h"
-#include <dmsdk/sdk.h>
-
 #define LIB_NAME "Firebase"
 #define MODULE_NAME "firebase"
 #define DLIB_LOG_DOMAIN LIB_NAME
+
+#include "luautils.h"
+#include <dmsdk/sdk.h>
 
 #if !defined(DM_PLATFORM_HTML5)
 
