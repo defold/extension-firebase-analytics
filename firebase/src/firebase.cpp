@@ -1,7 +1,7 @@
 #define LIB_NAME "Firebase"
 #define MODULE_NAME "firebase"
 #define DLIB_LOG_DOMAIN LIB_NAME
-
+#include <dmsdk/dlib/log.h>
 #include "luautils.h"
 #include <dmsdk/sdk.h>
 
@@ -72,7 +72,6 @@ static int Firebase_Analytics_InstanceId(lua_State* L) {
 
 	luaL_checklistener(L, 1, getInstanceIdListener);
 
-	void* user_data = 0;
 	Future<std::string> future = analytics::GetAnalyticsInstanceId();
 	future.OnCompletion([](const Future< std::string >& completed_future, void* user_data) {
 			lua_State* L = (lua_State*)user_data;

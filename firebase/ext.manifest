@@ -7,6 +7,14 @@ platforms:
         flags:      ["-stdlib=libc++", "-std=c++11"]
         libs:       ["c++"]
 
+  x86_64-win32:
+    context:
+        flags:      ["-std=c++14"]
+
+  x86-win32:
+    context:
+        flags:      ["-std=c++14"]
+
   armv7-android:
     context:
         flags:      ["-std=c++11"]
