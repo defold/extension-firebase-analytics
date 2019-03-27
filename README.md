@@ -119,3 +119,6 @@ Direct download link: https://dl.google.com/firebase/sdk/ios/5_12_0/Firebase-5.1
 
 ## Windows
 Libs from `firebase_cpp_sdk/libs/windows/VS2015/MT/<arch>/Debug/` (MT meaning Multi-threaded static library as opposed to MD meaning Multi-threaded dynamic library).
+
+## Maven
+https://mvnrepository.com/artifact/com.google.android
