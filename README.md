@@ -60,8 +60,19 @@ $ ./generate_xml_from_google_services_json.py -i google-services.json -o google-
 * Finally you also need to make sure that the default Android Support and Google Play Services libs are excluded from Defold engine in favor of the ones provided by this extension. You do this by setting `firebase/firebase.appmanifest` as the App Manifest in the Native Extension section of `game.project` (or merging with an existing `.appmanifest` if you already have one).
 
 ### 2.3 Setup for iOS
-* Run `./configure.py plist` to merge `GoogleService-Info.plist` with the Defold provided default Info.plist for the most recent Defold engine release.
-* Open `game.project` and scroll to the iOS section. Select the created `Info.plist` in the Info.plist field.
+* Copy the generated `GoogleService-Info.plist` file to a folder structire like this:
+
+```
+<project_root>
+ |
+ +-bundle
+    |
+    +-ios
+       |
+       +-GoogleService-Info.plist
+```
+
+* Open `game.project` set the `Bundle Resources` entry under the `Project` section to `/bundle` to match the folder created in the step above. Read more about the `Bundle Resources` setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project).
 
 
 # Usage
