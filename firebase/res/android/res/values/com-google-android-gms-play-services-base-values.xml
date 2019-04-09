@@ -37,8 +37,5 @@
 
 <attr name="circleCrop" format="boolean"/>
 </declare-styleable>
-<declare-styleable name="SignInButton">
 
-<attr name="scopeUris" format="reference|string"/>
-</declare-styleable>
 </resources>
