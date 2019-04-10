@@ -70,7 +70,7 @@ def merge_manifest_files(src_manifest_name, dst_manifest_name, name):
     src_application = get_xml_element(src_manifest, "application")
     package = src_manifest.getAttribute("package")
     comment = src_xmldoc.createComment(package)
-    print("Merging AndroidManifest.xml from {}".format(package))
+    print("[manifest] Merging AndroidManifest.xml from {}".format(package))
 
     # merge manifest level nodes
     for tag in ["uses-permission", "permission"]:
@@ -162,42 +162,59 @@ def find_files(root_dir, file_pattern):
     return matches
 
 
+# The resources from the bundles listed below are included in the default
+# Defold application bundle and should be ignored to avoid conflicts
+IGNORE_AAR_RESOURCES = [
+    "play-services-basement-16.0.1.aar",
+]
+
 def process_aar(name, aar_file, args, manifest_file):
     with tmpdir() as zip_dir:
         unzip(aar_file, zip_dir)
 
-        # rename resources to unique filenames
-        for file in find_files(os.path.join(zip_dir, "res"), "values*.xml"):
-            os.rename(file, os.path.join(os.path.dirname(file), name + "-" + os.path.basename(file)))
+        if os.path.basename(aar_file) not in IGNORE_AAR_RESOURCES:
+            print("[aar] Processing resources from {}".format(aar_file))
+            # rename resources to unique filenames
+            for file in find_files(os.path.join(zip_dir, "res"), "values*.xml"):
+                os.rename(file, os.path.join(os.path.dirname(file), name + "-" + os.path.basename(file)))
 
-        if os.path.getsize(os.path.join(zip_dir, "R.txt")) > 0:
-            # generate R.java
-            manifest_xml = os.path.join(zip_dir, "AndroidManifest.xml")
-            res_dir = os.path.join(zip_dir, "res")
-            aapt = "${ANDROID_HOME}/build-tools/%s/aapt package --non-constant-id -f -m -M %s -S %s -I ${ANDROID_HOME}/platforms/android-%s/android.jar -J %s" % (args.build_tools_version, manifest_xml, res_dir, args.android_platform_version, zip_dir)
-            call(aapt, shell=True)
+            if os.path.getsize(os.path.join(zip_dir, "R.txt")) > 0:
+                # generate R.java
+                manifest_xml = os.path.join(zip_dir, "AndroidManifest.xml")
+                res_dir = os.path.join(zip_dir, "res")
+                # -f force overwrite of existing files
+                # -I add an existing package to base include set
+                # -J specify where to output R.java resource constant definitions
+                # -m make package directories under location specified by -J
+                # -M specify full path to AndroidManifest.xml to include in zip
+                # -S directory in which to find resources
+                print("[aar] Generating R.java from {}".format(aar_file))
+                aapt = "${ANDROID_HOME}/build-tools/%s/aapt package --non-constant-id -f -m -M %s -S %s -I ${ANDROID_HOME}/platforms/android-%s/android.jar -J %s" % (args.build_tools_version, manifest_xml, res_dir, args.android_platform_version, zip_dir)
+                call(aapt, shell=True)
 
-            # compile R.java and add to classes.jar
-            for rjava_file in find_files(zip_dir, "R.java"):
-                javac(rjava_file)
-                for class_file in find_files(zip_dir, "*.class"):
-                    add_to_zip(os.path.join(zip_dir, "classes.jar"), class_file, os.path.relpath(class_file, zip_dir))
+                # compile R.java and add to classes.jar
+                for rjava_file in find_files(zip_dir, "R.java"):
+                    javac(rjava_file)
+                    for class_file in find_files(zip_dir, "*.class"):
+                        add_to_zip(os.path.join(zip_dir, "classes.jar"), class_file, os.path.relpath(class_file, zip_dir))
+            else:
+                print("[aar] Not generating R.java since dependency has no resources")
+
+            # copy resources
+            src_res_dir = os.path.join(zip_dir, "res")
+            dst_res_dir = os.path.join("firebase", "res", "android", "res")
+            if not os.path.exists(dst_res_dir):
+                os.makedirs(dst_res_dir)
+            if os.path.exists(src_res_dir):
+                copy_merge(src_res_dir, dst_res_dir)
         else:
-            print("Not generating R.java since dependency has no resources")
-
-        # copy resources
-        src_res_dir = os.path.join(zip_dir, "res")
-        dst_res_dir = os.path.join("firebase", "res", "android", "res")
-        if not os.path.exists(dst_res_dir):
-            os.makedirs(dst_res_dir)
-        if os.path.exists(src_res_dir):
-            copy_merge(src_res_dir, dst_res_dir)
+            print("[aar] Ignoring resources from {}".format(aar_file))
 
         # copy classes.jar
         classes_jar = os.path.join(zip_dir, "classes.jar")
         if os.path.exists(classes_jar):
             classes_jar_dest = os.path.join("firebase", "lib", "android", name + "-" + os.path.basename(aar_file).replace(".aar", ".jar"))
-            print("Moving %s to %s" % (classes_jar, classes_jar_dest))
+            print("[aar] Moving %s to %s" % (classes_jar, classes_jar_dest))
             shutil.move(classes_jar, classes_jar_dest)
 
         # merge manifest
@@ -215,7 +232,7 @@ def process_dependency(name, url, args, manifest_file):
             # copy jar
             dst_file = os.path.join("firebase", "lib", "android", name + "-" + os.path.basename(dependency_file))
             if not os.path.exists(dst_file):
-                print("Moving %s to %s" % (dependency_file, dst_file))
+                print("|jar] Moving %s to %s" % (dependency_file, dst_file))
                 shutil.move(dependency_file, dst_file)
         elif dependency_file.endswith(".aar"):
             process_aar(name, dependency_file, args, manifest_file)
