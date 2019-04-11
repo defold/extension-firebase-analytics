@@ -2,7 +2,7 @@
 Google Firebase extension for the [Defold](https://www.defold.com) game engine.
 
 # NOT PRODUCTION READY
-This extension is still under development. The extension works on Android but for iOS some librarys need to be extracted from their respective POD files before it will work on iOS. Please get in touch (bjorn.ritzl@king.com) if you plan to use the extension.
+This extension is still under development. The extension works on Android and iOS but it needs further testing.
 
 # Setup
 ## 1. Firebase setup
@@ -122,6 +122,8 @@ Direct download link: https://dl.google.com/firebase/sdk/cpp/firebase_cpp_sdk_5.
 Dependencies are downloaded using `configure.py`. The required dependencies and their versions are specified in `configure.py` and need to match the ones specified in the Firebase C++ SDK [Android dependencies section of the Firebase SDK documentation](https://firebase.google.com/docs/cpp/setup#dependencies_2). The Python script will download and parse the Maven POMs of the dependencies and resolving any additional dependencies. All of the AAR and JAR files will be downloaded and in the case of AAR files unpacked. A single AndroidManifest.xml will be generated with all permissions and various other settings applied.
 
 Libs from `firebase_cpp_sdk/libs/android/armeabi-v7a/gnustl/*`
+
+There is currently a conflict with resources from `com-google-android-gms-play-services-basement-play-services-basement-16.0.1.jar` and the same resources always being included by the Defold engine (as part of the built in Firebase Push support). The `configure.py` script will exclude the resources from `com-google-android-gms-play-services-basement-play-services-basement-16.0.1.jar`.
 
 ## iOS
 Setup for iOS is made [without CocoaPods](https://firebase.google.com/docs/ios/setup#frameworks) using a direct download of the Firebase iOS SDK. It is important to use a version of the iOS SDK matching the [iOS dependencies section of the Firebase SDK documentation](https://firebase.google.com/docs/cpp/setup#dependencies).
