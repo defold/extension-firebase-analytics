@@ -67,6 +67,16 @@ function on_input(self, action_id, action)
 		print("log_number()", n)
 		analytics.log_int("analytics", "number", n)
 	end)
+
+	dirtylarry.button("log_table", action_id, action, function()
+		local tbl = {
+			number = math.random(1,100), 
+			boolean = true, 
+			string = "some_string"
+		}
+		pprint("log_table()", tbl)
+		analytics.log_table("analytics", tbl)
+	end)
 end
 
 function on_reload(self)

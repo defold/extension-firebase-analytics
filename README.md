@@ -93,6 +93,9 @@ Log an event with one integer parameter. [Official docs](https://firebase.google
 ### firebase.analytics.log_number(name, parameter_name, parameter_value)
 Log an event with one float parameter. [Official docs](https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_2).
 
+### firebase.analytics.log_table(name, parameters_table)
+Log an event with table parameters. [Official docs](https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_6).
+
 ### firebase.analytics.set_screen(screen_name, screen_class)
 Sets the current screen name and screen class, which specifies the current visual context in your app. [Official docs](https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setcurrentscreen).
 
