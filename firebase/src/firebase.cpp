@@ -145,6 +145,61 @@ static int Firebase_Analytics_LogNumber(lua_State* L) {
 	return 0;
 }
 
+static int Firebase_Analytics_LogTable(lua_State* L) {
+	int top = lua_gettop(L);
+
+	dmArray<analytics::Parameter> tableParams;
+
+	const char* name = luaL_checkstring(L, 1);
+	luaL_checktype(L, 2, LUA_TTABLE);
+	
+	lua_pushvalue(L, 2);
+	lua_pushnil(L);
+	
+	while (lua_next(L, -2) != 0)
+	{
+		if(tableParams.Full())
+		{
+			tableParams.OffsetCapacity(1);
+		}
+		const char* k = lua_tostring(L, -2);
+		int t = lua_type(L, -1);
+		analytics::Parameter param;
+		switch (t) {
+			case LUA_TSTRING:
+				param = analytics::Parameter(k, lua_tostring(L, -1));
+			break;
+			case LUA_TBOOLEAN:
+				param = analytics::Parameter(k, firebase::Variant(lua_toboolean(L, -1)));
+			break;
+			case LUA_TNUMBER:
+				param = analytics::Parameter(k, lua_tonumber(L, -1));
+			break;
+			default:  /* other values */
+			lua_pop(L, 3);
+			assert(top == lua_gettop(L));
+			char msg[256];
+			snprintf(msg, sizeof(msg), "Wrong type for table attribute '%s'.", k);
+			luaL_error(L, msg);
+			return 0;
+			break;
+		}
+		tableParams.Push(param);
+		lua_pop(L, 1);
+	}
+	int size = tableParams.Size();
+	analytics::Parameter params[size];
+	for(int i = size - 1; i >= 0; --i)
+	{
+		params[i] = tableParams[i];
+	}
+	LogEvent(name, params, size);
+
+	lua_pop(L, 1);
+	assert(top == lua_gettop(L));
+	return 0;
+}
+
 static int Firebase_Analytics_Reset(lua_State* L) {
 	int top = lua_gettop(L);
 	ResetAnalyticsData();
@@ -217,6 +272,7 @@ static void LuaInit(lua_State* L) {
 	lua_pushtablestringfunction(L, "log_string", Firebase_Analytics_LogString);
 	lua_pushtablestringfunction(L, "log_int", Firebase_Analytics_LogInt);
 	lua_pushtablestringfunction(L, "log_number", Firebase_Analytics_LogNumber);
+	lua_pushtablestringfunction(L, "log_table", Firebase_Analytics_LogTable);
 	lua_pushtablestringfunction(L, "reset", Firebase_Analytics_Reset);
 	lua_pushtablestringfunction(L, "set_enabled", Firebase_Analytics_SetEnabled);
 	lua_pushtablestringfunction(L, "set_screen", Firebase_Analytics_SetScreen);
