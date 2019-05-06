@@ -1,4 +1,16 @@
-// Copyright 2016 Google Inc. All rights reserved.
+// Copyright 2016 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 #ifndef FIREBASE_MESSAGING_CLIENT_CPP_INCLUDE_FIREBASE_MESSAGING_H_
 #define FIREBASE_MESSAGING_CLIENT_CPP_INCLUDE_FIREBASE_MESSAGING_H_
@@ -139,7 +151,10 @@ struct Notification {
 struct Message {
   /// Initialize the message.
   Message()
-      : time_to_live(0), notification(nullptr), notification_opened(false) {}
+      : time_to_live(0),
+        notification(nullptr),
+        notification_opened(false),
+        sent_time(0) {}
 
   /// Destructor.
   ~Message() { delete notification; }
@@ -157,6 +172,8 @@ struct Message {
     this->message_id = other.message_id;
     this->message_type = other.message_type;
     this->priority = other.priority;
+    this->original_priority = other.original_priority;
+    this->sent_time = other.sent_time;
     this->time_to_live = other.time_to_live;
     this->error = other.error;
     this->error_description = other.error_description;
@@ -320,6 +337,15 @@ struct Message {
   /// This field is only used for downstream messages received through
   /// Listener::OnMessage().
   std::string link;
+
+  /// @cond FIREBASE_APP_INTERNAL
+  /// Original priority of the message.
+  std::string original_priority;
+
+  /// UTC timestamp in milliseconds when the message was sent.
+  /// See https://en.wikipedia.org/wiki/Unix_time for details of UTC.
+  int64_t sent_time;
+  /// @endcond
 };
 
 /// @brief Base class used to receive messages from Firebase Cloud Messaging.

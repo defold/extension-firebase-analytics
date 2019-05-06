@@ -4,8 +4,6 @@
     <color name="notification_icon_bg_color">#ff9e9e9e</color>
     <color name="ripple_material_light">#1f000000</color>
     <color name="secondary_text_default_material_light">#8a000000</color>
-    <declare-styleable name="FontFamily"><attr format="string" name="fontProviderAuthority"/><attr format="string" name="fontProviderPackage"/><attr format="string" name="fontProviderQuery"/><attr format="reference" name="fontProviderCerts"/></declare-styleable>
-    <declare-styleable name="FontFamilyFont"><attr format="reference" name="font"/><attr format="integer" name="fontWeight"/></declare-styleable>
     <dimen name="compat_button_inset_horizontal_material">4dp</dimen>
     <dimen name="compat_button_inset_vertical_material">6dp</dimen>
     <dimen name="compat_button_padding_horizontal_material">8dp</dimen>

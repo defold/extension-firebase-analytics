@@ -31,11 +31,4 @@
 <string name="common_signin_button_text_long">Sign in with Google</string>
 <!-- java/com/google/android/gmscore/integ/client/base/res/values/attrs.xml -->
 <eat-comment/>
-<declare-styleable name="LoadingImageView">
-
-<attr name="imageAspectRatio" format="float"/>
-
-<attr name="circleCrop" format="boolean"/>
-</declare-styleable>
-
 </resources>

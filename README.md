@@ -119,19 +119,19 @@ Get the instance ID from the analytics service. [Official docs](https://firebase
 The extension uses the [Firebase C++ SDK](https://firebase.google.com/docs/cpp/setup). The libs and includes have been copied from the SDK to the extension.
 
 Download link: https://firebase.google.com/download/cpp.
-Direct download link: https://dl.google.com/firebase/sdk/cpp/firebase_cpp_sdk_5.4.3.zip
+Direct download link: https://dl.google.com/firebase/sdk/cpp/firebase_cpp_sdk_5.7.0.zip
 
 ## Android
 Dependencies are downloaded using `configure.py`. The required dependencies and their versions are specified in `configure.py` and need to match the ones specified in the Firebase C++ SDK [Android dependencies section of the Firebase SDK documentation](https://firebase.google.com/docs/cpp/setup#dependencies_2). The Python script will download and parse the Maven POMs of the dependencies and resolving any additional dependencies. All of the AAR and JAR files will be downloaded and in the case of AAR files unpacked. A single AndroidManifest.xml will be generated with all permissions and various other settings applied.
 
 Libs from `firebase_cpp_sdk/libs/android/armeabi-v7a/gnustl/*`
 
-There is currently a conflict with resources from `com-google-android-gms-play-services-basement-play-services-basement-16.0.1.jar` and the same resources always being included by the Defold engine (as part of the built in Firebase Push support). The `configure.py` script will exclude the resources from `com-google-android-gms-play-services-basement-play-services-basement-16.0.1.jar`.
+There is currently a conflict with resources from `com-google-android-gms-play-services-basement-play-services-basement-16.2.0.jar` and the same resources always being included by the Defold engine (as part of the built in Firebase Push support). The `configure.py` script will exclude the resources from `com-google-android-gms-play-services-basement-play-services-basement-16.2.0.jar`.
 
 ## iOS
 Setup for iOS is made [without CocoaPods](https://firebase.google.com/docs/ios/setup#frameworks) using a direct download of the Firebase iOS SDK. It is important to use a version of the iOS SDK matching the [iOS dependencies section of the Firebase SDK documentation](https://firebase.google.com/docs/cpp/setup#dependencies).
 
-Direct download link: https://dl.google.com/firebase/sdk/ios/5_12_0/Firebase-5.12.0.zip
+Direct download link: https://dl.google.com/firebase/sdk/ios/5_20_2/Firebase-5.20.2.zip
 
 ## Windows
 Libs from `firebase_cpp_sdk/libs/windows/VS2015/MT/<arch>/Debug/` (MT meaning Multi-threaded static library as opposed to MD meaning Multi-threaded dynamic library).

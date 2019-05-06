@@ -1,7 +1,19 @@
 #ifndef FIREBASE_INVITES_CLIENT_CPP_INCLUDE_FIREBASE_INVITES_H_
 #define FIREBASE_INVITES_CLIENT_CPP_INCLUDE_FIREBASE_INVITES_H_
 
-// Copyright 2016 Google Inc. All Rights Reserved.
+// Copyright 2016 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 #include <map>
 #include <string>
@@ -21,6 +33,9 @@ namespace firebase {
 /// Firebase Invites is a cross-platform solution for sending personalized
 /// email and SMS invitations, on-boarding users, and measuring the impact
 /// of invitations or dynamic links.
+///
+/// @deprecated Firebase Invites is deprecated. Please refer to
+/// https://firebase.google.com/docs/invites for details.
 namespace invites {
 
 /// @brief Initialize the Firebase Invites library.
@@ -30,7 +45,10 @@ namespace invites {
 /// @return kInitResultSuccess if initialization succeeded, or
 /// kInitResultFailedMissingDependency on Android if Google Play services is
 /// not available on the current device.
-InitResult Initialize(const App& app);
+///
+/// @deprecated Firebase Invites is deprecated. Please refer to
+/// https://firebase.google.com/docs/invites for details.
+FIREBASE_DEPRECATED InitResult Initialize(const App& app);
 
 /// @brief Terminate the Invites API.
 ///
@@ -109,7 +127,7 @@ struct Invite {
   // LINT.ThenChange(//depot/google3/firebase/invites/client/cpp/src/include/firebase/csharp/invites.SWIG)
 
   /// Initialize the invite.
-  Invite() : android_minimum_version_code(0) {}
+  FIREBASE_DEPRECATED Invite() : android_minimum_version_code(0) {}
 
   /// @brief Optional minimum version of the android app installed on the
   /// receiving device.
@@ -295,7 +313,10 @@ struct SendInviteResult {
 ///
 /// @param[in] invite The Invite that contains the settings to send with.
 /// @return A future result telling us whether the invitation was sent.
-Future<SendInviteResult> SendInvite(const Invite& invite);
+///
+/// @deprecated Firebase Invites is deprecated. Please refer to
+/// https://firebase.google.com/docs/invites for details.
+FIREBASE_DEPRECATED Future<SendInviteResult> SendInvite(const Invite& invite);
 
 /// @brief Get the results of the previous call to SendInvite. This will stay
 /// available until you call SendInvite again.
@@ -339,7 +360,10 @@ class InvitesReceiverInternal;
 /// @param[in] invitation_id The invitation ID to mark as a conversion.
 ///
 /// @return A future result telling you whether the conversion succeeded.
-Future<void> ConvertInvitation(const char* invitation_id);
+///
+/// @deprecated Firebase Invites is deprecated. Please refer to
+/// https://firebase.google.com/docs/invites for details.
+FIREBASE_DEPRECATED Future<void> ConvertInvitation(const char* invitation_id);
 
 /// Get the (possibly still pending) results of the most recent
 /// ConvertInvitation call.
@@ -353,9 +377,15 @@ Future<void> ConvertInvitationLastResult();
 /// This function is implicitly called on initialization. On iOS this is called
 /// automatically when the app gains focus, but on Android this needs to be
 /// called manually.
-void Fetch();
+///
+/// @deprecated Firebase Invites is deprecated. Please refer to
+/// https://firebase.google.com/docs/invites for details.
+FIREBASE_DEPRECATED void Fetch();
 
 /// @brief Base class used to receive Invites and Dynamic Links.
+///
+/// @deprecated Firebase Invites is deprecated. Please refer to
+/// https://firebase.google.com/docs/invites for details.
 class Listener {
  public:
   virtual ~Listener() {}
@@ -377,10 +407,8 @@ class Listener {
   /// just an App Invite and not a Dynamic Link.
   /// @param[in] is_strong_match Whether the Dynamic Link is a "strong match" or
   /// a "weak match" as defined by the Invites library.
-  /// @deprecated use the alternate version instead.
-  FIREBASE_DEPRECATED virtual void OnInviteReceived(const char* invitation_id,
-                                                    const char* dynamic_link,
-                                                    bool is_strong_match);
+  virtual void OnInviteReceived(const char* invitation_id,
+                                const char* dynamic_link, bool is_strong_match);
 
   /// Called when an invitation is received.
   ///
@@ -418,7 +446,10 @@ class Listener {
 ///
 /// @param[in] listener A Listener object.
 /// @return The previous Listener.
-Listener* SetListener(Listener* listener);
+///
+/// @deprecated Firebase Invites is deprecated. Please refer to
+/// https://firebase.google.com/docs/invites for details.
+FIREBASE_DEPRECATED Listener* SetListener(Listener* listener);
 
 }  // namespace invites
 }  // namespace firebase

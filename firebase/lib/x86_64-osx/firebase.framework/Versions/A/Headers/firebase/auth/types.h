@@ -1,4 +1,18 @@
-// Copyright 2016 Google Inc. All Rights Reserved.
+/*
+ * Copyright 2016 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #ifndef FIREBASE_AUTH_CLIENT_CPP_SRC_INCLUDE_FIREBASE_AUTH_TYPES_H_
 #define FIREBASE_AUTH_CLIENT_CPP_SRC_INCLUDE_FIREBASE_AUTH_TYPES_H_
@@ -298,8 +312,8 @@ enum AuthError {
   /// a problem with the browser.
   kAuthErrorWebStorateUnsupported,
 
-  /// Indicates that an attempt was made to update the current user with a
-  /// different tenant ID.
+  /// Indicates that the provided tenant ID does not match the Auth instance's
+  /// tenant ID.
   kAuthErrorTenantIdMismatch,
 
   /// Indicates that a request was made to the backend with an associated tenant
@@ -317,6 +331,14 @@ enum AuthError {
   /// when the user is
   /// already signed into a different game center account.
   kAuthErrorRejectedCredential,
+
+  /// Indicates that the phone number provided in the MFA sign in flow to be
+  /// verified does not correspond to a phone second factor for the user.
+  kAuthErrorPhoneNumberNotFound,
+
+  /// Indicates that a request was made to the backend with an invalid tenant
+  /// ID.
+  kAuthErrorInvalidTenantId,
 };
 
 }  // namespace auth

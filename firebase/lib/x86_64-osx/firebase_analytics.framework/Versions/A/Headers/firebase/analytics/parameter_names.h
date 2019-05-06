@@ -1,4 +1,4 @@
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2019 Google Inc. All Rights Reserved.
 
 #ifndef FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_PARAMETER_NAMES_H_
 #define FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_PARAMETER_NAMES_H_
@@ -570,7 +570,25 @@ static const char *const kParameterShipping = "shipping";
 /// @endcode
 ///
 /// @endif
+///
+///
+/// <b>This constant has been deprecated. Use Method constant instead.</b>
 static const char *const kParameterSignUpMethod = "sign_up_method";
+
+/// A particular approach used in an operation; for example, "facebook" or
+/// "email" in the context of a sign_up or login event.  (string).
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterMethod, "google"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterMethod = "method";
 
 /// The origin of your traffic, such as an Ad network (for example,
 /// google) or partner (urban airship). Identify the advertiser, site,
@@ -732,6 +750,23 @@ static const char *const kParameterLevelName = "level_name";
 ///
 /// @endif
 static const char *const kParameterSuccess = "success";
+
+/// Indicates that the associated event should either extend the current
+/// session or start a new session if no session was active when the event
+/// was logged. Specify YES to extend the current session or to start a
+/// new session; any other value will not extend or start a session.
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterExtendSession, @YES),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterExtendSession = "extend_session";
 /// @}
 
 } // namespace analytics
