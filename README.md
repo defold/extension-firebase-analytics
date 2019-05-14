@@ -77,7 +77,7 @@ $ ./generate_xml_from_google_services_json.py -i google-services.json -o google-
 
 # Usage
 ## Firebase API
-### firebase.init([config])
+### firebase.init()
 Initialize the Firebase API
 
 ## Analytics API

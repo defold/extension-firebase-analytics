@@ -24,9 +24,6 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
 
-        <!-- Disable Firebase Analytics -->
-        <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true"/>
-
         <!-- For Facebook -->
         <meta-data android:name="com.facebook.sdk.ApplicationName"
             android:value="{{project.title}}"/>
