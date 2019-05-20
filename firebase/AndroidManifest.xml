@@ -7,7 +7,7 @@
         android:installLocation="auto">
 
     <uses-feature android:required="true" android:glEsVersion="0x00020000"/>
-    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="26"/>
+    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26"/>
     <application
         {{#has-icons?}}
         android:icon="@drawable/icon"
@@ -19,13 +19,10 @@
         <receiver android:name="com.defold.push.LocalNotificationReceiver" >
         </receiver>
 
-        <!-- For GCM (push) -->
+        <!-- For Google Play Services -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
-
-        <!-- Disable Firebase Analytics -->
-        <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true"/>
 
         <!-- For Facebook -->
         <meta-data android:name="com.facebook.sdk.ApplicationName"
@@ -118,16 +115,16 @@
         </receiver>
     	<!--android.arch.lifecycle-->
 		<meta-data android:name="android.arch.lifecycle.VERSION" android:value="27.0.0-SNAPSHOT"/>
+		<!--com.google.android.gms.base-->
+		<activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
+		<!--android.support.v4-->
+		<meta-data android:name="android.support.VERSION" android:value="26.1.0"/>
 		<!--com.google.firebase.measurement_impl-->
 		<receiver android:enabled="true" android:exported="true" android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver" android:permission="android.permission.INSTALL_PACKAGES">
             <intent-filter>
                 <action android:name="com.android.vending.INSTALL_REFERRER"/>
             </intent-filter>
         </receiver>
-		<!--com.google.android.gms.base-->
-		<activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-		<!--android.support.v4-->
-		<meta-data android:name="android.support.VERSION" android:value="26.1.0"/>
 		<!--com.google.firebase.iid-->
 		<service android:exported="false" android:name="com.google.firebase.components.ComponentDiscoveryService">
             <meta-data android:name="com.google.firebase.components:com.google.firebase.iid.Registrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
@@ -138,6 +135,10 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
+		<!--com.google.android.gms.measurement.api-->
+		<service android:exported="false" android:name="com.google.firebase.components.ComponentDiscoveryService">
+            <meta-data android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
+        </service>
 		<!--com.google.firebase.measurement-->
 		<service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementService"/>
 		<!--com.google.firebase.measurement-->
@@ -145,10 +146,6 @@
 		<!--com.google.firebase.measurement-->
 		<receiver android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementReceiver">
         </receiver>
-		<!--com.google.firebase.analytics.connector.impl-->
-		<service android:name="com.google.firebase.components.ComponentDiscoveryService">
-            <meta-data android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
-        </service>
 		<!--com.google.android.gms.common-->
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
 		<!--com.google.firebase-->

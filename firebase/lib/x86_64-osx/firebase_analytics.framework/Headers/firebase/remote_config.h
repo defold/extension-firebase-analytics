@@ -1,4 +1,16 @@
-// Copyright 2016 Google Inc. All Rights Reserved.
+// Copyright 2016 Google LLC
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//      http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 #ifndef FIREBASE_REMOTE_CONFIG_CLIENT_CPP_INCLUDE_FIREBASE_REMOTE_CONFIG_H_
 #define FIREBASE_REMOTE_CONFIG_CLIENT_CPP_INCLUDE_FIREBASE_REMOTE_CONFIG_H_
@@ -219,8 +231,13 @@ void SetDefaults(const ConfigKeyValueVariant* defaults,
 /// @param number_of_defaults Number of elements in the defaults array.
 /// @param config_namespace Namespace these default values will be applied
 /// to.
-void SetDefaults(const ConfigKeyValueVariant* defaults,
-                 size_t number_of_defaults, const char* config_namespace);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only assign configuration values to the default namespace.
+/// Please use SetDefaults(defaults, number_of_defaults) instead.
+FIREBASE_DEPRECATED void SetDefaults(const ConfigKeyValueVariant* defaults,
+                                     size_t number_of_defaults,
+                                     const char* config_namespace);
 
 /// @brief Sets the default values based on a string map.
 ///
@@ -243,8 +260,13 @@ void SetDefaults(const ConfigKeyValue* defaults, size_t number_of_defaults);
 /// @param number_of_defaults Number of elements in the defaults array.
 /// @param config_namespace Namespace these default values will be applied
 /// to.
-void SetDefaults(const ConfigKeyValue* defaults, size_t number_of_defaults,
-                 const char* config_namespace);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only assign configuration values to the default namespace.
+/// Please use SetDefaults(defaults, number_of_defaults) instead.
+FIREBASE_DEPRECATED void SetDefaults(const ConfigKeyValue* defaults,
+                                     size_t number_of_defaults,
+                                     const char* config_namespace);
 
 /// @brief Retrieve an internal configuration setting.
 ///
@@ -286,7 +308,12 @@ bool GetBoolean(const char* key);
 ///
 /// @returns Value associated with the specified key converted to a boolean
 /// value.
-bool GetBoolean(const char* key, const char* config_namespace);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetBoolean(key) instead.
+FIREBASE_DEPRECATED bool GetBoolean(const char* key,
+                                    const char* config_namespace);
 
 /// @brief Returns the value associated with a key, converted to a bool.
 ///
@@ -315,7 +342,13 @@ bool GetBoolean(const char* key, ValueInfo* info);
 ///
 /// @returns Value associated with the specified key converted to a boolean
 /// value.
-bool GetBoolean(const char* key, const char* config_namespace, ValueInfo* info);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetBoolean(key, info) instead.
+FIREBASE_DEPRECATED bool GetBoolean(const char* key,
+                                    const char* config_namespace,
+                                    ValueInfo* info);
 
 /// @brief Returns the value associated with a key, converted to a 64-bit
 /// integer.
@@ -334,7 +367,12 @@ int64_t GetLong(const char* key);
 ///
 /// @returns Value associated with the specified key converted to a 64-bit
 /// integer.
-int64_t GetLong(const char* key, const char* config_namespace);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetLong(key) instead.
+FIREBASE_DEPRECATED int64_t GetLong(const char* key,
+                                    const char* config_namespace);
 
 /// @brief Returns the value associated with a key, converted to a 64-bit
 /// integer.
@@ -357,7 +395,13 @@ int64_t GetLong(const char* key, ValueInfo* info);
 ///
 /// @returns Value associated with the specified key converted to a 64-bit
 /// integer.
-int64_t GetLong(const char* key, const char* config_namespace, ValueInfo* info);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetLong(key, info) instead.
+FIREBASE_DEPRECATED int64_t GetLong(const char* key,
+                                    const char* config_namespace,
+                                    ValueInfo* info);
 
 /// @brief Returns the value associated with a key, converted to a double.
 ///
@@ -372,7 +416,12 @@ double GetDouble(const char* key);
 /// @param[in] config_namespace Namespace to query for the key.
 ///
 /// @returns Value associated with the specified key converted to a double.
-double GetDouble(const char* key, const char* config_namespace);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetDouble(key) instead.
+FIREBASE_DEPRECATED double GetDouble(const char* key,
+                                     const char* config_namespace);
 
 /// @brief Returns the value associated with a key, converted to a double.
 ///
@@ -391,8 +440,13 @@ double GetDouble(const char* key, ValueInfo* info);
 /// value.
 ///
 /// @returns Value associated with the specified key converted to a double.
-double GetDouble(const char* key, const char* config_namespace,
-                 ValueInfo* info);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetDouble(key, info) instead.
+FIREBASE_DEPRECATED double GetDouble(const char* key,
+                                     const char* config_namespace,
+                                     ValueInfo* info);
 
 /// @brief Returns the value associated with a key, converted to a string.
 ///
@@ -407,7 +461,12 @@ std::string GetString(const char* key);
 /// @param[in] config_namespace Namespace the api lives in
 ///
 /// @return Value as a string associated with the specified key.
-std::string GetString(const char* key, const char* config_namespace);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetString(key) instead.
+FIREBASE_DEPRECATED std::string GetString(const char* key,
+                                          const char* config_namespace);
 
 /// @brief Returns the value associated with a key, converted to a string.
 ///
@@ -424,8 +483,13 @@ std::string GetString(const char* key, ValueInfo* info);
 /// @param[in] config_namespace Namespace to query for the key.
 /// @param[out] info A return value, specifying the source of the returned
 /// value.
-std::string GetString(const char* key, const char* config_namespace,
-                      ValueInfo* info);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetString(key, info) instead.
+FIREBASE_DEPRECATED std::string GetString(const char* key,
+                                          const char* config_namespace,
+                                          ValueInfo* info);
 
 /// @brief Returns the value associated with a key, as a vector of raw
 /// byte-data.
@@ -442,8 +506,12 @@ std::vector<unsigned char> GetData(const char* key);
 /// @param[in] config_namespace Namespace to query for the key.
 ///
 /// @returns Vector of bytes.
-std::vector<unsigned char> GetData(const char* key,
-                                   const char* config_namespace);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetData(key) instead.
+FIREBASE_DEPRECATED std::vector<unsigned char> GetData(
+    const char* key, const char* config_namespace);
 
 /// @brief Returns the value associated with a key, as a vector of raw
 /// byte-data.
@@ -464,9 +532,12 @@ std::vector<unsigned char> GetData(const char* key, ValueInfo* info);
 /// value.
 ///
 /// @returns Vector of bytes.
-std::vector<unsigned char> GetData(const char* key,
-                                   const char* config_namespace,
-                                   ValueInfo* info);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration values from the default namespace.
+/// Please use GetData(key, info) instead.
+FIREBASE_DEPRECATED std::vector<unsigned char> GetData(
+    const char* key, const char* config_namespace, ValueInfo* info);
 
 /// @brief Gets the set of keys that start with the given prefix, in the
 /// default namespace.
@@ -489,8 +560,12 @@ std::vector<std::string> GetKeysByPrefix(const char* prefix);
 /// @returns Set of Remote Config parameter keys that start with the specified
 /// prefix. Will return an empty set if there are no keys with the given
 /// prefix.
-std::vector<std::string> GetKeysByPrefix(const char* prefix,
-                                         const char* config_namespace);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration keys from the default namespace.
+/// Please use GetKeysByPrefix(prefix) instead.
+FIREBASE_DEPRECATED std::vector<std::string> GetKeysByPrefix(
+    const char* prefix, const char* config_namespace);
 
 /// @brief Gets the set of all keys in the default namespace.
 ///
@@ -502,7 +577,12 @@ std::vector<std::string> GetKeys();
 /// @param[in] config_namespace The namespace in which to look up the keys.
 ///
 /// @returns Set of all Remote Config parameter keys in the given namespace.
-std::vector<std::string> GetKeys(const char* config_namespace);
+///
+/// @deprecated Support for configuration values in namespaces is deprecated.
+/// You can now only retrieve configuration keys from the default namespace.
+/// Please use GetKeys() instead.
+FIREBASE_DEPRECATED std::vector<std::string> GetKeys(
+    const char* config_namespace);
 
 /// @brief Fetches config data from the server.
 ///

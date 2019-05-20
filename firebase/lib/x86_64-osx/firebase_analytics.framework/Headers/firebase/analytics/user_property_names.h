@@ -1,4 +1,4 @@
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2019 Google Inc. All Rights Reserved.
 
 #ifndef FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_USER_PROPERTY_NAMES_H_
 #define FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_USER_PROPERTY_NAMES_H_
@@ -26,6 +26,11 @@ namespace analytics {
 /// The method used to sign in. For example, "google", "facebook" or
 /// "twitter".
 static const char *const kUserPropertySignUpMethod = "sign_up_method";
+
+/// User property to allow events to be used as signals for ad
+/// personalization.
+static const char *const kUserPropertyAllowAdPersonalizationSignals =
+    "allow_personalized_ads";
 /// @}
 
 } // namespace analytics

@@ -32,24 +32,13 @@ static int Firebase_Init(lua_State* L) {
 	dmLogInfo("Firebase_Init");
 	int top = lua_gettop(L);
 
-	if (lua_type(L, 1) == LUA_TSTRING) {
-		const char* config = luaL_checkstring(L, 1);
-		AppOptions* options = AppOptions::LoadFromJsonConfig(config, 0);
-		#if defined(DM_PLATFORM_ANDROID)
-		dmLogInfo("Creating app");
-		firebase_app_ = App::Create(*options, GetJNIEnv(), dmGraphics::GetNativeAndroidActivity());
-		#else
-		firebase_app_ = App::Create(*options);
-		#endif
-	}
-	else {
-		#if defined(DM_PLATFORM_ANDROID)
-		dmLogInfo("Creating app");
-		firebase_app_ = App::Create(GetJNIEnv(), dmGraphics::GetNativeAndroidActivity());
-		#else
-		firebase_app_ = App::Create();
-		#endif
-	}
+	#if defined(DM_PLATFORM_ANDROID)
+	dmLogInfo("Creating app");
+	firebase_app_ = App::Create(GetJNIEnv(), dmGraphics::GetNativeAndroidActivity());
+	#else
+	dmLogInfo("Creating app");
+	firebase_app_ = App::Create();
+	#endif
 
 	if(!firebase_app_) {
 		dmLogError("firebase::App::Create failed");

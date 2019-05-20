@@ -1,4 +1,4 @@
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2019 Google Inc. All Rights Reserved.
 
 #ifndef FIREBASE_VARIANT_H
 #define FIREBASE_VARIANT_H

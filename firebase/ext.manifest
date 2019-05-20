@@ -15,6 +15,10 @@ platforms:
     context:
         flags:      ["-std=c++14"]
 
+  arm64-android:
+    context:
+        flags:      ["-std=c++11"]
+
   armv7-android:
     context:
         flags:      ["-std=c++11"]
@@ -27,6 +31,13 @@ platforms:
         libs:       ["c++", "z", "sqlite3"]
 
   arm64-ios:
+    context:
+        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
+        flags:      ["-stdlib=libc++", "-std=c++11"]
+        linkFlags:  ["-ObjC"]
+        libs:       ["c++", "z", "sqlite3"]
+
+  x86_64-ios:
     context:
         frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
         flags:      ["-stdlib=libc++", "-std=c++11"]

@@ -165,7 +165,7 @@ def find_files(root_dir, file_pattern):
 # The resources from the bundles listed below are included in the default
 # Defold application bundle and should be ignored to avoid conflicts
 IGNORE_AAR_RESOURCES = [
-    "play-services-basement-16.0.1.aar",
+    "play-services-basement-16.2.0.aar",
 ]
 
 def process_aar(name, aar_file, args, manifest_file):
@@ -327,8 +327,8 @@ def process_poms():
     print("Downloading and processing POMs")
     # From https://firebase.google.com/docs/cpp/setup#dependencies_2
     POMS = [
-        "https://maven.google.com/com/google/firebase/firebase-core/16.0.5/firebase-core-16.0.5.pom",
-        "https://maven.google.com/com/google/firebase/firebase-analytics/16.0.5/firebase-analytics-16.0.5.pom",
+        "https://maven.google.com/com/google/firebase/firebase-core/16.0.8/firebase-core-16.0.8.pom",
+        "https://maven.google.com/com/google/firebase/firebase-analytics/16.4.0/firebase-analytics-16.4.0.pom",
         "https://maven.google.com/com/google/android/gms/play-services-base/16.0.1/play-services-base-16.0.1.pom"
     ]
     dependencies = {}

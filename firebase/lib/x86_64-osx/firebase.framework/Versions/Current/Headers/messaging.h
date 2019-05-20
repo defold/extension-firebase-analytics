@@ -1,4 +1,4 @@
-// Copyright 2018 Google Inc. All Rights Reserved.
+// Copyright 2019 Google Inc. All Rights Reserved.
 
 #ifndef FIREBASE_MESSAGING_H
 #define FIREBASE_MESSAGING_H

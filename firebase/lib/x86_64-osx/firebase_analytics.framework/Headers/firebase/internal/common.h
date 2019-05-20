@@ -1,4 +1,18 @@
-// Copyright 2016 Google Inc. All Rights Reserved.
+/*
+ * Copyright 2016 Google LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 #ifndef FIREBASE_APP_CLIENT_CPP_SRC_INCLUDE_FIREBASE_INTERNAL_COMMON_H_
 #define FIREBASE_APP_CLIENT_CPP_SRC_INCLUDE_FIREBASE_INTERNAL_COMMON_H_
@@ -22,6 +36,8 @@
 // stlport doesn't implement std::aligned_storage.
 #if defined(_STLPORT_VERSION)
 #include <cstddef>
+
+
 namespace firebase {
 template <std::size_t Length, std::size_t Alignment>
 struct AlignedStorage {
@@ -71,7 +87,7 @@ struct AlignedStorage {
 
 // Declare a module initializer variable as a global.
 #define FIREBASE_APP_REGISTER_CALLBACKS_INITIALIZER_VARIABLE(module_name)     \
-  namespace firebase {                                                        \
+  namespace firebase {                                              \
   extern void* FIREBASE_APP_REGISTER_CALLBACKS_INITIALIZER_NAME(module_name); \
   } /* namespace firebase */
 
@@ -80,7 +96,7 @@ struct AlignedStorage {
 // module initializer for the analytics module.
 #define FIREBASE_APP_REGISTER_CALLBACKS_REFERENCE(module_name)        \
   FIREBASE_APP_REGISTER_CALLBACKS_INITIALIZER_VARIABLE(module_name)   \
-  namespace firebase {                                                \
+  namespace firebase {                                      \
   static void* module_name##_ref FIREBASE_APP_KEEP_SYMBOL =           \
       &FIREBASE_APP_REGISTER_CALLBACKS_INITIALIZER_NAME(module_name); \
   }     /* namespace firebase */
