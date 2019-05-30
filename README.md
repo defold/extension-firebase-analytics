@@ -14,6 +14,11 @@ The steps below taken from the [official Google Firebase Guides](https://firebas
 * Follow the remaining setup steps and click Create project (or Add Firebase if you're using an existing project) to begin provisioning resources for your project. This typically takes a few minutes. When the process completes, you'll be taken to the project overview.
 
 ### 1.2 Setup for Android
+* Remove following lines from your AndroidManifest.xml:
+```        
+<!-- Disable Firebase Analytics -->
+<meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
+```
 * Click Add Firebase to your Android app and follow the setup steps. If you're importing an existing Google project, this may happen automatically and you can just download the config file.
 * When prompted, enter your app's package name. It's important to enter the package name your app is using; this can only be set when you add an app to your Firebase project.
 * During the process, you'll download a `google-services.json` file. You can download this file again at any time.

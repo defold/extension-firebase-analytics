@@ -6,8 +6,8 @@
         android:versionName="{{project.version}}"
         android:installLocation="auto">
 
-    <uses-feature android:required="true" android:glEsVersion="0x00020000"/>
-    <uses-sdk android:minSdkVersion="16" android:targetSdkVersion="26"/>
+    <uses-feature android:required="true" android:glEsVersion="0x00020000" />
+    <uses-sdk android:minSdkVersion="9" android:targetSdkVersion="26" />
     <application
         {{#has-icons?}}
         android:icon="@drawable/icon"
@@ -22,11 +22,7 @@
         <!-- For Google Play Services -->
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version"/>
-
-        <!-- For Facebook -->
-        <meta-data android:name="com.facebook.sdk.ApplicationName"
-            android:value="{{project.title}}"/>
+            android:value="@integer/google_play_services_version" />
 
         <activity android:name="com.dynamo.android.DefoldActivity"
                 android:label="{{project.title}}"
@@ -35,27 +31,22 @@
                 android:screenOrientation="{{orientation-support}}"
                 android:launchMode="singleTask">
             <meta-data android:name="android.app.lib_name"
-                    android:value="{{exe-name}}"/>
+                    android:value="{{exe-name}}" />
             {{#android.push_field_title}}
             <meta-data
                 android:name="com.defold.push.field_title"
-                android:value="{{android.push_field_title}}"/>
+                android:value="{{android.push_field_title}}" />
             {{/android.push_field_title}}
             {{#android.push_field_text}}
             <meta-data
                 android:name="com.defold.push.field_text"
-                android:value="{{android.push_field_text}}"/>
+                android:value="{{android.push_field_text}}" />
             {{/android.push_field_text}}
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.dynamo.android.DispatcherActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <activity android:name="com.facebook.FacebookActivity"
-          android:theme="@android:style/Theme.Translucent.NoTitleBar"
-          android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
-          android:label="{{project.title}}"/>
         <activity android:name="com.defold.iap.IapGooglePlayActivity"
           android:theme="@android:style/Theme.Translucent.NoTitleBar"
           android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
@@ -68,8 +59,8 @@
             android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
-                <action android:name="com.defold.push.FORWARD"/>
-                <category android:name="com.defold.push"/>
+                <action android:name="com.defold.push.FORWARD" />
+                <category android:name="com.defold.push" />
             </intent-filter>
         </activity>
 
@@ -100,70 +91,31 @@
             android:launchMode="singleTask"
             android:configChanges="keyboardHidden|orientation|screenSize">
             <intent-filter>
-               <action android:name="android.intent.action.VIEW"/>
-               <category android:name="android.intent.category.DEFAULT"/>
-               <category android:name="android.intent.category.BROWSABLE"/>
-               <data android:scheme="{{android.package}}"/>
+               <action android:name="android.intent.action.VIEW" />
+               <category android:name="android.intent.category.DEFAULT" />
+               <category android:name="android.intent.category.BROWSABLE" />
+               <data android:scheme="{{android.package}}" />
             </intent-filter>
         </activity>
 
         <!-- For Amazon IAP -->
         <receiver android:name="com.amazon.device.iap.ResponseReceiver" >
             <intent-filter>
-                <action android:name="com.amazon.inapp.purchasing.NOTIFY" android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY"/>
+                <action android:name="com.amazon.inapp.purchasing.NOTIFY" android:permission="com.amazon.inapp.purchasing.Permission.NOTIFY" />
             </intent-filter>
         </receiver>
-    	<!--android.arch.lifecycle-->
-		<meta-data android:name="android.arch.lifecycle.VERSION" android:value="27.0.0-SNAPSHOT"/>
-		<!--com.google.android.gms.base-->
-		<activity android:exported="false" android:name="com.google.android.gms.common.api.GoogleApiActivity" android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-		<!--android.support.v4-->
-		<meta-data android:name="android.support.VERSION" android:value="26.1.0"/>
-		<!--com.google.firebase.measurement_impl-->
-		<receiver android:enabled="true" android:exported="true" android:name="com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver" android:permission="android.permission.INSTALL_PACKAGES">
-            <intent-filter>
-                <action android:name="com.android.vending.INSTALL_REFERRER"/>
-            </intent-filter>
-        </receiver>
-		<!--com.google.firebase.iid-->
-		<service android:exported="false" android:name="com.google.firebase.components.ComponentDiscoveryService">
-            <meta-data android:name="com.google.firebase.components:com.google.firebase.iid.Registrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
-        </service>
-		<!--com.google.firebase.iid-->
-		<service android:exported="true" android:name="com.google.firebase.iid.FirebaseInstanceIdService">
-            <intent-filter android:priority="-500">
-                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-            </intent-filter>
-        </service>
-		<!--com.google.android.gms.measurement.api-->
-		<service android:exported="false" android:name="com.google.firebase.components.ComponentDiscoveryService">
-            <meta-data android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar" android:value="com.google.firebase.components.ComponentRegistrar"/>
-        </service>
-		<!--com.google.firebase.measurement-->
-		<service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementService"/>
-		<!--com.google.firebase.measurement-->
-		<service android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementJobService" android:permission="android.permission.BIND_JOB_SERVICE"/>
-		<!--com.google.firebase.measurement-->
-		<receiver android:enabled="true" android:exported="false" android:name="com.google.android.gms.measurement.AppMeasurementReceiver">
-        </receiver>
-		<!--com.google.android.gms.common-->
-		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version"/>
-		<!--com.google.firebase-->
-		<provider android:authorities="{{android.package}}.firebaseinitprovider" android:exported="false" android:initOrder="100" android:name="com.google.firebase.provider.FirebaseInitProvider"/>
-	</application>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="com.android.vending.BILLING"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    </application>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.android.vending.BILLING" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <!-- For GCM (push) -->
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK"/>
-    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
-	<!--com.google.firebase.measurement_impl-->
-	<uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE"/>
 </manifest>
 <!-- END_INCLUDE(manifest) -->

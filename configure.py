@@ -57,7 +57,7 @@ def prettify_xml(xml_document):
 
 def create_empty_manifest(filename):
     with open(filename, "w") as file:
-        file.write('<?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools"><application/></manifest>')
+        file.write('<?xml version="1.0" encoding="utf-8"?>\n<manifest xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">\n<application>\n</application>\n</manifest>')
 
 
 def merge_manifest_files(src_manifest_name, dst_manifest_name, name):
@@ -70,7 +70,6 @@ def merge_manifest_files(src_manifest_name, dst_manifest_name, name):
     src_application = get_xml_element(src_manifest, "application")
     package = src_manifest.getAttribute("package")
     comment = src_xmldoc.createComment(package)
-    print("[manifest] Merging AndroidManifest.xml from {}".format(package))
 
     # merge manifest level nodes
     for tag in ["uses-permission", "permission"]:
@@ -80,11 +79,22 @@ def merge_manifest_files(src_manifest_name, dst_manifest_name, name):
                 dst_manifest = dst_manifest.replace("</manifest>", "\t{}\n\t{}\n</manifest>".format(comment.toxml(), node_xml))
 
     # merge application level nodes
-    for tag in ["meta-data", "activity", "service", "receiver", "provider"]:
+    for tag in ["activity", "service", "receiver", "meta-data", "provider"]:
         for node in get_xml_elements(src_application, tag):
             node_xml = node.toxml().replace("${applicationId}", "{{android.package}}")
             if node_xml not in dst_manifest:
-                dst_manifest = dst_manifest.replace("</application>", "\t{}\n\t\t{}\n\t</application>".format(comment.toxml(), node_xml))
+                parent_node = node_xml.split('\n', 1)[0]
+                if parent_node not in dst_manifest:
+                    dst_manifest = dst_manifest.replace("</application>", "\t{}\n\t\t{}\n\t</application>".format(comment.toxml(), node_xml))
+                else:
+                    children = "\n\t\t\t" + comment.toxml()
+                    for c_node in node.childNodes:
+                        c_node_xml = c_node.toxml()
+                        if not c_node_xml.isspace():
+                            children =children + "\n\t\t\t" + c_node_xml
+                    i = dst_manifest.index(parent_node)
+                    dst_manifest = dst_manifest[:i + len(parent_node)] + children + dst_manifest[i + len(parent_node):]
+
 
     # write prettified xml to file
     with open(dst_manifest_name, "w") as dst_file:
@@ -241,10 +251,11 @@ def process_dependency(name, url, args, manifest_file):
 def process_dependencies(dependencies, args):
     print("Downloading and unpacking Android dependencies")
 
-    manifest_file = "firebase/AndroidManifest.xml"
+    manifest_file = "firebase/manifests/android/AndroidManifest.xml"
     if os.path.exists(manifest_file):
         os.remove(manifest_file)
-    download_android_manifest(manifest_file)
+    create_empty_manifest(manifest_file)
+    # download_android_manifest(manifest_file)
 
     for name, url in dependencies.iteritems():
         process_dependency(name, url, args, manifest_file)
