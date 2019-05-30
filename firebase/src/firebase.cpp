@@ -5,7 +5,7 @@
 #include "luautils.h"
 #include <dmsdk/sdk.h>
 
-#if !defined(DM_PLATFORM_HTML5)
+#if defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
 
 #include "firebase/app.h"
 #include "firebase/analytics.h"
@@ -21,7 +21,6 @@ static JNIEnv* GetJNIEnv()
 	return env;
 }
 #endif
-
 
 static firebase::App* firebase_app_;
 
@@ -50,8 +49,6 @@ static int Firebase_Init(lua_State* L) {
 	assert(top == lua_gettop(L));
 	return 0;
 }
-
-
 
 
 lua_Listener getInstanceIdListener;
@@ -282,7 +279,7 @@ dmExtension::Result AppInitializeFirebaseExtension(dmExtension::AppParams* param
 }
 
 dmExtension::Result InitializeFirebaseExtension(dmExtension::Params* params) {
-	#if defined(DM_PLATFORM_HTML5)
+	#if !defined(DM_PLATFORM_ANDROID) && !defined(DM_PLATFORM_IOS)
 		printf("Extension %s is not supported\n", MODULE_NAME);
 	#else
 		LuaInit(params->m_L);
