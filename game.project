@@ -31,6 +31,3 @@ manifest = /firebase/AndroidManifest.xml
 [osx]
 bundle_identifier = com.defold.firebase
 
-[native_extension]
-app_manifest = /firebase/firebase.appmanifest
-

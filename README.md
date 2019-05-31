@@ -32,7 +32,15 @@ https://github.com/defold/extension-firebase/archive/master.zip
 Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase/releases).
 
 ### 2.2 Setup for Android
-* Open `game.project` and scroll to the Android section. Select the `firebase/AndroidManifest.xml` file in the Android Manifest field. This is a modified version of the default Android Manifest file with all of the required Firebase and Google Play Game Services additions.
+* Remove following lines from your `AndroidManifest.xml`:
+```xml
+<!-- Disable Firebase Analytics -->
+<meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
+```
+* Minimal SDK version in `AndroidManifest.xml` should be 16 or above:
+```xml
+android:minSdkVersion="16"
+```
 * Run `generate_xml_from_google_services_json.py` or `generate_xml_from_google_services_json.exe` (both from Firebase C++ SDK) to convert the previously downloaded `google-services.json` to an Android resource XML:
 
 ```
@@ -57,7 +65,6 @@ $ ./generate_xml_from_google_services_json.py -i google-services.json -o google-
 
 * Open `game.project` set the `Bundle Resources` entry under the `Project` section to `/bundle` to match the folder created in the step above. Read more about the `Bundle Resources` setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project).
 
-* Finally you also need to make sure that the default Android Support and Google Play Services libs are excluded from Defold engine in favor of the ones provided by this extension. You do this by setting `firebase/firebase.appmanifest` as the App Manifest in the Native Extension section of `game.project` (or merging with an existing `.appmanifest` if you already have one).
 
 ### 2.3 Setup for iOS
 * Copy the generated `GoogleService-Info.plist` file to a folder structire like this:
@@ -126,7 +133,8 @@ Dependencies are downloaded using `configure.py`. The required dependencies and 
 
 Libs from `firebase_cpp_sdk/libs/android/armeabi-v7a/gnustl/*`
 
-There is currently a conflict with resources from `com-google-android-gms-play-services-basement-play-services-basement-16.2.0.jar` and the same resources always being included by the Defold engine (as part of the built in Firebase Push support). The `configure.py` script will exclude the resources from `com-google-android-gms-play-services-basement-play-services-basement-16.2.0.jar`.
+
+We already have `jar` dependencies included in the Defold engine,  that's why we use only `com-google-firebase-firebase-analytics-firebase-analytics-16.4.0`. Remove all `jar` files except `com-google-firebase-firebase-analytics-firebase-analytics-16.4.0` after `configure.py` running.
 
 ## iOS
 Setup for iOS is made [without CocoaPods](https://firebase.google.com/docs/ios/setup#frameworks) using a direct download of the Firebase iOS SDK. It is important to use a version of the iOS SDK matching the [iOS dependencies section of the Firebase SDK documentation](https://firebase.google.com/docs/cpp/setup#dependencies).
