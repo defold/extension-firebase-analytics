@@ -68,7 +68,7 @@ $ ./generate_xml_from_google_services_json.py -i google-services.json -o google-
 
 
 ### 2.3 Setup for iOS
-* Copy the generated `GoogleService-Info.plist` file to a folder structire like this:
+* Copy the generated `GoogleService-Info.plist` file to a folder structure like this:
 
 ```
 <project_root>
