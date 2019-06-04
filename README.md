@@ -1,9 +1,6 @@
 # Firebase
 Google Firebase extension for the [Defold](https://www.defold.com) game engine.
 
-# NOT PRODUCTION READY
-This extension is still under development. The extension works on Android and iOS but it needs further testing.
-
 # Setup
 ## 1. Firebase setup
 The steps below taken from the [official Google Firebase Guides](https://firebase.google.com/docs/cpp/setup).
@@ -33,14 +30,18 @@ Or point to the ZIP file of a [specific release](https://github.com/defold/exten
 
 ### 2.2 Setup for Android
 * Remove following lines from your `AndroidManifest.xml`:
+
 ```xml
 <!-- Disable Firebase Analytics -->
 <meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
 ```
+
 * Minimal SDK version in `AndroidManifest.xml` should be 16 or above:
+
 ```xml
 android:minSdkVersion="16"
 ```
+
 * Run `generate_xml_from_google_services_json.py` or `generate_xml_from_google_services_json.exe` (both from Firebase C++ SDK) to convert the previously downloaded `google-services.json` to an Android resource XML:
 
 ```
@@ -63,7 +64,7 @@ $ ./generate_xml_from_google_services_json.py -i google-services.json -o google-
              +-google-services.xml
 ```
 
-* Open `game.project` set the `Bundle Resources` entry under the `Project` section to `/bundle` to match the folder created in the step above. Read more about the `Bundle Resources` setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project).
+* Open `game.project` and set the `Bundle Resources` entry under the `Project` section to `/bundle` to match the folder created in the step above. Read more about the `Bundle Resources` setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project).
 
 
 ### 2.3 Setup for iOS
@@ -79,7 +80,7 @@ $ ./generate_xml_from_google_services_json.py -i google-services.json -o google-
        +-GoogleService-Info.plist
 ```
 
-* Open `game.project` set the `Bundle Resources` entry under the `Project` section to `/bundle` to match the folder created in the step above. Read more about the `Bundle Resources` setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project).
+* Open `game.project` and set the `Bundle Resources` entry under the `Project` section to `/bundle` to match the folder created in the step above. Read more about the `Bundle Resources` setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project).
 
 
 # Usage
@@ -120,29 +121,3 @@ Clears all analytics data for this app from the device and resets the app instan
 
 ### firebase.analytics.get_id()
 Get the instance ID from the analytics service. [Official docs](https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#getanalyticsinstanceid).
-
-
-# Notes on setup of this extension
-The extension uses the [Firebase C++ SDK](https://firebase.google.com/docs/cpp/setup). The libs and includes have been copied from the SDK to the extension.
-
-Download link: https://firebase.google.com/download/cpp.
-Direct download link: https://dl.google.com/firebase/sdk/cpp/firebase_cpp_sdk_5.7.0.zip
-
-## Android
-Dependencies are downloaded using `configure.py`. The required dependencies and their versions are specified in `configure.py` and need to match the ones specified in the Firebase C++ SDK [Android dependencies section of the Firebase SDK documentation](https://firebase.google.com/docs/cpp/setup#dependencies_2). The Python script will download and parse the Maven POMs of the dependencies and resolving any additional dependencies. All of the AAR and JAR files will be downloaded and in the case of AAR files unpacked. A single AndroidManifest.xml will be generated with all permissions and various other settings applied.
-
-Libs from `firebase_cpp_sdk/libs/android/armeabi-v7a/gnustl/*`
-
-
-We already have `jar` dependencies included in the Defold engine,  that's why we use only `com-google-firebase-firebase-analytics-firebase-analytics-16.4.0`. Remove all `jar` files except `com-google-firebase-firebase-analytics-firebase-analytics-16.4.0` after `configure.py` running.
-
-## iOS
-Setup for iOS is made [without CocoaPods](https://firebase.google.com/docs/ios/setup#frameworks) using a direct download of the Firebase iOS SDK. It is important to use a version of the iOS SDK matching the [iOS dependencies section of the Firebase SDK documentation](https://firebase.google.com/docs/cpp/setup#dependencies).
-
-Direct download link: https://dl.google.com/firebase/sdk/ios/5_20_2/Firebase-5.20.2.zip
-
-## Windows
-Libs from `firebase_cpp_sdk/libs/windows/VS2015/MT/<arch>/Debug/` (MT meaning Multi-threaded static library as opposed to MD meaning Multi-threaded dynamic library).
-
-## Maven
-https://mvnrepository.com/artifact/com.google.android
