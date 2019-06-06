@@ -146,6 +146,14 @@ static int Firebase_Analytics_LogTable(lua_State* L) {
 	int size = 0;
 	while (lua_next(L, -2) != 0)
 	{
+		if (size == MAX_ELEMENTS) {
+			char msg[256];
+			snprintf(msg, sizeof(msg), "Too many parameters in '%s'", name);
+			luaL_error(L, msg);
+			lua_pop(L, 2);
+			assert(top == lua_gettop(L));
+			return 0;
+		}
 		const char* k = lua_tostring(L, -2);
 		int t = lua_type(L, -1);
 		switch (t) {
@@ -169,14 +177,6 @@ static int Firebase_Analytics_LogTable(lua_State* L) {
 		}
 		lua_pop(L, 1);
 		size++;
-		if (size + 1 > MAX_ELEMENTS) {
-			char msg[256];
-			snprintf(msg, sizeof(msg), "Too many parameters in '%s'", name);
-			luaL_error(L, msg);
-			lua_pop(L, 2);
-			assert(top == lua_gettop(L));
-			return 0;
-		}
 	}
 	
 	LogEvent(name, params, size);
