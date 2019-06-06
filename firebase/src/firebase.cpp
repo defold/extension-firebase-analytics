@@ -169,7 +169,7 @@ static int Firebase_Analytics_LogTable(lua_State* L) {
 		}
 		lua_pop(L, 1);
 		size++;
-		if (size >= MAX_ELEMENTS) {
+		if (size + 1 > MAX_ELEMENTS) {
 			char msg[256];
 			snprintf(msg, sizeof(msg), "Too many parameters in '%s'", name);
 			luaL_error(L, msg);
