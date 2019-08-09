@@ -28,19 +28,13 @@ https://github.com/defold/extension-firebase/archive/master.zip
 
 Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase/releases).
 
+Starting Defold 1.2.160 this extension has one more dependency:
+
+https://github.com/defold/extension-firebase-core/archive/master.zip
+
+Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase-core/releases).
+
 ### 2.2 Setup for Android
-* Remove following lines from your `AndroidManifest.xml`:
-
-```xml
-<!-- Disable Firebase Analytics -->
-<meta-data android:name="firebase_analytics_collection_deactivated" android:value="true" />
-```
-
-* Minimal SDK version in `AndroidManifest.xml` should be 16 or above:
-
-```xml
-android:minSdkVersion="16"
-```
 
 * Run `generate_xml_from_google_services_json.py` or `generate_xml_from_google_services_json.exe` (both from Firebase C++ SDK) to convert the previously downloaded `google-services.json` to an Android resource XML:
 

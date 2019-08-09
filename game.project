@@ -1,6 +1,6 @@
 [project]
-title = Firebase
-dependencies = https://github.com/britzl/gooey/archive/6.5.0.zip,https://github.com/britzl/monarch/archive/2.13.0.zip
+title = extension-firebase-analytics
+dependencies = https://github.com/britzl/gooey/archive/6.5.0.zip,https://github.com/britzl/monarch/archive/2.13.0.zip,https://github.com/defold/extension-firebase-core/archive/1.0.0.zip
 custom_resources = 
 bundle_resources = /bundle
 
@@ -26,7 +26,7 @@ infoplist = /builtins/manifests/ios/Info.plist
 
 [android]
 package = com.defold.firebase
-manifest = /firebase/AndroidManifest.xml
+proguard = /builtins/manifests/android/dmengine.pro
 
 [osx]
 bundle_identifier = com.defold.firebase
