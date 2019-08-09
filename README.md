@@ -24,13 +24,13 @@ The steps below taken from the [official Google Firebase Guides](https://firebas
 ### 2.1 Add project dependencies
 You can use the extension in your own project by adding this project as a [Defold library dependency](http://www.defold.com/manuals/libraries/). Open your game.project file and in the dependencies field under project add:
 
-https://github.com/defold/extension-firebase/archive/master.zip
+> https://github.com/defold/extension-firebase/archive/master.zip
 
 Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase/releases).
 
 Starting Defold 1.2.160 this extension has one more dependency:
 
-https://github.com/defold/extension-firebase-core/archive/master.zip
+> https://github.com/defold/extension-firebase-core/archive/master.zip
 
 Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase-core/releases).
 
