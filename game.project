@@ -1,6 +1,6 @@
 [project]
 title = extension-firebase-analytics
-dependencies = https://github.com/britzl/gooey/archive/6.5.0.zip,https://github.com/britzl/monarch/archive/2.13.0.zip,https://github.com/defold/extension-firebase-core/archive/master.zip
+dependencies = https://github.com/britzl/gooey/archive/6.5.0.zip,https://github.com/britzl/monarch/archive/2.13.0.zip,https://github.com/defold/extension-firebase-core/archive/master.zip,https://github.com/defold/extension-gps/archive/master.zip
 custom_resources = 
 bundle_resources = /bundle
 

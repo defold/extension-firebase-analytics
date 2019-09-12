@@ -32,6 +32,10 @@ Starting Defold 1.2.160 this extension has one more dependency:
 
 > https://github.com/defold/extension-firebase-core/archive/master.zip
 
+Starting Defold 1.2.162 this extension has one more dependency:
+
+> https://github.com/defold/extension-gps/archive/master.zip
+
 Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase-core/releases).
 
 ### 2.2 Setup for Android
