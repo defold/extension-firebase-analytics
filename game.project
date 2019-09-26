@@ -26,7 +26,6 @@ infoplist = /builtins/manifests/ios/Info.plist
 
 [android]
 package = com.defold.firebase
-proguard = /builtins/manifests/android/dmengine.pro
 
 [osx]
 bundle_identifier = com.defold.firebase
