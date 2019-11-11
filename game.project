@@ -1,6 +1,6 @@
 [project]
 title = extension-firebase-analytics
-dependencies = https://github.com/britzl/gooey/archive/6.5.0.zip,https://github.com/britzl/monarch/archive/2.13.0.zip,https://github.com/defold/extension-firebase-core/archive/master.zip,https://github.com/defold/extension-gps/archive/master.zip
+dependencies = https://github.com/britzl/gooey/archive/6.5.0.zip,https://github.com/britzl/monarch/archive/2.13.0.zip,https://github.com/defold/android-base-extensions/releases/download/1.0.0/support-v4-27.0.2.zip,https://github.com/defold/android-base-extensions/releases/download/1.0.0/gps-base-16.0.1.zip,https://github.com/defold/android-base-extensions/releases/download/1.0.0/firebase-core-16.0.7.zip
 custom_resources = 
 bundle_resources = /bundle
 

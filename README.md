@@ -26,17 +26,13 @@ You can use the extension in your own project by adding this project as a [Defol
 
 > https://github.com/defold/extension-firebase/archive/master.zip
 
-Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase/releases).
+Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase/releases) (recommended!).
 
-Starting Defold 1.2.160 this extension has one more dependency:
+You also need to add the following base extensions as dependencies:
 
-> https://github.com/defold/extension-firebase-core/archive/master.zip
-
-Starting Defold 1.2.162 this extension has one more dependency:
-
-> https://github.com/defold/extension-gps/archive/master.zip
-
-Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase-core/releases).
+> https://github.com/defold/android-base-extensions/releases/download/1.0.0/firebase-core-16.0.7.zip
+> https://github.com/defold/android-base-extensions/releases/download/1.0.0/gps-base-16.0.1.zip
+> https://github.com/defold/android-base-extensions/releases/download/1.0.0/support-v4-27.0.2.zip
 
 ### 2.2 Setup for Android
 
