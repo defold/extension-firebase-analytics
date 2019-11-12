@@ -28,12 +28,13 @@ You can use the extension in your own project by adding this project as a [Defol
 
 Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase/releases) (recommended!).
 
-You also need to add the following base extensions as dependencies:
+You also need to add a number of base extensions as dependencies. The versions of the dependencies depends on the version of the Firebase Analytics C++ SDK used by this extension  (refer to DEVELOPMENT.md to learn which version that is used):
 
-> https://github.com/defold/android-base-extensions/releases/download/1.0.0/firebase-core-16.0.8.zip
-> https://github.com/defold/android-base-extensions/releases/download/1.0.0/gps-base-16.1.0.zip
-> https://github.com/defold/android-base-extensions/releases/download/1.0.0/support-v4-26.1.0.zip
-> https://github.com/defold/android-base-extensions/releases/download/1.0.0/gps-measurement-16.4.0.zip
+* Firebase Analytics C++ SDK 5.7.0:
+  * `https://github.com/defold/android-base-extensions/releases/download/1.0.0/firebase-core-16.0.8.zip`
+  * `https://github.com/defold/android-base-extensions/releases/download/1.0.0/gps-base-16.1.0.zip`
+  * `https://github.com/defold/android-base-extensions/releases/download/1.0.0/support-v4-26.1.0.zip`
+  * `https://github.com/defold/android-base-extensions/releases/download/1.0.0/gps-measurement-16.4.0.zip`
 
 ### 2.2 Setup for Android
 
