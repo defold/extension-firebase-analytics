@@ -1,0 +1,9 @@
+
+dependencies {
+	// https://firebase.google.com/docs/android/setup#available-libraries
+  	compile 'com.google.firebase:firebase-analytics:17.2.1'
+
+    // https://developers.google.com/android/guides/setup
+    compile 'com.google.android.gms:play-services-base:16.0.1'
+    compile 'com.google.android.gms:play-services-measurement:16.4.0'
+}

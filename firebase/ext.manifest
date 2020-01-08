@@ -1,6 +1,10 @@
 name: "Firebase"
 
 platforms:
+  android:
+    context:
+        aaptExtraPackages: ['com.google.android.gms.common']
+
   arm64-android:
     context:
         flags:      ["-std=c++11"]
