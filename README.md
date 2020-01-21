@@ -28,7 +28,7 @@ You can use the extension in your own project by adding this project as a [Defol
 
 Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase/releases) (recommended!).
 
-Of running Defold 1.2.164 or older you also need to add a number of base extensions as dependencies. The versions of the dependencies depends on the version of the Firebase Analytics C++ SDK used by this extension  (refer to DEVELOPMENT.md to learn which version that is used):
+If running Defold 1.2.164 or older you also need to add a number of base extensions as dependencies. The versions of the dependencies depends on the version of the Firebase Analytics C++ SDK used by this extension  (refer to DEVELOPMENT.md to learn which version that is used):
 
 * Firebase Analytics C++ SDK 5.7.0:
   * `https://github.com/defold/android-base-extensions/releases/download/1.0.0/firebase-core-16.0.8.zip`
