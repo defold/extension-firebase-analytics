@@ -13,6 +13,13 @@
 #include "firebase/analytics/parameter_names.h"
 #include "firebase/future.h"
 
+
+static firebase::App* firebase_app_;
+
+using namespace firebase;
+using namespace firebase::analytics;
+
+
 #if defined(DM_PLATFORM_ANDROID)
 static JNIEnv* GetJNIEnv()
 {
@@ -20,12 +27,18 @@ static JNIEnv* GetJNIEnv()
 	dmGraphics::GetNativeAndroidJavaVM()->AttachCurrentThread(&env, NULL);
 	return env;
 }
+
+static void Firebase_Safe_LogEvent(lua_State*, const char* name, const Parameter* params, size_t number_of_parameters)
+{
+	LogEvent(name, params, number_of_parameters);
+}
+
+#else if defined(DM_PLATFORM_IOS)
+
+void Firebase_Safe_LogEvent(lua_State*, const char* name, const Parameter* params, size_t number_of_parameters);
+
 #endif
 
-static firebase::App* firebase_app_;
-
-using namespace firebase;
-using namespace firebase::analytics;
 
 static int Firebase_Init(lua_State* L) {
 	dmLogInfo("Firebase_Init");
@@ -131,7 +144,7 @@ static int Firebase_Analytics_LogNumber(lua_State* L) {
 	return 0;
 }
 
-const uint MAX_ELEMENTS = 25; //Specified in Firebase docs
+const size_t MAX_ELEMENTS = 25; //Specified in Firebase docs
 
 static int Firebase_Analytics_LogTable(lua_State* L) {
 	int top = lua_gettop(L);
@@ -176,10 +189,10 @@ static int Firebase_Analytics_LogTable(lua_State* L) {
 			break;
 		}
 		lua_pop(L, 1);
-		size++;
+		++size;
 	}
-	
-	LogEvent(name, params, size);
+
+	Firebase_Safe_LogEvent(L, name, params, size);
 
 	lua_pop(L, 1);
 	assert(top == lua_gettop(L));
