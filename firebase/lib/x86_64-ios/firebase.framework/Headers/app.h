@@ -1,4 +1,5 @@
-// Copyright 2019 Google Inc. All Rights Reserved.
+
+// Copyright 2020 Google Inc. All Rights Reserved.
 
 #ifndef FIREBASE_APP_H
 #define FIREBASE_APP_H

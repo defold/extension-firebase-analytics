@@ -21,8 +21,6 @@
 /// @brief Namespace that encompasses all Firebase APIs.
 namespace firebase {
 
-/// @cond FIREBASE_APP_INTERNAL
-
 /// @brief Levels used when logging messages.
 enum LogLevel {
   /// Verbose Log Level
@@ -39,7 +37,17 @@ enum LogLevel {
   kLogLevelAssert,
 };
 
-/// @endcond
+/// @brief Sets the logging verbosity.
+/// All log messages at or above the specific log level.
+///
+/// @param[in] level Log level to display, by default this is set to
+/// kLogLevelInfo.
+void SetLogLevel(LogLevel level);
+
+/// @brief Gets the logging verbosity.
+///
+/// @return Get the currently configured logging verbosity.
+LogLevel GetLogLevel();
 
 // NOLINTNEXTLINE - allow namespace overridden
 }  // namespace firebase

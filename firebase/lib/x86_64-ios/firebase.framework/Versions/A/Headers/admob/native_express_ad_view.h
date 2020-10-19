@@ -1,4 +1,5 @@
-// Copyright 2019 Google Inc. All Rights Reserved.
+
+// Copyright 2020 Google Inc. All Rights Reserved.
 
 #ifndef FIREBASE_ADMOB_NATIVE_EXPRESS_AD_VIEW_H
 #define FIREBASE_ADMOB_NATIVE_EXPRESS_AD_VIEW_H

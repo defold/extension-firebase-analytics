@@ -23,10 +23,12 @@
 #include <utility>
 
 // Move operators use rvalue references, which are a C++11 extension.
+// Also, Visual Studio 2010 and later actually support move operators despite
+// reporting __cplusplus to be 199711L, so explicitly check for that.
 // Also, stlport doesn't implement std::move().
-#if __cplusplus >= 201103L && !defined(_STLPORT_VERSION)
+#if (__cplusplus >= 201103L || _MSC_VER >= 1600) && !defined(_STLPORT_VERSION)
 #define FIREBASE_USE_MOVE_OPERATORS
-#endif  // __cplusplus >= 201103L && !defined(_STLPORT_VERSION)
+#endif
 
 // stlport doesn't implement std::function.
 #if !defined(_STLPORT_VERSION)
@@ -61,7 +63,6 @@ struct AlignedStorage {
 #define FIREBASE_USE_EXPLICIT_DEFAULT_METHODS
 #endif  // !(defined(_MSC_VER) && _MSC_VER <= 1800)
 
-#if !defined(DOXYGEN) && !defined(SWIG)
 #if !defined(_WIN32) && !defined(__CYGWIN__)
 // Prevent GCC & Clang from stripping a symbol.
 #define FIREBASE_APP_KEEP_SYMBOL __attribute__((used))
@@ -100,7 +101,6 @@ struct AlignedStorage {
   static void* module_name##_ref FIREBASE_APP_KEEP_SYMBOL =           \
       &FIREBASE_APP_REGISTER_CALLBACKS_INITIALIZER_NAME(module_name); \
   }     /* namespace firebase */
-#endif  //  !defined(DOXYGEN) && !defined(SWIG)
 
 #if defined(SWIG) || defined(DOXYGEN)
 // SWIG needs to ignore the FIREBASE_DEPRECATED tag.
@@ -117,5 +117,11 @@ struct AlignedStorage {
 #define FIREBASE_DEPRECATED
 #endif
 #endif  // FIREBASE_DEPRECATED
+
+// Calculates the number of elements in an array.
+#define FIREBASE_ARRAYSIZE(x) (sizeof(x) / sizeof((x)[0]))
+
+// Guaranteed compile time strlen.
+#define FIREBASE_STRLEN(s) (FIREBASE_ARRAYSIZE(s) - sizeof((s)[0]))
 
 #endif  // FIREBASE_APP_CLIENT_CPP_SRC_INCLUDE_FIREBASE_INTERNAL_COMMON_H_

@@ -20,9 +20,7 @@
 #include "firebase/app.h"
 #include "firebase/internal/common.h"
 
-#if !defined(DOXYGEN) && !defined(SWIG)
 FIREBASE_APP_REGISTER_CALLBACKS_REFERENCE(dynamic_links)
-#endif  // !defined(DOXYGEN) && !defined(SWIG)
 
 namespace firebase {
 
@@ -84,7 +82,7 @@ class Listener {
 /// Listener provided at any time.
 ///
 /// @param[in] app The Firebase App object for this application.
-/// @param[in] listener A Listener object that recieves Dynamic Links.
+/// @param[in] listener A Listener object that receives Dynamic Links.
 ///
 /// @return kInitResultSuccess if initialization succeeded, or
 /// kInitResultFailedMissingDependency on Android if Google Play services is

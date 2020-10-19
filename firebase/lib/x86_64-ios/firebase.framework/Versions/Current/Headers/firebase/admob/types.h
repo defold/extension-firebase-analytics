@@ -14,20 +14,18 @@
  * limitations under the License.
  */
 
-#ifndef FIREBASE_ADMOB_CLIENT_CPP_INCLUDE_FIREBASE_ADMOB_TYPES_H_
-#define FIREBASE_ADMOB_CLIENT_CPP_INCLUDE_FIREBASE_ADMOB_TYPES_H_
+#ifndef FIREBASE_ADMOB_CLIENT_CPP_SRC_INCLUDE_FIREBASE_ADMOB_TYPES_H_
+#define FIREBASE_ADMOB_CLIENT_CPP_SRC_INCLUDE_FIREBASE_ADMOB_TYPES_H_
 
-#if defined(__APPLE__)
-#include "TargetConditionals.h"
-#endif  // __APPLE__
+#include "firebase/internal/platform.h"
 
-#if defined(__ANDROID__)
+#if FIREBASE_PLATFORM_ANDROID
 #include <jni.h>
-#elif defined(TARGET_OS_IPHONE)
+#elif FIREBASE_PLATFORM_IOS
 extern "C" {
 #include <objc/objc.h>
 }  // extern "C"
-#endif  // __ANDROID__, TARGET_OS_IPHONE
+#endif  // FIREBASE_PLATFORM_ANDROID, FIREBASE_PLATFORM_IOS
 
 namespace firebase {
 namespace admob {
@@ -39,16 +37,16 @@ namespace admob {
 ///   <li>Android: A `jobject` which references an Android Activity.</li>
 ///   <li>iOS: An `id` which references an iOS UIView.</li>
 /// </ul>
-#if defined(__ANDROID__)
+#if FIREBASE_PLATFORM_ANDROID
 /// An Android Activity from Java.
 typedef jobject AdParent;
-#elif defined(TARGET_OS_IPHONE)
+#elif FIREBASE_PLATFORM_IOS
 /// A pointer to an iOS UIView.
 typedef id AdParent;
 #else
 /// A void pointer for stub classes.
 typedef void *AdParent;
-#endif  // __ANDROID__, TARGET_OS_IPHONE
+#endif  // FIREBASE_PLATFORM_ANDROID, FIREBASE_PLATFORM_IOS
 
 /// Error codes returned by Future::error().
 enum AdMobError {
@@ -71,6 +69,8 @@ enum AdMobError {
   /// An attempt has been made to show an ad on an Android Activity that has
   /// no window token (such as one that's not done initializing).
   kAdMobErrorNoWindowToken,
+  /// Fallback error for any unidentified cases.
+  kAdMobErrorUnknown,
 };
 
 /// @brief Types of ad sizes.
@@ -169,4 +169,4 @@ struct BoundingBox {
 }  // namespace admob
 }  // namespace firebase
 
-#endif  // FIREBASE_ADMOB_CLIENT_CPP_INCLUDE_FIREBASE_ADMOB_TYPES_H_
+#endif  // FIREBASE_ADMOB_CLIENT_CPP_SRC_INCLUDE_FIREBASE_ADMOB_TYPES_H_
