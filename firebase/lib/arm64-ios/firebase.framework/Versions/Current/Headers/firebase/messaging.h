@@ -16,16 +16,16 @@
 #define FIREBASE_MESSAGING_CLIENT_CPP_INCLUDE_FIREBASE_MESSAGING_H_
 
 #include <stdint.h>
+
 #include <map>
 #include <string>
 #include <vector>
+
 #include "firebase/app.h"
 #include "firebase/future.h"
 #include "firebase/internal/common.h"
 
-#if !defined(DOXYGEN) && !defined(SWIG)
 FIREBASE_APP_REGISTER_CALLBACKS_REFERENCE(messaging)
-#endif  // !defined(DOXYGEN) && !defined(SWIG)
 
 namespace firebase {
 
@@ -59,11 +59,48 @@ struct MessagingOptions {
   bool suppress_notification_permission_prompt;
 };
 
+/// @brief Data structure for parameters that are unique to the Android
+/// implementation.
+struct AndroidNotificationParams {
+  /// The channel id that was provided when the message was sent.
+  std::string channel_id;
+};
+
 /// Used for messages that display a notification.
 ///
 /// On android, this requires that the app is using the Play Services client
 /// library.
 struct Notification {
+  Notification() : android(nullptr) {}
+
+  /// Copy constructor. Makes a deep copy of this Message.
+  Notification(const Notification& other) : android(nullptr) { *this = other; }
+
+  /// Copy assignment operator. Makes a deep copy of this Message.
+  Notification& operator=(const Notification& other) {
+    this->title = other.title;
+    this->body = other.body;
+    this->icon = other.icon;
+    this->sound = other.sound;
+    this->tag = other.tag;
+    this->color = other.color;
+    this->click_action = other.click_action;
+    this->body_loc_key = other.body_loc_key;
+    this->body_loc_args = other.body_loc_args;
+    this->title_loc_key = other.title_loc_key;
+    this->title_loc_args = other.title_loc_args;
+    delete this->android;
+    if (other.android) {
+      this->android = new AndroidNotificationParams(*other.android);
+    } else {
+      this->android = nullptr;
+    }
+    return *this;
+  }
+
+  /// Destructor.
+  ~Notification() { delete android; }
+
   /// Indicates notification title. This field is not visible on iOS phones
   /// and tablets.
   std::string title;
@@ -144,6 +181,9 @@ struct Notification {
   /// [1]:
   /// https://developer.android.com/guide/topics/resources/string-resource.html#FormattingAndStyling
   std::vector<std::string> title_loc_args;
+
+  /// Parameters that are unique to the Android implementation.
+  AndroidNotificationParams* android;
 };
 
 /// @brief Data structure used to send messages to, and receive messages from,
@@ -480,6 +520,8 @@ enum Error {
   kErrorFailedToRegisterForRemoteNotifications,
   /// Topic name is invalid for subscription/unsubscription.
   kErrorInvalidTopicName,
+  /// Could not subscribe/unsubscribe because there is no registration token.
+  kErrorNoRegistrationToken,
   /// Unknown error.
   kErrorUnknown,
 };
@@ -508,7 +550,9 @@ Future<void> RequestPermissionLastResult();
 /// [FCM Developers Guide]: https://firebase.google.com/docs/cloud-messaging/
 ///
 /// @param[in] message The message to send upstream.
-void Send(const Message& message);
+///
+/// @deprecated Send() is deprecated and will be removed in a future release.
+FIREBASE_DEPRECATED void Send(const Message& message);
 
 /// @brief Subscribe to receive all messages to the specified topic.
 ///
@@ -541,6 +585,34 @@ Future<void> Unsubscribe(const char* topic);
 ///
 /// @returns Result of the most recent call to Unsubscribe().
 Future<void> UnsubscribeLastResult();
+
+/// Determines whether Firebase Cloud Messaging exports message delivery metrics
+/// to BigQuery.
+///
+/// This function is currently only implemented on Android, and returns false
+/// with no other behavior on other platforms.
+///
+/// @return true if Firebase Cloud Messaging exports message delivery metrics to
+/// BigQuery.
+bool DeliveryMetricsExportToBigQueryEnabled();
+
+/// Enables or disables Firebase Cloud Messaging message delivery metrics export
+/// to BigQuery.
+///
+/// By default, message delivery metrics are not exported to BigQuery. Use this
+/// method to enable or disable the export at runtime. In addition, you can
+/// enable the export by adding to your manifest. Note that the run-time method
+/// call will override the manifest value.
+///
+/// <meta-data android:name= "delivery_metrics_exported_to_big_query_enabled"
+///            android:value="true"/>
+///
+/// This function is currently only implemented on Android, and has no behavior
+/// on other platforms.
+///
+/// @param[in] enable Whether Firebase Cloud Messaging should export message
+///            delivery metrics to BigQuery.
+void SetDeliveryMetricsExportToBigQuery(bool enable);
 
 class PollableListenerImpl;
 

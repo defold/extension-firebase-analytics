@@ -1,4 +1,4 @@
-// Copyright 2019 Google Inc. All Rights Reserved.
+// Copyright 2020 Google Inc. All Rights Reserved.
 
 #ifndef FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_PARAMETER_NAMES_H_
 #define FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_PARAMETER_NAMES_H_
@@ -25,6 +25,7 @@ namespace analytics {
 
 /// Game achievement ID (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -40,6 +41,7 @@ static const char *const kParameterAchievementID = "achievement_id";
 /// Ad Network Click ID (string). Used for network-specific click IDs
 /// which vary in format.
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -52,8 +54,8 @@ static const char *const kParameterAchievementID = "achievement_id";
 /// @endif
 static const char *const kParameterAdNetworkClickID = "aclid";
 
-/// The store or affiliation from which this transaction occurred
-/// (string).
+/// A product affiliation to designate a supplying company or brick and
+/// mortar store location (string).
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -71,6 +73,7 @@ static const char *const kParameterAffiliation = "affiliation";
 /// have pre-defined macro to capture campaign information, otherwise can
 /// be populated by developer. Highly Recommended (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -84,6 +87,7 @@ static const char *const kParameterAffiliation = "affiliation";
 static const char *const kParameterCampaign = "campaign";
 
 /// Character used in game (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -99,6 +103,7 @@ static const char *const kParameterCharacter = "character";
 
 /// The checkout step (1..N) (unsigned 64-bit integer).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -109,9 +114,12 @@ static const char *const kParameterCharacter = "character";
 /// @endcode
 ///
 /// @endif
+///
+/// <b>This constant has been deprecated.</b>
 static const char *const kParameterCheckoutStep = "checkout_step";
 
 /// Some option on a step in an ecommerce flow (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -123,12 +131,15 @@ static const char *const kParameterCheckoutStep = "checkout_step";
 /// @endcode
 ///
 /// @endif
+///
+/// <b>This constant has been deprecated.</b>
 static const char *const kParameterCheckoutOption = "checkout_option";
 
 /// Campaign content (string).
 static const char *const kParameterContent = "content";
 
 /// Type of content selected (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -142,13 +153,14 @@ static const char *const kParameterContent = "content";
 /// @endif
 static const char *const kParameterContentType = "content_type";
 
-/// Coupon code for a purchasable item (string).
+/// Coupon code used for a purchase (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
 /// Parameter parameters[] = {
-///    Parameter(kParameterCoupon, "zz123"),
+///    Parameter(kParameterCoupon, "SUMMER_FUN"),
 ///    // ...
 ///  };
 /// @endcode
@@ -158,6 +170,7 @@ static const char *const kParameterCoupon = "coupon";
 
 /// Campaign custom parameter (string). Used as a method of capturing
 /// custom data in a campaign. Use varies by network.
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -173,6 +186,7 @@ static const char *const kParameterCP1 = "cp1";
 
 /// The name of a creative used in a promotional spot (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -187,6 +201,7 @@ static const char *const kParameterCreativeName = "creative_name";
 
 /// The name of a creative slot (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -199,8 +214,10 @@ static const char *const kParameterCreativeName = "creative_name";
 /// @endif
 static const char *const kParameterCreativeSlot = "creative_slot";
 
-/// Purchase currency in 3-letter <a href="http://en.wikipedia.org/wiki/ISO_4217#Active_codes">
-/// ISO_4217</a> format (string).
+/// Currency of the purchase or items associated with the event, in
+/// 3-letter
+/// <a href="http://en.wikipedia.org/wiki/ISO_4217#Active_codes"> ISO_4217</a> format (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -215,6 +232,7 @@ static const char *const kParameterCreativeSlot = "creative_slot";
 static const char *const kParameterCurrency = "currency";
 
 /// Flight or Travel destination (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -231,6 +249,7 @@ static const char *const kParameterDestination = "destination";
 /// The arrival date, check-out date or rental end date for the item. This
 /// should be in YYYY-MM-DD format (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -244,6 +263,7 @@ static const char *const kParameterDestination = "destination";
 static const char *const kParameterEndDate = "end_date";
 
 /// Flight number for travel events (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -259,6 +279,7 @@ static const char *const kParameterFlightNumber = "flight_number";
 
 /// Group/clan/guild ID (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -271,13 +292,14 @@ static const char *const kParameterFlightNumber = "flight_number";
 /// @endif
 static const char *const kParameterGroupID = "group_id";
 
-/// Index of an item in a list (signed 64-bit integer).
+/// The index of the item in a list (signed 64-bit integer).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
 /// Parameter parameters[] = {
-///    Parameter(kParameterIndex, 1),
+///    Parameter(kParameterIndex, 5),
 ///    // ...
 ///  };
 /// @endcode
@@ -286,6 +308,7 @@ static const char *const kParameterGroupID = "group_id";
 static const char *const kParameterIndex = "index";
 
 /// Item brand (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -299,13 +322,14 @@ static const char *const kParameterIndex = "index";
 /// @endif
 static const char *const kParameterItemBrand = "item_brand";
 
-/// Item category (string).
+/// Item category (context-specific) (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
 /// Parameter parameters[] = {
-///    Parameter(kParameterItemCategory, "t-shirts"),
+///    Parameter(kParameterItemCategory, "pants"),
 ///    // ...
 ///  };
 /// @endcode
@@ -313,13 +337,14 @@ static const char *const kParameterItemBrand = "item_brand";
 /// @endif
 static const char *const kParameterItemCategory = "item_category";
 
-/// Item ID (string).
+/// Item ID (context-specific) (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
 /// Parameter parameters[] = {
-///    Parameter(kParameterItemID, "p7654"),
+///    Parameter(kParameterItemID, "SKU_12345"),
 ///    // ...
 ///  };
 /// @endcode
@@ -331,6 +356,7 @@ static const char *const kParameterItemID = "item_id";
 /// corresponds to the associated item. Alternatively, you can supply your
 /// own custom Location ID.
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -341,15 +367,18 @@ static const char *const kParameterItemID = "item_id";
 /// @endcode
 ///
 /// @endif
+///
+/// <b>This constant has been deprecated. Use @c FirebaseAnalytics.ParameterLocationID constant instead.</b>
 static const char *const kParameterItemLocationID = "item_location_id";
 
-/// Item name (string).
+/// Item Name (context-specific) (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
 /// Parameter parameters[] = {
-///    Parameter(kParameterItemName, "abc"),
+///    Parameter(kParameterItemName, "jeggings"),
 ///    // ...
 ///  };
 /// @endcode
@@ -358,6 +387,7 @@ static const char *const kParameterItemLocationID = "item_location_id";
 static const char *const kParameterItemName = "item_name";
 
 /// The list in which the item was presented to the user (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -369,15 +399,18 @@ static const char *const kParameterItemName = "item_name";
 /// @endcode
 ///
 /// @endif
+///
+/// <b>This constant has been deprecated. Use @c FirebaseAnalytics.ParameterItemListName constant instead.</b>
 static const char *const kParameterItemList = "item_list";
 
 /// Item variant (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
 /// Parameter parameters[] = {
-///    Parameter(kParameterItemVariant, "Red"),
+///    Parameter(kParameterItemVariant, "Black"),
 ///    // ...
 ///  };
 /// @endcode
@@ -386,6 +419,7 @@ static const char *const kParameterItemList = "item_list";
 static const char *const kParameterItemVariant = "item_variant";
 
 /// Level in game (signed 64-bit integer).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -403,6 +437,7 @@ static const char *const kParameterLevel = "level";
 /// </a> that corresponds to the associated event. Alternatively, you can supply your own custom
 /// Location ID.
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -418,6 +453,7 @@ static const char *const kParameterLocation = "location";
 /// The advertising or marParameter(keting, cpc, banner, email), push.
 /// Highly recommended (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -431,6 +467,7 @@ static const char *const kParameterLocation = "location";
 static const char *const kParameterMedium = "medium";
 
 /// Number of nights staying at hotel (signed 64-bit integer).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -446,6 +483,7 @@ static const char *const kParameterNumberOfNights = "number_of_nights";
 
 /// Number of passengers traveling (signed 64-bit integer).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -459,6 +497,7 @@ static const char *const kParameterNumberOfNights = "number_of_nights";
 static const char *const kParameterNumberOfPassengers = "number_of_passengers";
 
 /// Number of rooms for travel events (signed 64-bit integer).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -474,6 +513,7 @@ static const char *const kParameterNumberOfRooms = "number_of_rooms";
 
 /// Flight or Travel origin (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -487,6 +527,7 @@ static const char *const kParameterNumberOfRooms = "number_of_rooms";
 static const char *const kParameterOrigin = "origin";
 
 /// Purchase price (double).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -503,6 +544,7 @@ static const char *const kParameterPrice = "price";
 
 /// Purchase quantity (signed 64-bit integer).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -517,6 +559,7 @@ static const char *const kParameterQuantity = "quantity";
 
 /// Score in game (signed 64-bit integer).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -529,7 +572,38 @@ static const char *const kParameterQuantity = "quantity";
 /// @endif
 static const char *const kParameterScore = "score";
 
+/// Current screen class, such as the class name of the UIViewController,
+/// logged with screen_view event and added to every event (string).
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterScreenClass, "LoginViewController"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterScreenClass = "screen_class";
+
+/// Current screen name, such as the name of the UIViewController, logged
+/// with screen_view event and added to every event (string).
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterScreenName, "LoginView"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterScreenName = "screen_name";
+
 /// The search string/keywords used (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -543,14 +617,15 @@ static const char *const kParameterScore = "score";
 /// @endif
 static const char *const kParameterSearchTerm = "search_term";
 
-/// Shipping cost (double).
+/// Shipping cost associated with a transaction (double).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
 /// Parameter parameters[] = {
-///    Parameter(kParameterShipping, 9.50),
-///    Parameter(kParameterCurrency, "USD"),  // e.g. $9.50 USD
+///    Parameter(kParameterShipping, 5.99),
+///    Parameter(kParameterCurrency, "USD"),  // e.g. $5.99 USD
 ///    // ...
 ///  };
 /// @endcode
@@ -559,6 +634,7 @@ static const char *const kParameterSearchTerm = "search_term";
 static const char *const kParameterShipping = "shipping";
 
 /// Sign up method (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -578,6 +654,7 @@ static const char *const kParameterSignUpMethod = "sign_up_method";
 /// A particular approach used in an operation; for example, "facebook" or
 /// "email" in the context of a sign_up or login event.  (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -595,6 +672,7 @@ static const char *const kParameterMethod = "method";
 /// publication, etc. that is sending traffic to your property. Highly
 /// recommended (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -610,6 +688,7 @@ static const char *const kParameterSource = "source";
 /// The departure date, check-in date or rental start date for the item.
 /// This should be in YYYY-MM-DD format (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -622,14 +701,15 @@ static const char *const kParameterSource = "source";
 /// @endif
 static const char *const kParameterStartDate = "start_date";
 
-/// Tax amount (double).
+/// Tax cost associated with a transaction (double).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
 /// Parameter parameters[] = {
-///    Parameter(kParameterTax, 1.0),
-///    Parameter(kParameterCurrency, "USD"),  // e.g. $1.00 USD
+///    Parameter(kParameterTax, 2.43),
+///    Parameter(kParameterCurrency, "USD"),  // e.g. $2.43 USD
 ///    // ...
 ///  };
 /// @endcode
@@ -639,6 +719,7 @@ static const char *const kParameterTax = "tax";
 
 /// If you're manually tagging keyword campaigns, you should use utm_term
 /// to specify the keyword (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -652,13 +733,14 @@ static const char *const kParameterTax = "tax";
 /// @endif
 static const char *const kParameterTerm = "term";
 
-/// A single ID for a ecommerce group transaction (string).
+/// The unique identifier of a transaction (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
 /// Parameter parameters[] = {
-///    Parameter(kParameterTransactionID, "ab7236dd9823"),
+///    Parameter(kParameterTransactionID, "T12345"),
 ///    // ...
 ///  };
 /// @endcode
@@ -667,6 +749,7 @@ static const char *const kParameterTerm = "term";
 static const char *const kParameterTransactionID = "transaction_id";
 
 /// Travel class (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -694,6 +777,7 @@ static const char *const kParameterTravelClass = "travel_class";
 /// <a href="https://goo.gl/qqX3J2">currency code</a> for conversion events will cause that
 /// conversion to be omitted from reporting.
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -708,6 +792,7 @@ static const char *const kParameterTravelClass = "travel_class";
 static const char *const kParameterValue = "value";
 
 /// Name of virtual currency type (string).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -724,6 +809,7 @@ static const char *const kParameterVirtualCurrencyName =
 
 /// The name of a level in a game (string).
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -738,6 +824,7 @@ static const char *const kParameterLevelName = "level_name";
 
 /// The result of an operation. Specify 1 to indicate success and 0 to
 /// indicate failure (unsigned integer).
+///
 ///
 /// @if cpp_examples
 /// @code{.cpp}
@@ -756,6 +843,7 @@ static const char *const kParameterSuccess = "success";
 /// was logged. Specify YES to extend the current session or to start a
 /// new session; any other value will not extend or start a session.
 ///
+///
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -767,6 +855,209 @@ static const char *const kParameterSuccess = "success";
 ///
 /// @endif
 static const char *const kParameterExtendSession = "extend_session";
+
+/// Monetary value of discount associated with a purchase (double).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterDiscount, 2.0),
+///    Parameter(kParameterCurrency, "USD"),  // e.g. $2.00 USD
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterDiscount = "discount";
+
+/// Item Category (context-specific) (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterItemCategory2, "pants"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterItemCategory2 = "item_category2";
+
+/// Item Category (context-specific) (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterItemCategory3, "pants"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterItemCategory3 = "item_category3";
+
+/// Item Category (context-specific) (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterItemCategory4, "pants"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterItemCategory4 = "item_category4";
+
+/// Item Category (context-specific) (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterItemCategory5, "pants"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterItemCategory5 = "item_category5";
+
+/// The ID of the list in which the item was presented to the
+/// user (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterItemListID, "ABC123"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterItemListID = "item_list_id";
+
+/// The name of the list in which the item was presented to the user
+/// (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterItemListName, "Related products"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterItemListName = "item_list_name";
+
+/// The list of items involved in the transaction. (NSArray).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    kParameterItems : @[
+///      @{Parameter(kParameterItemName, "jeggings", kParameterItemCategory : "pants"}),
+///      @{Parameter(kParameterItemName, "boots", kParameterItemCategory : "shoes"}),
+///    ],
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterItems = "items";
+
+/// The location associated with the event. Preferred to be the Google
+/// <a href="https://developers.google.com/places/place-id">Place ID</a> that corresponds to the
+/// associated item but could be overridden to a custom location ID
+/// string.(string).
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterLocationID, "ChIJiyj437sx3YAR9kUWC8QkLzQ"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterLocationID = "location_id";
+
+/// The chosen method of payment (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterPaymentType, "Visa"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterPaymentType = "payment_type";
+
+/// The ID of a product promotion (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterPromotionID, "ABC123"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterPromotionID = "promotion_id";
+
+/// The name of a product promotion (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterPromotionName, "Summer Sale"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterPromotionName = "promotion_name";
+
+/// The shipping tier (e.g. Ground, Air, Next-day) selected for delivery
+/// of the purchased item (string).
+///
+///
+/// @if cpp_examples
+/// @code{.cpp}
+/// using namespace firebase::analytics;
+/// Parameter parameters[] = {
+///    Parameter(kParameterShippingTier, "Ground"),
+///    // ...
+///  };
+/// @endcode
+///
+/// @endif
+static const char *const kParameterShippingTier = "shipping_tier";
 /// @}
 
 } // namespace analytics
