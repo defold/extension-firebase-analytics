@@ -3,6 +3,10 @@
   desc: Functions and constants for interacting with Firebase
 
   members:
+  - name: init
+    type: function
+    desc: Initialise Firebase
+
   - name: analytics.log
     type: function
     desc: Log an event with no parameters. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_5")
