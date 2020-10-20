@@ -38,7 +38,7 @@ The steps below taken from the [official Google Firebase Guides](https://firebas
 #### 2.1 Add project dependencies
 You can use the extension in your own project by adding this project as a [Defold library dependency](http://www.defold.com/manuals/libraries/). Open your game.project file and in the dependencies field under project add:
 
-> https://github.com/defold/extension-firebase/archive/master.zip
+[https://github.com/defold/extension-firebase/archive/master.zip](https://github.com/defold/extension-firebase/archive/master.zip)
 
 Or point to the ZIP file of a [specific release](https://github.com/defold/extension-firebase/releases) (recommended!).
 
@@ -84,6 +84,27 @@ $ ./generate_xml_from_google_services_json.py -i google-services.json -o google-
 
 * Open `game.project` and set the `Bundle Resources` entry under the `Project` section to `/bundle` to match the folder created in the step above. Read more about the `Bundle Resources` setting in the [Defold manual](https://www.defold.com/manuals/project-settings/#_project).
 
+
+## Usage
+
+```lua
+function init(self)
+	-- use firebase only if it is supported on the current platform
+	if firebase then
+		firebase.init()
+		firebase.analytics.set_screen("myscreen", "collection")
+		firebase.analytics.log_string("character", "storm trooper")
+		firebase.analytics.log_int("kills", 152)
+		firebase.analytics.log_number("speed", 1.15)
+		local t = {
+			number = math.random(1,100),
+			boolean = true,
+			string = "some_string"
+		}
+		firebase.analytics.log_table("stats", t)
+	end
+end
+```
 
 ## Source code
 

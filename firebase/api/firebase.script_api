@@ -9,7 +9,8 @@
 
   - name: analytics.log
     type: function
-    desc: Log an event with no parameters. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_5")
+    desc: Log an event with no parameters. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_5)
+
     parameters:
     - name: name
       type: string
@@ -17,7 +18,8 @@
 
   - name: analytics.log_string
     type: function
-    desc: Log an event with one string parameter. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent")
+    desc: Log an event with one string parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent)
+
     parameters:
     - name: name
       type: string
@@ -31,7 +33,8 @@
 
   - name: analytics.log_int
     type: function
-    desc: Log an event with one integer parameter. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_4")
+    desc: Log an event with one integer parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_4)
+
     parameters:
     - name: name
       type: string
@@ -45,7 +48,8 @@
 
   - name: analytics.log_number
     type: function
-    desc: Log an event with one float parameter. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_2")
+    desc: Log an event with one float parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_2)
+
     parameters:
     - name: name
       type: string
@@ -59,7 +63,8 @@
 
   - name: analytics.log_table
     type: function
-    desc: Log an event with table parameters. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_6")
+    desc: Log an event with table parameters. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_6)
+
     parameters:
     - name: name
       type: string
@@ -70,7 +75,8 @@
 
   - name: analytics.set_screen
     type: function
-    desc: Sets the current screen name and screen class, which specifies the current visual context in your app. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setcurrentscreen")
+    desc: Sets the current screen name and screen class, which specifies the current visual context in your app. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setcurrentscreen)
+
     parameters:
     - name: screen_name
       type: string
@@ -81,7 +87,8 @@
 
   - name: analytics.set_minimum_session_duration
     type: function
-    desc: Sets the minimum engagement time required before starting a session. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setminimumsessionduration")
+    desc: Sets the minimum engagement time required before starting a session. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setminimumsessionduration)
+
     parameters:
     - name: milliseconds
       type: number
@@ -89,7 +96,8 @@
 
   - name: analytics.set_user_id
     type: function
-    desc: Sets the user ID property. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setuserid")
+    desc: Sets the user ID property. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setuserid)
+
     parameters:
     - name: user_id
       type: string
@@ -97,7 +105,8 @@
 
   - name: analytics.set_user_property
     type: function
-    desc: Set a user property to the given value. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setuserproperty")
+    desc: Set a user property to the given value. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setuserproperty)
+
     parameters:
     - name: name
       type: string
@@ -108,11 +117,12 @@
 
   - name: analytics.reset
     type: function
-    desc: Clears all analytics data for this app from the device and resets the app instance id. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#resetanalyticsdata")
+    desc: Clears all analytics data for this app from the device and resets the app instance id. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#resetanalyticsdata)
 
   - name: analytics.get_id
     type: function
-    desc: Get the instance ID from the analytics service. (Official docs "https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#getanalyticsinstanceid")
+    desc: Get the instance ID from the analytics service. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#getanalyticsinstanceid)
+
     return:
     - name: Instance ID
       type: string
