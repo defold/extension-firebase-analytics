@@ -31,3 +31,5 @@ package = com.defold.firebase
 [osx]
 bundle_identifier = com.defold.firebase
 
+[native_extension]
+app_manifest = /generated.appmanifest
