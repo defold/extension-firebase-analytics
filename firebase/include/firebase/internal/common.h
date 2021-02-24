@@ -39,15 +39,18 @@
 #if defined(_STLPORT_VERSION)
 #include <cstddef>
 
+#if !defined(FIREBASE_NAMESPACE)
+#define FIREBASE_NAMESPACE firebase
+#endif
 
-namespace firebase {
+namespace FIREBASE_NAMESPACE {
 template <std::size_t Length, std::size_t Alignment>
 struct AlignedStorage {
   struct type {
     alignas(Alignment) unsigned char data[Length];
   };
 };
-}  // namespace firebase
+}  // namespace FIREBASE_NAMESPACE
 #define FIREBASE_ALIGNED_STORAGE ::firebase::AlignedStorage
 #else
 #include <type_traits>
@@ -63,6 +66,7 @@ struct AlignedStorage {
 #define FIREBASE_USE_EXPLICIT_DEFAULT_METHODS
 #endif  // !(defined(_MSC_VER) && _MSC_VER <= 1800)
 
+#if !defined(DOXYGEN) && !defined(SWIG)
 #if !defined(_WIN32) && !defined(__CYGWIN__)
 // Prevent GCC & Clang from stripping a symbol.
 #define FIREBASE_APP_KEEP_SYMBOL __attribute__((used))
@@ -88,19 +92,20 @@ struct AlignedStorage {
 
 // Declare a module initializer variable as a global.
 #define FIREBASE_APP_REGISTER_CALLBACKS_INITIALIZER_VARIABLE(module_name)     \
-  namespace firebase {                                              \
+  namespace FIREBASE_NAMESPACE {                                              \
   extern void* FIREBASE_APP_REGISTER_CALLBACKS_INITIALIZER_NAME(module_name); \
-  } /* namespace firebase */
+  } /* namespace FIREBASE_NAMESPACE */
 
 // Generates code which references a module initializer.
 // For example, FIREBASE_APP_REGISTER_REFERENCE(analytics) will register the
 // module initializer for the analytics module.
 #define FIREBASE_APP_REGISTER_CALLBACKS_REFERENCE(module_name)        \
   FIREBASE_APP_REGISTER_CALLBACKS_INITIALIZER_VARIABLE(module_name)   \
-  namespace firebase {                                      \
+  namespace FIREBASE_NAMESPACE {                                      \
   static void* module_name##_ref FIREBASE_APP_KEEP_SYMBOL =           \
       &FIREBASE_APP_REGISTER_CALLBACKS_INITIALIZER_NAME(module_name); \
-  }     /* namespace firebase */
+  }     /* namespace FIREBASE_NAMESPACE */
+#endif  //  !defined(DOXYGEN) && !defined(SWIG)
 
 #if defined(SWIG) || defined(DOXYGEN)
 // SWIG needs to ignore the FIREBASE_DEPRECATED tag.

@@ -35,12 +35,14 @@ class FunctionsInternal;
 
 class FunctionsReference;
 
+#ifndef SWIG
 /// @brief Entry point for the Firebase C++ SDK for Cloud Functions.
 ///
 /// To use the SDK, call firebase::functions::Functions::GetInstance() to
 /// obtain an instance of Functions, then use GetHttpsCallable() to obtain
 /// references to callable functions. From there you can call them with
 /// CallableReference::Call().
+#endif  // SWIG
 class Functions {
  public:
   /// @brief Destructor. You may delete an instance of Functions when

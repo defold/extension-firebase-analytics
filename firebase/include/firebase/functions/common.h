@@ -24,6 +24,9 @@ namespace functions {
 /// Standard gRPC error codes, as defined in:
 /// https://github.com/googleapis/googleapis/blob/master/google/rpc/code.proto
 enum Error {
+#ifdef INTERNAL_EXPERIMENTAL
+  // LINT.IfChange
+#endif  // INTERNAL_EXPERIMENTAL
 
   // Not an error; returned on success
   //
@@ -178,8 +181,24 @@ enum Error {
   // HTTP Mapping: 500 Internal Server Error
   kErrorDataLoss = 15,
 
+#ifdef INTERNAL_EXPERIMENTAL
+  // LINT.ThenChange(//depot_firebase_cpp/functions/client/cpp/src/ios/\
+  //                 callable_reference_ios.mm)
+#endif  // INTERNAL_EXPERIMENTAL
 };
 
+#ifdef INTERNAL_EXPERIMENTAL
+/// @cond FIREBASE_APP_INTERNAL
+namespace internal {
+
+// Get the human-readable error message corresponding to an error code.
+//
+// Returns a statically-allocated string describing the error code you pass in.
+const char* GetErrorMessage(Error error);
+
+}  // namespace internal
+/// @endcond
+#endif  // INTERNAL_EXPERIMENTAL
 
 }  // namespace functions
 }  // namespace firebase

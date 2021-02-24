@@ -25,7 +25,9 @@
 #include "firebase/future.h"
 #include "firebase/internal/common.h"
 
+#if !defined(DOXYGEN) && !defined(SWIG)
 FIREBASE_APP_REGISTER_CALLBACKS_REFERENCE(messaging)
+#endif  // !defined(DOXYGEN) && !defined(SWIG)
 
 namespace firebase {
 
@@ -73,9 +75,12 @@ struct AndroidNotificationParams {
 struct Notification {
   Notification() : android(nullptr) {}
 
+#ifndef SWIG
   /// Copy constructor. Makes a deep copy of this Message.
   Notification(const Notification& other) : android(nullptr) { *this = other; }
+#endif  // !SWIG
 
+#ifndef SWIG
   /// Copy assignment operator. Makes a deep copy of this Message.
   Notification& operator=(const Notification& other) {
     this->title = other.title;
@@ -97,6 +102,7 @@ struct Notification {
     }
     return *this;
   }
+#endif  // !SWIG
 
   /// Destructor.
   ~Notification() { delete android; }
@@ -199,9 +205,12 @@ struct Message {
   /// Destructor.
   ~Message() { delete notification; }
 
+#ifndef SWIG
   /// Copy constructor. Makes a deep copy of this Message.
   Message(const Message& other) : notification(nullptr) { *this = other; }
+#endif  // !SWIG
 
+#ifndef SWIG
   /// Copy assignment operator. Makes a deep copy of this Message.
   Message& operator=(const Message& other) {
     this->from = other.from;
@@ -227,6 +236,7 @@ struct Message {
     this->link = other.link;
     return *this;
   }
+#endif  // !SWIG
 
   /// Authenticated ID of the sender. This is a project number in most cases.
   ///
@@ -241,11 +251,6 @@ struct Message {
   /// For example it can be a registration token, a topic name, an Instance ID
   /// or project ID.
   ///
-  /// For upstream messages use the format  PROJECT_ID@gcm.googleapis.com.
-  ///
-  /// This field is used for both upstream messages sent with
-  /// firebase::messaging::Send() and downstream messages received through
-  /// Listener::OnMessage(). For upstream messages,
   /// PROJECT_ID@gcm.googleapis.com or Instance ID are accepted.
   std::string to;
 
@@ -269,23 +274,15 @@ struct Message {
   /// The metadata, including all original key/value pairs. Includes some of the
   /// HTTP headers used when sending the message. `gcm`, `google` and `goog`
   /// prefixes are reserved for internal use.
-  ///
-  /// This field is used for both upstream messages sent with
-  /// firebase::messaging::Send() and downstream messages received through
-  /// Listener::OnMessage().
   std::map<std::string, std::string> data;
 
-  /// Binary payload. This field is currently unused.
-  std::string raw_data;
+  /// Binary payload.
+  std::vector<unsigned char> raw_data;
 
   /// Message ID. This can be specified by sender. Internally a hash of the
   /// message ID and other elements will be used for storage. The ID must be
   /// unique for each topic subscription - using the same ID may result in
   /// overriding the original message or duplicate delivery.
-  ///
-  /// This field is used for both upstream messages sent with
-  /// firebase::messaging::Send() and downstream messages received through
-  /// Listener::OnMessage().
   std::string message_id;
 
   /// Equivalent with a content-type.
@@ -499,6 +496,7 @@ bool IsTokenRegistrationOnInitEnabled();
 /// initialization.
 void SetTokenRegistrationOnInitEnabled(bool enable);
 
+#ifndef SWIG
 /// @brief Set the listener for events from the Firebase Cloud Messaging
 /// servers.
 ///
@@ -511,6 +509,7 @@ void SetTokenRegistrationOnInitEnabled(bool enable);
 ///
 /// @return Pointer to the previously set listener.
 Listener* SetListener(Listener* listener);
+#endif  // !SWIG
 
 /// Error code returned by Firebase Cloud Messaging C++ functions.
 enum Error {
@@ -539,20 +538,8 @@ Future<void> RequestPermission();
 
 /// @brief Gets the result of the most recent call to RequestPermission();
 ///
-/// @returns Result of the most recent call to RequestPermission().
+/// @return Result of the most recent call to RequestPermission().
 Future<void> RequestPermissionLastResult();
-
-/// Send an upstream ("device to cloud") message. You can only use the upstream
-/// feature if your FCM implementation uses the XMPP-based Cloud Connection
-/// Server. The current limits for max storage time and number of outstanding
-/// messages per application are documented in the [FCM Developers Guide].
-///
-/// [FCM Developers Guide]: https://firebase.google.com/docs/cloud-messaging/
-///
-/// @param[in] message The message to send upstream.
-///
-/// @deprecated Send() is deprecated and will be removed in a future release.
-FIREBASE_DEPRECATED void Send(const Message& message);
 
 /// @brief Subscribe to receive all messages to the specified topic.
 ///
@@ -567,7 +554,7 @@ Future<void> Subscribe(const char* topic);
 
 /// @brief Gets the result of the most recent call to Unsubscribe();
 ///
-/// @returns Result of the most recent call to Unsubscribe().
+/// @return Result of the most recent call to Unsubscribe().
 Future<void> SubscribeLastResult();
 
 /// @brief Unsubscribe from a topic.
@@ -583,7 +570,7 @@ Future<void> Unsubscribe(const char* topic);
 
 /// @brief Gets the result of the most recent call to Unsubscribe();
 ///
-/// @returns Result of the most recent call to Unsubscribe().
+/// @return Result of the most recent call to Unsubscribe().
 Future<void> UnsubscribeLastResult();
 
 /// Determines whether Firebase Cloud Messaging exports message delivery metrics
@@ -613,6 +600,32 @@ bool DeliveryMetricsExportToBigQueryEnabled();
 /// @param[in] enable Whether Firebase Cloud Messaging should export message
 ///            delivery metrics to BigQuery.
 void SetDeliveryMetricsExportToBigQuery(bool enable);
+
+/// @brief This creates a Firebase Installations ID, if one does not exist, and
+/// sends information about the application and the device where it's running to
+/// the Firebase backend.
+///
+/// @return A future with the token.
+Future<std::string> GetToken();
+
+/// @brief Gets the result of the most recent call to GetToken();
+///
+/// @return Result of the most recent call to GetToken().
+Future<std::string> GetTokenLastResult();
+
+/// @brief Deletes the default token for this Firebase project.
+///
+/// Note that this does not delete the Firebase Installations ID that may have
+/// been created when generating the token. See Installations.Delete() for
+/// deleting that.
+///
+/// @return A future that completes when the token is deleted.
+Future<void> DeleteToken();
+
+/// @brief Gets the result of the most recent call to DeleteToken();
+///
+/// @return Result of the most recent call to DeleteToken().
+Future<void> DeleteTokenLastResult();
 
 class PollableListenerImpl;
 

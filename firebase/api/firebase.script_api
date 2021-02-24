@@ -85,15 +85,6 @@
       type: string
       desc: Screen class
 
-  - name: analytics.set_minimum_session_duration
-    type: function
-    desc: Sets the minimum engagement time required before starting a session. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setminimumsessionduration)
-
-    parameters:
-    - name: milliseconds
-      type: number
-      desc: Minimum engagement
-
   - name: analytics.set_user_id
     type: function
     desc: Sets the user ID property. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setuserid)

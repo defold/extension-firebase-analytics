@@ -1,4 +1,4 @@
-// Copyright 2020 Google Inc. All Rights Reserved.
+// Copyright 2021 Google Inc. All Rights Reserved.
 
 #ifndef FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_EVENT_NAMES_H_
 #define FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_EVENT_NAMES_H_
@@ -7,6 +7,8 @@
 namespace firebase {
 /// @brief Firebase Analytics API.
 namespace analytics {
+
+
 
 /// @defgroup event_names Analytics Events
 ///
@@ -24,6 +26,7 @@ namespace analytics {
 /// be used.
 /// @{
 
+
 /// Add Payment Info event. This event signifies that a user has submitted
 /// their payment information. Note: If you supply the @c kParameterValue
 /// parameter, you must also supply the @c kParameterCurrency parameter so
@@ -36,7 +39,8 @@ namespace analytics {
 ///  <li>@c kParameterPaymentType (string) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventAddPaymentInfo = "add_payment_info";
+static const char*const kEventAddPaymentInfo  =
+    "add_payment_info";
 
 /// E-Commerce Add To Cart event. This event signifies that an item(s) was
 /// added to a cart for purchase. Add this event to a funnel with @c
@@ -50,7 +54,7 @@ static const char *const kEventAddPaymentInfo = "add_payment_info";
 ///  <li>@c kParameterItems (NSArray) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventAddToCart = "add_to_cart";
+static const char*const kEventAddToCart  = "add_to_cart";
 
 /// E-Commerce Add To Wishlist event. This event signifies that an item
 /// was added to a wishlist. Use this event to identify popular gift
@@ -63,14 +67,31 @@ static const char *const kEventAddToCart = "add_to_cart";
 ///  <li>@c kParameterItems (NSArray) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventAddToWishlist = "add_to_wishlist";
+static const char*const kEventAddToWishlist  =
+    "add_to_wishlist";
+
+/// Ad Impression event. This event signifies when a user sees an ad
+/// impression. Note: If you supply the @c kParameterValue parameter, you
+/// must also supply the @c kParameterCurrency parameter so that revenue
+/// metrics can be computed accurately. Params:
+///
+/// <ul>
+///  <li>@c kParameterAdPlatform (string) (optional)</li>
+///  <li>@c kParameterAdFormat (string) (optional)</li>
+///  <li>@c kParameterAdSource (string) (optional)</li>
+///  <li>@c kParameterAdUnitName (string) (optional)</li>
+///  <li>@c kParameterCurrency (string) (optional)</li>
+///  <li>@c kParameterValue (double) (optional)</li>
+/// </ul>
+static const char*const kEventAdImpression  =
+    "ad_impression";
 
 /// App Open event. By logging this event when an App becomes active,
 /// developers can understand how often users leave and return during the
 /// course of a Session. Although Sessions are automatically reported,
 /// this event can provide further clarification around the continuous
 /// engagement of app-users.
-static const char *const kEventAppOpen = "app_open";
+static const char*const kEventAppOpen  = "app_open";
 
 /// E-Commerce Begin Checkout event. This event signifies that a user has
 /// begun the process of checking out. Add this event to a funnel with
@@ -85,7 +106,8 @@ static const char *const kEventAppOpen = "app_open";
 ///  <li>@c kParameterItems (NSArray) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventBeginCheckout = "begin_checkout";
+static const char*const kEventBeginCheckout  =
+    "begin_checkout";
 
 /// Campaign Detail event. Log this event to supply the referral details
 /// of a re-engagement campaign. Note: you must supply at least one of the
@@ -101,7 +123,8 @@ static const char *const kEventBeginCheckout = "begin_checkout";
 ///  <li>@c kParameterAdNetworkClickID (string) (optional)</li>
 ///  <li>@c kParameterCP1 (string) (optional)</li>
 /// </ul>
-static const char *const kEventCampaignDetails = "campaign_details";
+static const char*const kEventCampaignDetails  =
+    "campaign_details";
 
 /// Checkout progress. Params:
 ///
@@ -110,7 +133,8 @@ static const char *const kEventCampaignDetails = "campaign_details";
 ///    <li>@c kParameterCheckoutOption (string) (optional)</li>
 /// </ul>
 /// <b>This constant has been deprecated.</b>
-static const char *const kEventCheckoutProgress = "checkout_progress";
+static const char*const kEventCheckoutProgress  =
+    "checkout_progress";
 
 /// Earn Virtual Currency event. This event tracks the awarding of virtual
 /// currency in your app. Log this along with @c
@@ -121,7 +145,8 @@ static const char *const kEventCheckoutProgress = "checkout_progress";
 ///  <li>@c kParameterVirtualCurrencyName (string)</li>
 ///  <li>@c kParameterValue (signed 64-bit integer or double)</li>
 /// </ul>
-static const char *const kEventEarnVirtualCurrency = "earn_virtual_currency";
+static const char*const kEventEarnVirtualCurrency
+     = "earn_virtual_currency";
 
 /// E-Commerce Purchase event. This event signifies that an item was
 /// purchased by a user. Note: This is different from the in-app purchase
@@ -151,7 +176,8 @@ static const char *const kEventEarnVirtualCurrency = "earn_virtual_currency";
 ///  <li>@c kParameterTravelClass (string) (optional) for travel bookings</li>
 /// </ul>
 /// <b>This constant has been deprecated. Use @c kEventPurchase constant instead.</b>
-static const char *const kEventEcommercePurchase = "ecommerce_purchase";
+static const char*const kEventEcommercePurchase  =
+    "ecommerce_purchase";
 
 /// Generate Lead event. Log this event when a lead has been generated in
 /// the app to understand the efficacy of your install and re-engagement
@@ -163,7 +189,8 @@ static const char *const kEventEcommercePurchase = "ecommerce_purchase";
 ///  <li>@c kParameterCurrency (string) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventGenerateLead = "generate_lead";
+static const char*const kEventGenerateLead  =
+    "generate_lead";
 
 /// Join Group event. Log this event when a user joins a group such as a
 /// guild, team or family. Use this event to analyze how popular certain
@@ -172,7 +199,7 @@ static const char *const kEventGenerateLead = "generate_lead";
 /// <ul>
 ///  <li>@c kParameterGroupID (string)</li>
 /// </ul>
-static const char *const kEventJoinGroup = "join_group";
+static const char*const kEventJoinGroup  = "join_group";
 
 /// Level End event. Log this event when the user finishes a level.
 /// Params:
@@ -181,7 +208,7 @@ static const char *const kEventJoinGroup = "join_group";
 ///  <li>@c kParameterLevelName (string)</li>
 ///  <li>@c kParameterSuccess (string)</li>
 /// </ul>
-static const char *const kEventLevelEnd = "level_end";
+static const char*const kEventLevelEnd  = "level_end";
 
 /// Level Start event. Log this event when the user starts a new level.
 /// Params:
@@ -189,7 +216,7 @@ static const char *const kEventLevelEnd = "level_end";
 /// <ul>
 ///  <li>@c kParameterLevelName (string)</li>
 /// </ul>
-static const char *const kEventLevelStart = "level_start";
+static const char*const kEventLevelStart  = "level_start";
 
 /// Level Up event. This event signifies that a player has leveled up in
 /// your gaming app. It can help you gauge the level distribution of your
@@ -200,11 +227,11 @@ static const char *const kEventLevelStart = "level_start";
 ///  <li>@c kParameterLevel (signed 64-bit integer)</li>
 ///  <li>@c kParameterCharacter (string) (optional)</li>
 /// </ul>
-static const char *const kEventLevelUp = "level_up";
+static const char*const kEventLevelUp  = "level_up";
 
 /// Login event. Apps with a login feature can report this event to
 /// signify that a user has logged in.
-static const char *const kEventLogin = "login";
+static const char*const kEventLogin  = "login";
 
 /// Post Score event. Log this event when the user posts a score in your
 /// gaming app. This event can help you understand how users are actually
@@ -216,7 +243,7 @@ static const char *const kEventLogin = "login";
 ///  <li>@c kParameterLevel (signed 64-bit integer) (optional)</li>
 ///  <li>@c kParameterCharacter (string) (optional)</li>
 /// </ul>
-static const char *const kEventPostScore = "post_score";
+static const char*const kEventPostScore  = "post_score";
 
 /// Present Offer event. This event signifies that the app has presented a
 /// purchase offer to a user. Add this event to a funnel with the
@@ -236,7 +263,8 @@ static const char *const kEventPostScore = "post_score";
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
 /// <b>This constant has been deprecated. Use @c kEventViewPromotion constant instead.</b>
-static const char *const kEventPresentOffer = "present_offer";
+static const char*const kEventPresentOffer  =
+    "present_offer";
 
 /// E-Commerce Purchase Refund event. This event signifies that an item
 /// purchase was refunded. Note: If you supply the @c kParameterValue
@@ -249,7 +277,8 @@ static const char *const kEventPresentOffer = "present_offer";
 ///  <li>@c kParameterTransactionID (string) (optional)</li>
 /// </ul>
 /// <b>This constant has been deprecated. Use @c kEventRefund constant instead.</b>
-static const char *const kEventPurchaseRefund = "purchase_refund";
+static const char*const kEventPurchaseRefund  =
+    "purchase_refund";
 
 /// E-Commerce Remove from Cart event. This event signifies that an
 /// item(s) was removed from a cart. Note: If you supply the @c
@@ -262,7 +291,8 @@ static const char *const kEventPurchaseRefund = "purchase_refund";
 ///  <li>@c kParameterItems (NSArray) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventRemoveFromCart = "remove_from_cart";
+static const char*const kEventRemoveFromCart  =
+    "remove_from_cart";
 
 /// Screen View event. This event signifies a screen view. Use this when a
 /// screen transition occurs. This event can be logged irrespective of
@@ -272,7 +302,7 @@ static const char *const kEventRemoveFromCart = "remove_from_cart";
 ///  <li>@c kParameterScreenClass (string) (optional)</li>
 ///  <li>@c kParameterScreenName (string) (optional)</li>
 /// </ul>
-static const char *const kEventScreenView = "screen_view";
+static const char*const kEventScreenView  = "screen_view";
 
 /// Search event. Apps that support search features can use this event to
 /// contextualize search operations by supplying the appropriate,
@@ -293,7 +323,7 @@ static const char *const kEventScreenView = "screen_view";
 ///  <li>@c kParameterDestination (string) (optional)</li>
 ///  <li>@c kParameterTravelClass (string) (optional) for travel bookings</li>
 /// </ul>
-static const char *const kEventSearch = "search";
+static const char*const kEventSearch  = "search";
 
 /// Select Content event. This general purpose event signifies that a user
 /// has selected some content of a certain type in an app. The content can
@@ -304,7 +334,8 @@ static const char *const kEventSearch = "search";
 ///  <li>@c kParameterContentType (string)</li>
 ///  <li>@c kParameterItemID (string)</li>
 /// </ul>
-static const char *const kEventSelectContent = "select_content";
+static const char*const kEventSelectContent  =
+    "select_content";
 
 /// Set checkout option. Params:
 ///
@@ -313,7 +344,8 @@ static const char *const kEventSelectContent = "select_content";
 ///    <li>@c kParameterCheckoutOption (string)</li>
 /// </ul>
 /// <b>This constant has been deprecated.</b>
-static const char *const kEventSetCheckoutOption = "set_checkout_option";
+static const char*const kEventSetCheckoutOption  =
+    "set_checkout_option";
 
 /// Share event. Apps with social features can log the Share event to
 /// identify the most viral content. Params:
@@ -322,7 +354,7 @@ static const char *const kEventSetCheckoutOption = "set_checkout_option";
 ///  <li>@c kParameterContentType (string)</li>
 ///  <li>@c kParameterItemID (string)</li>
 /// </ul>
-static const char *const kEventShare = "share";
+static const char*const kEventShare  = "share";
 
 /// Sign Up event. This event indicates that a user has signed up for an
 /// account in your app. The parameter signifies the method by which the
@@ -332,7 +364,7 @@ static const char *const kEventShare = "share";
 /// <ul>
 ///  <li>@c kParameterSignUpMethod (string)</li>
 /// </ul>
-static const char *const kEventSignUp = "sign_up";
+static const char*const kEventSignUp  = "sign_up";
 
 /// Spend Virtual Currency event. This event tracks the sale of virtual
 /// goods in your app and can help you identify which virtual goods are
@@ -343,19 +375,22 @@ static const char *const kEventSignUp = "sign_up";
 ///  <li>@c kParameterVirtualCurrencyName (string)</li>
 ///  <li>@c kParameterValue (signed 64-bit integer or double)</li>
 /// </ul>
-static const char *const kEventSpendVirtualCurrency = "spend_virtual_currency";
+static const char*const kEventSpendVirtualCurrency
+     = "spend_virtual_currency";
 
 /// Tutorial Begin event. This event signifies the start of the
 /// on-boarding process in your app. Use this in a funnel with
 /// kEventTutorialComplete to understand how many users complete this
 /// process and move on to the full app experience.
-static const char *const kEventTutorialBegin = "tutorial_begin";
+static const char*const kEventTutorialBegin  =
+    "tutorial_begin";
 
 /// Tutorial End event. Use this event to signify the user's completion of
 /// your app's on-boarding process. Add this to a funnel with
 /// kEventTutorialBegin to gauge the completion rate of your on-boarding
 /// process.
-static const char *const kEventTutorialComplete = "tutorial_complete";
+static const char*const kEventTutorialComplete  =
+    "tutorial_complete";
 
 /// Unlock Achievement event. Log this event when the user has unlocked an
 /// achievement in your game. Since achievements generally represent the
@@ -365,7 +400,8 @@ static const char *const kEventTutorialComplete = "tutorial_complete";
 /// <ul>
 ///  <li>@c kParameterAchievementID (string)</li>
 /// </ul>
-static const char *const kEventUnlockAchievement = "unlock_achievement";
+static const char*const kEventUnlockAchievement  =
+    "unlock_achievement";
 
 /// View Item event. This event signifies that a user has viewed an item.
 /// Use the appropriate parameters to contextualize the event. Use this
@@ -379,7 +415,7 @@ static const char *const kEventUnlockAchievement = "unlock_achievement";
 ///  <li>@c kParameterItems (NSArray) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventViewItem = "view_item";
+static const char*const kEventViewItem  = "view_item";
 
 /// View Item List event. Log this event when a user sees a list of items
 /// or offerings. Params:
@@ -389,7 +425,8 @@ static const char *const kEventViewItem = "view_item";
 ///  <li>@c kParameterItemListID (string) (optional)</li>
 ///  <li>@c kParameterItemListName (string) (optional)</li>
 /// </ul>
-static const char *const kEventViewItemList = "view_item_list";
+static const char*const kEventViewItemList  =
+    "view_item_list";
 
 /// View Search Results event. Log this event when the user has been
 /// presented with the results of a search. Params:
@@ -397,7 +434,8 @@ static const char *const kEventViewItemList = "view_item_list";
 /// <ul>
 ///  <li>@c kParameterSearchTerm (string)</li>
 /// </ul>
-static const char *const kEventViewSearchResults = "view_search_results";
+static const char*const kEventViewSearchResults  =
+    "view_search_results";
 
 /// Add Shipping Info event. This event signifies that a user has
 /// submitted their shipping information. Note: If you supply the @c
@@ -412,7 +450,8 @@ static const char *const kEventViewSearchResults = "view_search_results";
 ///  <li>@c kParameterShippingTier (string) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventAddShippingInfo = "add_shipping_info";
+static const char*const kEventAddShippingInfo  =
+    "add_shipping_info";
 
 /// E-Commerce Purchase event. This event signifies that an item(s) was
 /// purchased by a user. Note: This is different from the in-app purchase
@@ -431,7 +470,7 @@ static const char *const kEventAddShippingInfo = "add_shipping_info";
 ///  <li>@c kParameterTransactionID (string) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventPurchase = "purchase";
+static const char*const kEventPurchase  = "purchase";
 
 /// E-Commerce Refund event. This event signifies that a refund was
 /// issued. Note: If you supply the @c kParameterValue parameter, you must
@@ -448,7 +487,7 @@ static const char *const kEventPurchase = "purchase";
 ///  <li>@c kParameterTransactionID (string) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventRefund = "refund";
+static const char*const kEventRefund  = "refund";
 
 /// Select Item event. This event signifies that an item was selected by a
 /// user from a list. Use the appropriate parameters to contextualize the
@@ -460,7 +499,7 @@ static const char *const kEventRefund = "refund";
 ///  <li>@c kParameterItemListID (string) (optional)</li>
 ///  <li>@c kParameterItemListName (string) (optional)</li>
 /// </ul>
-static const char *const kEventSelectItem = "select_item";
+static const char*const kEventSelectItem  = "select_item";
 
 /// Select promotion event. This event signifies that a user has selected
 /// a promotion offer. Use the appropriate parameters to contextualize the
@@ -474,7 +513,8 @@ static const char *const kEventSelectItem = "select_item";
 ///  <li>@c kParameterPromotionID (string) (optional)</li>
 ///  <li>@c kParameterPromotionName (string) (optional)</li>
 /// </ul>
-static const char *const kEventSelectPromotion = "select_promotion";
+static const char*const kEventSelectPromotion  =
+    "select_promotion";
 
 /// E-commerce View Cart event. This event signifies that a user has
 /// viewed their cart. Use this to analyze your purchase funnel. Note: If
@@ -487,7 +527,7 @@ static const char *const kEventSelectPromotion = "select_promotion";
 ///  <li>@c kParameterItems (NSArray) (optional)</li>
 ///  <li>@c kParameterValue (double) (optional)</li>
 /// </ul>
-static const char *const kEventViewCart = "view_cart";
+static const char*const kEventViewCart  = "view_cart";
 
 /// View Promotion event. This event signifies that a promotion was shown
 /// to a user. Add this event to a funnel with the @c kEventAddToCart and
@@ -501,10 +541,11 @@ static const char *const kEventViewCart = "view_cart";
 ///  <li>@c kParameterPromotionID (string) (optional)</li>
 ///  <li>@c kParameterPromotionName (string) (optional)</li>
 /// </ul>
-static const char *const kEventViewPromotion = "view_promotion";
+static const char*const kEventViewPromotion  =
+    "view_promotion";
 /// @}
 
-} // namespace analytics
-} // namespace firebase
+}  // namespace analytics
+}  // namespace firebase
 
-#endif // FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_EVENT_NAMES_H_
+#endif  // FIREBASE_ANALYTICS_CLIENT_CPP_INCLUDE_FIREBASE_ANALYTICS_EVENT_NAMES_H_

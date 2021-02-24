@@ -28,6 +28,9 @@
 #include "firebase/internal/common.h"
 
 /// @brief Namespace that encompasses all Firebase APIs.
+#if !defined(FIREBASE_NAMESPACE)
+#define FIREBASE_NAMESPACE firebase
+#endif
 
 namespace firebase {
 namespace internal {
@@ -35,8 +38,13 @@ class VariantInternal;
 }
 }
 
-namespace firebase {
+namespace FIREBASE_NAMESPACE {
 
+// <SWIG>
+// SWIG uses the Variant class as a readonly object, and so ignores most of the
+// functions. In order to keep things clean, functions that should be exposed
+// are explicitly listed in app.SWIG, and everything else is ignored.
+// </SWIG>
 
 /// Variant data type used by Firebase libraries.
 class Variant {
@@ -71,6 +79,11 @@ class Variant {
     // Note: If you add new types update enum InternalType;
   };
 
+// <SWIG>
+// Because of the VariantVariantMap C# class, we need to hide the constructors
+// explicitly, as the SWIG ignore does not seem to work with that macro.
+// </SWIG>
+#ifndef SWIG
   /// @brief Construct a null Variant.
   ///
   /// The Variant constructed will be of type Null.
@@ -238,6 +251,7 @@ class Variant {
   Variant& operator=(Variant&& other) noexcept;
 
 #endif  // defined(FIREBASE_USE_MOVE_OPERATORS) || defined(DOXYGEN)
+#endif  // SWIG
 
   /// Destructor. Frees the memory that this Variant owns.
   ~Variant() { Clear(); }
@@ -1183,6 +1197,6 @@ inline void Variant::set_value_t<char*>(char* value) {
 }
 
 // NOLINTNEXTLINE - allow namespace overridden
-}  // namespace firebase
+}  // namespace FIREBASE_NAMESPACE
 
 #endif  // FIREBASE_APP_CLIENT_CPP_SRC_INCLUDE_FIREBASE_VARIANT_H_

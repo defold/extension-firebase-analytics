@@ -26,7 +26,9 @@
 #include "firebase/internal/common.h"
 #include "firebase/variant.h"
 
+#if !defined(DOXYGEN) && !defined(SWIG)
 FIREBASE_APP_REGISTER_CALLBACKS_REFERENCE(analytics)
+#endif  // !defined(DOXYGEN) && !defined(SWIG)
 
 /// @brief Namespace that encompasses all Firebase APIs.
 namespace firebase {
@@ -42,6 +44,19 @@ namespace analytics {
 /// Parameters supply information that contextualize events (see @ref LogEvent).
 /// You can associate up to 25 unique Parameters with each event type (name).
 ///
+/// <SWIG>
+/// @if swig_examples
+/// Common event types are provided as static properties of the
+/// FirebaseAnalytics class (e.g FirebaseAnalytics.EventPostScore) where
+/// parameters of these events are also provided in this FirebaseAnalytics
+/// class (e.g FirebaseAnalytics.ParameterScore).
+///
+/// You are not limited to the set of event types and parameter names
+/// suggested in FirebaseAnalytics class properties.  Additional Parameters can
+/// be supplied for suggested event types or custom Parameters for custom event
+/// types.
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// Common event types (names) are suggested in @ref event_names
 /// (%event_names.h) with parameters of common event types defined in
@@ -60,6 +75,13 @@ namespace analytics {
 ///
 /// Parameter string values can be up to 100 characters long.
 ///
+/// <SWIG>
+/// @if swig_examples
+/// An array of Parameter class instances can be passed to LogEvent in order
+/// to associate parameters's of an event with values where each value can be
+/// a double, 64-bit integer or string.
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// An array of this structure is passed to LogEvent in order to associate
 /// parameter's of an event (Parameter::name) with values (Parameter::value)
@@ -69,6 +91,23 @@ namespace analytics {
 /// For example, a game may log an achievement event along with the
 /// character the player is using and the level they're currently on:
 ///
+/// <SWIG>
+/// @if swig_examples
+/// @code{.cs}
+/// using Firebase.Analytics;
+///
+/// int currentLevel = GetCurrentLevel();
+/// Parameter[] AchievementParameters = {
+///   new Parameter(FirebaseAnalytics.ParameterAchievementID,
+///                 "ultimate_wizard"),
+///   new Parameter(FirebaseAnalytics.ParameterCharacter, "mysterion"),
+///   new Parameter(FirebaseAnalytics.ParameterLevel, currentLevel),
+/// };
+/// FirebaseAnalytics.LogEvent(FirebaseAnalytics.EventLevelUp,
+///                            AchievementParameters);
+/// @endcode
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// @code{.cpp}
 /// using namespace firebase::analytics;
@@ -85,11 +124,17 @@ namespace analytics {
 /// @endif
 ///
 struct Parameter {
+#ifndef SWIG
   /// Construct an empty parameter.
   ///
   /// This is provided to allow initialization after construction.
   Parameter() : name(nullptr) {}
+#endif  // !SWIG
 
+// <SWIG>
+// We don't want to pull in Variant in the C# interface.
+// </SWIG>
+#ifndef SWIG
   /// Construct a parameter.
   ///
   /// @param parameter_name Name of the parameter (see Parameter::name).
@@ -99,6 +144,7 @@ struct Parameter {
       : name(parameter_name) {
     value = parameter_value;
   }
+#endif  // !SWIG
 
   /// Construct a 64-bit integer parameter.
   ///
@@ -106,6 +152,13 @@ struct Parameter {
   /// @if cpp_examples
   /// (see Parameter::name).
   /// @endif
+  /// <SWIG>
+  /// @if swig_examples
+  /// Parameter names must be a combination of letters and digits
+  /// (matching the regular expression [a-zA-Z0-9]) between 1 and 40 characters
+  /// long starting with a letter [a-zA-Z] character.
+  /// @endif
+  /// </SWIG>
   /// @param parameter_value Integer value for the parameter.
   Parameter(const char* parameter_name, int parameter_value)
       : name(parameter_name) {
@@ -118,6 +171,13 @@ struct Parameter {
   /// @if cpp_examples
   /// (see Parameter::name).
   /// @endif
+  /// <SWIG>
+  /// @if swig_examples
+  /// Parameter names must be a combination of letters and digits
+  /// (matching the regular expression [a-zA-Z0-9]) between 1 and 40 characters
+  /// long starting with a letter [a-zA-Z] character.
+  /// @endif
+  /// </SWIG>
   /// @param parameter_value Integer value for the parameter.
   Parameter(const char* parameter_name, int64_t parameter_value)
       : name(parameter_name) {
@@ -130,6 +190,13 @@ struct Parameter {
   /// @if cpp_examples
   /// (see Parameter::name).
   /// @endif
+  /// <SWIG>
+  /// @if swig_examples
+  /// Parameter names must be a combination of letters and digits
+  /// (matching the regular expression [a-zA-Z0-9]) between 1 and 40 characters
+  /// long starting with a letter [a-zA-Z] character.
+  /// @endif
+  /// </SWIG>
   /// @param parameter_value Floating point value for the parameter.
   Parameter(const char* parameter_name, double parameter_value)
       : name(parameter_name) {
@@ -142,6 +209,13 @@ struct Parameter {
   /// @if cpp_examples
   /// (see Parameter::name).
   /// @endif
+  /// <SWIG>
+  /// @if swig_examples
+  /// Parameter names must be a combination of letters and digits
+  /// (matching the regular expression [a-zA-Z0-9]) between 1 and 40 characters
+  /// long starting with a letter [a-zA-Z] character.
+  /// @endif
+  /// </SWIG>
   /// @param parameter_value String value for the parameter, can be up to 100
   /// characters long.
   Parameter(const char* parameter_name, const char* parameter_value)
@@ -149,6 +223,14 @@ struct Parameter {
     value = parameter_value;
   }
 
+#ifndef SWIG
+  // <SWIG>
+  // Skipping implementation values because the C# API members are
+  // immutable, and there's no other need to read these values in
+  // C#. The class just needs to be passed to the C++ layers.
+  // This also avoids having to solve the nested union, which is
+  // unsupported in swig.
+  // </SWIG>
 
   /// @brief Name of the parameter.
   ///
@@ -162,6 +244,7 @@ struct Parameter {
   /// See firebase::Variant for usage information.
   /// @note String values can be up to 100 characters long.
   Variant value;
+#endif  // SWIG
 };
 
 /// @brief Initialize the Analytics API.
@@ -192,6 +275,12 @@ void SetAnalyticsCollectionEnabled(bool enabled);
 /// @param[in] name Name of the event to log. Should contain 1 to 40
 /// alphanumeric characters or underscores. The name must start with an
 /// alphabetic character. Some event names are reserved.
+/// <SWIG>
+/// @if swig_examples
+/// See the FirebaseAnalytics.Event properties for the list of reserved event
+/// names.
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// See @ref event_names (%event_names.h) for the list of reserved event names.
 /// @endif
@@ -202,6 +291,11 @@ void SetAnalyticsCollectionEnabled(bool enabled);
 /// For more information, see @ref Parameter.
 /// @param[in] parameter_value Value of the parameter to log.
 ///
+/// <SWIG>
+/// @if swig_examples
+/// @see LogEvent(string, Parameter[])
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// @see LogEvent(const char*, const Parameter*, size_t)
 /// @endif
@@ -213,6 +307,12 @@ void LogEvent(const char* name, const char* parameter_name,
 /// @param[in] name Name of the event to log. Should contain 1 to 40
 /// alphanumeric characters or underscores. The name must start with an
 /// alphabetic character. Some event names are reserved.
+/// <SWIG>
+/// @if swig_examples
+/// See the FirebaseAnalytics.Event properties for the list of reserved event
+/// names.
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// See @ref event_names (%event_names.h) for the list of reserved event names.
 /// @endif
@@ -223,6 +323,11 @@ void LogEvent(const char* name, const char* parameter_name,
 /// For more information, see @ref Parameter.
 /// @param[in] parameter_value Value of the parameter to log.
 ///
+/// <SWIG>
+/// @if swig_examples
+/// @see LogEvent(string, Parameter[])
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// @see LogEvent(const char*, const Parameter*, size_t)
 /// @endif
@@ -234,6 +339,12 @@ void LogEvent(const char* name, const char* parameter_name,
 /// @param[in] name Name of the event to log. Should contain 1 to 40
 /// alphanumeric characters or underscores. The name must start with an
 /// alphabetic character. Some event names are reserved.
+/// <SWIG>
+/// @if swig_examples
+/// See the FirebaseAnalytics.Event properties for the list of reserved event
+/// names.
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// See @ref event_names (%event_names.h) for the list of reserved event names.
 /// @endif
@@ -244,6 +355,11 @@ void LogEvent(const char* name, const char* parameter_name,
 /// For more information, see @ref Parameter.
 /// @param[in] parameter_value Value of the parameter to log.
 ///
+/// <SWIG>
+/// @if swig_examples
+/// @see LogEvent(string, Parameter[])
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// @see LogEvent(const char*, const Parameter*, size_t)
 /// @endif
@@ -256,6 +372,12 @@ void LogEvent(const char* name, const char* parameter_name,
 /// @param[in] name Name of the event to log. Should contain 1 to 40
 /// alphanumeric characters or underscores. The name must start with an
 /// alphabetic character. Some event names are reserved.
+/// <SWIG>
+/// @if swig_examples
+/// See the FirebaseAnalytics.Event properties for the list of reserved event
+/// names.
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// See @ref event_names (%event_names.h) for the list of reserved event names.
 /// @endif
@@ -266,6 +388,11 @@ void LogEvent(const char* name, const char* parameter_name,
 /// For more information, see @ref Parameter.
 /// @param[in] parameter_value Value of the parameter to log.
 ///
+/// <SWIG>
+/// @if swig_examples
+/// @see LogEvent(string, Parameter[])
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// @see LogEvent(const char*, const Parameter*, size_t)
 /// @endif
@@ -277,6 +404,12 @@ void LogEvent(const char* name, const char* parameter_name,
 /// @param[in] name Name of the event to log. Should contain 1 to 40
 /// alphanumeric characters or underscores. The name must start with an
 /// alphabetic character. Some event names are reserved.
+/// <SWIG>
+/// @if swig_examples
+/// See the FirebaseAnalytics.Event properties for the list of reserved event
+/// names.
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// See @ref event_names (%event_names.h) for the list of reserved event names.
 /// @endif
@@ -284,12 +417,22 @@ void LogEvent(const char* name, const char* parameter_name,
 /// names are case-sensitive and that logging two events whose names differ
 /// only in case will result in two distinct events.
 ///
+/// <SWIG>
+/// @if swig_examples
+/// @see LogEvent(string, Parameter[])
+/// @endif
+/// </SWIG>
 /// @if cpp_examples
 /// @see LogEvent(const char*, const Parameter*, size_t)
 /// @endif
 void LogEvent(const char* name);
 
 // clang-format off
+#ifdef SWIG
+// Modify the following overload with unsafe, so that we can do some pinning
+// in the C# code.
+%csmethodmodifiers LogEvent "public unsafe"
+#endif  // SWIG
 
 /// @brief Log an event with associated parameters.
 ///
@@ -345,17 +488,6 @@ void SetUserProperty(const char* name, const char* property);
 /// device.  The user ID must be non-empty and no more than 256 characters long.
 /// Setting user_id to NULL or nullptr removes the user ID.
 void SetUserId(const char* user_id);
-
-/// @brief Sets the minimum engagement time required before starting a session.
-///
-/// @note The default value is 10000 (10 seconds).
-///
-/// @param milliseconds The minimum engagement time required to start a new
-/// session.
-///
-/// @deprecated SetMinimumSessionDuration is deprecated and no longer
-/// functional.
-FIREBASE_DEPRECATED void SetMinimumSessionDuration(int64_t milliseconds);
 
 /// @brief Sets the duration of inactivity that terminates the current session.
 ///
