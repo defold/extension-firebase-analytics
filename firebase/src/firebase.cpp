@@ -3,6 +3,7 @@
 #define DLIB_LOG_DOMAIN LIB_NAME
 #include <dmsdk/dlib/log.h>
 #include "luautils.h"
+#include "platform_utils.h"
 #include <dmsdk/sdk.h>
 
 #if defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
@@ -44,6 +45,10 @@ static int Firebase_Init(lua_State* L) {
 	dmLogInfo("Firebase_Init");
 	int top = lua_gettop(L);
 
+#if defined (DM_DEBUG)
+	// do some stuff for debug purposes
+	FIR_PlatformDebugInit();
+#endif
 	#if defined(DM_PLATFORM_ANDROID)
 	dmLogInfo("Creating app");
 	firebase_app_ = App::Create(GetJNIEnv(), dmGraphics::GetNativeAndroidActivity());
@@ -246,14 +251,6 @@ static int Firebase_Analytics_SetUserId(lua_State* L) {
 	return 0;
 }
 
-static int Firebase_Analytics_SetMinimumSessionDuration(lua_State* L) {
-	int top = lua_gettop(L);
-	int duration = luaL_checkint(L, 1);
-	SetMinimumSessionDuration(duration);
-	assert(top == lua_gettop(L));
-	return 0;
-}
-
 
 static const luaL_reg Module_methods[] = {
 	{"init", Firebase_Init},
@@ -277,7 +274,6 @@ static void LuaInit(lua_State* L) {
 	lua_pushtablestringfunction(L, "set_screen", Firebase_Analytics_SetScreen);
 	lua_pushtablestringfunction(L, "set_user_property", Firebase_Analytics_SetUserProperty);
 	lua_pushtablestringfunction(L, "set_user_id", Firebase_Analytics_SetUserId);
-	lua_pushtablestringfunction(L, "set_minimum_session_duration", Firebase_Analytics_SetMinimumSessionDuration);
 	lua_settable(L, -3);
 
 	lua_pop(L, 1);

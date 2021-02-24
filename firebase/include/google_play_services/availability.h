@@ -22,8 +22,11 @@
 #if !defined(SWIG_BUILD)
 #include <jni.h>
 #endif
-#include "firebase/future.h"
+#include "app/src/include/firebase/future.h"
 
+#if !defined(FIREBASE_NAMESPACE)
+#define FIREBASE_NAMESPACE firebase
+#endif
 
 /// @brief Google Play services APIs included with the Firebase C++ SDK.
 /// These APIs are Android-specific.
@@ -74,7 +77,7 @@ Availability CheckAvailability(JNIEnv* env, jobject activity);
 /// services are now available, or nonzero if still unavailable.
 ///
 /// @note This function is Android-specific.
-::firebase::Future<void> MakeAvailable(JNIEnv* env, jobject activity);
+::FIREBASE_NAMESPACE::Future<void> MakeAvailable(JNIEnv* env, jobject activity);
 
 /// @brief Get the future result from the most recent call to MakeAvailable().
 ///
@@ -85,7 +88,7 @@ Availability CheckAvailability(JNIEnv* env, jobject activity);
 /// @see MakeAvailable()
 ///
 /// @note This function is Android-specific.
-::firebase::Future<void> MakeAvailableLastResult();
+::FIREBASE_NAMESPACE::Future<void> MakeAvailableLastResult();
 
 }  // namespace google_play_services
 

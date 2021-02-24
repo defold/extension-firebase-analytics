@@ -34,8 +34,10 @@ class HttpsCallableReferenceInternal;
 }  // namespace internal
 /// @endcond
 
+#ifndef SWIG
 /// Represents a reference to a Cloud Functions object.
 /// Developers can call HTTPS Callable Functions.
+#endif  // SWIG
 class HttpsCallableReference {
  public:
   /// @brief Default constructor. This creates an invalid
