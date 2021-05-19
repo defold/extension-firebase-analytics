@@ -1,11 +1,10 @@
 framework module GoogleAppMeasurement {
-  export *
-  module * { export * }
+umbrella header "GoogleAppMeasurement-umbrella.h"
+export *
+module * { export * }
+  link framework "Security"
+  link framework "SystemConfiguration"
+  link "c++"
   link "sqlite3"
   link "z"
-  link framework "CoreData"
-  link framework "Security"
-  link framework "StoreKit"
-  link framework "SystemConfiguration"
-  link framework "UIKit"
 }
