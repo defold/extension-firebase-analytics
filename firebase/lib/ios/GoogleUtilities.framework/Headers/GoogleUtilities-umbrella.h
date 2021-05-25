@@ -18,6 +18,8 @@
 #import "GULKeychainStorage.h"
 #import "GULKeychainUtils.h"
 #import "GULSecureCoding.h"
+#import "GULURLSessionDataResponse.h"
+#import "NSURLSession+GULPromises.h"
 #import "GULObjectSwizzler.h"
 #import "GULSwizzledObject.h"
 #import "GULLogger.h"

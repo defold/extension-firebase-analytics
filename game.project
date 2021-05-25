@@ -1,9 +1,9 @@
 [project]
 title = extension-firebase-analytics
-dependencies = https://github.com/britzl/gooey/archive/6.5.0.zip,https://github.com/britzl/monarch/archive/2.13.0.zip
-
-custom_resources =
+custom_resources = 
 bundle_resources = /bundle
+dependencies#0 = https://github.com/britzl/gooey/archive/6.5.0.zip
+dependencies#1 = https://github.com/britzl/monarch/archive/2.13.0.zip
 
 [bootstrap]
 main_collection = /example/analytics.collectionc
@@ -33,3 +33,4 @@ bundle_identifier = com.defold.firebase
 
 [native_extension]
 app_manifest = /generated.appmanifest
+

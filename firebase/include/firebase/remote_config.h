@@ -34,11 +34,13 @@ FIREBASE_APP_REGISTER_CALLBACKS_REFERENCE(remote_config)
 /// @brief Namespace that encompasses all Firebase APIs.
 namespace firebase {
 
+#ifndef SWIG
 /// @brief Firebase Remote Config API.
 ///
 /// Firebase Remote Config is a cloud service that lets you change the
 /// appearance and behavior of your app without requiring users to download an
 /// app update.
+#endif  // SWIG
 namespace remote_config {
 
 /// @brief Describes the most recent fetch request status.
@@ -115,8 +117,8 @@ enum ConfigSetting {
 };
 
 /// @brief The default cache expiration used by Fetch(), equal to 12 hours,
-/// in seconds.
-static const uint64_t kDefaultCacheExpiration = 60 * 60 * 12;
+/// in milliseconds.
+static const uint64_t kDefaultCacheExpiration = 60 * 60 * 12 * 1000;
 
 /// @brief The default timeout used by Fetch(), equal to 30 seconds,
 /// in milliseconds.
@@ -241,7 +243,7 @@ FIREBASE_DEPRECATED void SetDefaults(int defaults_resource_id);
 /// Use firebase::remote_config::RemoteConfig::GetInstance() to obtain an
 /// instance and call SetDefaults on that instance.
 FIREBASE_DEPRECATED void SetDefaults(const ConfigKeyValueVariant* defaults,
-                 size_t number_of_defaults);
+                                     size_t number_of_defaults);
 
 #endif  // SWIG
 
@@ -435,8 +437,8 @@ FIREBASE_DEPRECATED std::vector<unsigned char> GetData(const char* key,
 /// @deprecated GetKeysByPrefix is deprecated and will be removed in future
 /// release. Use firebase::remote_config::RemoteConfig::GetInstance() to obtain
 /// an instance and call GetKeysByPrefix on that instance.
-FIREBASE_DEPRECATED std::vector<std::string> GetKeysByPrefix(const char*
-                                                             prefix);
+FIREBASE_DEPRECATED std::vector<std::string> GetKeysByPrefix(
+    const char* prefix);
 
 /// @brief Gets the set of all keys.
 ///
