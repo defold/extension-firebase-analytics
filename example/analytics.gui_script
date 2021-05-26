@@ -23,6 +23,9 @@ function init(self)
 	if firebase then
 		firebase.init()
 	end
+	if analytics then
+		analytics.init()
+	end
 	gui.animate(gui.get_node("pie"), "rotation.z", 360, gui.EASING_LINEAR, 2, 0, function() end, gui.PLAYBACK_LOOP_FORWARD)
 end
 

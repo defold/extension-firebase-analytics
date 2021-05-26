@@ -1,0 +1,106 @@
+- name: firebase.analytics
+  type: table
+  desc: Functions and constants for interacting with Firebase Analytics
+
+  members:
+  - name: analytics.log_string
+    type: function
+    desc: Log an event with one string parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent)
+
+    parameters:
+    - name: name
+      type: string
+      desc: Event name
+    - name: parameter_name
+      type: string
+      desc: Parameter name
+    - name: parameter_value
+      type: string
+      desc: Parameter value
+
+  - name: analytics.log_int
+    type: function
+    desc: Log an event with one integer parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_4)
+
+    parameters:
+    - name: name
+      type: string
+      desc: Event name
+    - name: parameter_name
+      type: string
+      desc: Parameter name
+    - name: parameter_value
+      type: number
+      desc: Parameter value
+
+  - name: analytics.log_number
+    type: function
+    desc: Log an event with one float parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_2)
+
+    parameters:
+    - name: name
+      type: string
+      desc: Event name
+    - name: parameter_name
+      type: string
+      desc: Parameter name
+    - name: parameter_value
+      type: number
+      desc: Parameter value
+
+  - name: analytics.log_table
+    type: function
+    desc: Log an event with table parameters. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_6)
+
+    parameters:
+    - name: name
+      type: string
+      desc: Event name
+    - name: parameters_table
+      type: table
+      desc: Table with parameters (key-value pairs)
+
+  - name: analytics.set_screen
+    type: function
+    desc: Sets the current screen name and screen class, which specifies the current visual context in your app. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setcurrentscreen)
+
+    parameters:
+    - name: screen_name
+      type: string
+      desc: Screen name
+    - name: screen_name
+      type: string
+      desc: Screen class
+
+  - name: analytics.set_user_id
+    type: function
+    desc: Sets the user ID property. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setuserid)
+
+    parameters:
+    - name: user_id
+      type: string
+      desc: User ID property
+
+  - name: analytics.set_user_property
+    type: function
+    desc: Set a user property to the given value. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setuserproperty)
+
+    parameters:
+    - name: name
+      type: string
+      desc: User property name
+    - name: property
+      type: string
+      desc: User property value
+
+  - name: analytics.reset
+    type: function
+    desc: Clears all analytics data for this app from the device and resets the app instance id. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#resetanalyticsdata)
+
+  - name: analytics.get_id
+    type: function
+    desc: Get the instance ID from the analytics service. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#getanalyticsinstanceid)
+
+    return:
+    - name: Instance ID
+      type: string

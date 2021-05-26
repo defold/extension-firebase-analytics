@@ -1,0 +1,35 @@
+name: "FirebaseAnalytics"
+
+platforms:
+  android:
+    context:
+        aaptExtraPackages: ['com.google.android.gms.common']
+
+  arm64-android:
+    context:
+        flags:      ["-std=c++11"]
+
+  armv7-android:
+    context:
+        flags:      ["-std=c++11"]
+
+  armv7-ios:
+    context:
+        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
+        flags:      ["-stdlib=libc++", "-std=c++11"]
+        linkFlags:  ["-ObjC"]
+        libs:       ["c++", "z", "sqlite3"]
+
+  arm64-ios:
+    context:
+        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
+        flags:      ["-stdlib=libc++", "-std=c++11"]
+        linkFlags:  ["-ObjC"]
+        libs:       ["c++", "z", "sqlite3"]
+
+  x86_64-ios:
+    context:
+        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
+        flags:      ["-stdlib=libc++", "-std=c++11"]
+        linkFlags:  ["-ObjC"]
+        libs:       ["c++", "z", "sqlite3"]
