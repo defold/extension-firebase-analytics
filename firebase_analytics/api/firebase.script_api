@@ -3,6 +3,15 @@
   desc: Functions and constants for interacting with Firebase Analytics
 
   members:
+  - name: analytics.init
+    type: function
+    desc: Initialise analytics
+
+    parameters:
+    - name: callback
+      type: function
+      desc: Function to invoke when initialised (self, ok, err)
+
   - name: analytics.log_string
     type: function
     desc: Log an event with one string parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent)
