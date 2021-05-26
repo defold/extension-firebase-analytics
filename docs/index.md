@@ -12,9 +12,9 @@ This extension allows you to interact with Firebase Analytics in a uniform way f
 To use this library in your Defold project, add the following URL to your `game.project` dependencies:
 
 * [https://github.com/defold/extension-firebase/archive/master.zip](https://github.com/defold/extension-firebase/archive/master.zip)
-* [https://github.com/defold/extension-firebase-remoteconfig/archive/master.zip](https://github.com/defold/extension-firebase-remoteconfig/archive/master.zip)
+* [https://github.com/defold/extension-firebase-analytics/archive/master.zip](https://github.com/defold/extension-firebase-analytics/archive/master.zip)
 
-We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-firebase-remoteconfig/releases).
+We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-firebase-analytics/releases).
 
 
 ## Setup
