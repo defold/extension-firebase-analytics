@@ -9,12 +9,11 @@ This extension allows you to interact with Firebase Analytics in a uniform way f
 
 
 ## Installation
-To use this library in your Defold project, add the following URL to your `game.project` dependencies:
+To use this library in your Defold project, add the following URLs to your `game.project` dependencies:
 
-* [https://github.com/defold/extension-firebase/archive/master.zip](https://github.com/defold/extension-firebase/archive/master.zip)
-* [https://github.com/defold/extension-firebase-analytics/archive/master.zip](https://github.com/defold/extension-firebase-analytics/archive/master.zip)
-
-We recommend using a link to a zip file of a [specific release](https://github.com/defold/extension-firebase-analytics/releases).
+| Firebase C++ SDK       | Dependencies |
+|------------------------|--------------|
+| Firebase C++ SDK 7.3.0 | [https://github.com/defold/extension-firebase/archive/refs/tags/1.1.2.zip](https://github.com/defold/extension-firebase/archive/master.zip)<br>[https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.0.0.zip](https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.0.0.zip) |
 
 
 ## Setup
