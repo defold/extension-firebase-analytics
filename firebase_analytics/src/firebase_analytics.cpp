@@ -41,41 +41,40 @@ static int FirebaseAnalytics_Analytics_InstanceId(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
 	g_FirebaseAnalytics_InstanceIdCallback = dmScript::CreateCallback(L, 1);
 
-	Future<std::string> future = analytics::GetAnalyticsInstanceId();
-	future.OnCompletion([](const Future< std::string >& completed_future) {
-			if (!dmScript::IsCallbackValid(g_FirebaseAnalytics_InstanceIdCallback))
-			{
-				dmLogWarning("Analytics InstanceId callback is not valid");
-				return;
-			}
+	analytics::GetAnalyticsInstanceId()
+	.OnCompletion([](const Future< std::string >& completed_future) {
+		if (!dmScript::IsCallbackValid(g_FirebaseAnalytics_InstanceIdCallback))
+		{
+			dmLogWarning("Analytics InstanceId callback is not valid");
+			return;
+		}
 
-			if (dmScript::SetupCallback(g_FirebaseAnalytics_InstanceIdCallback))
-			{
-				lua_State* L = dmScript::GetCallbackLuaContext(g_FirebaseAnalytics_InstanceIdCallback);
+		if (dmScript::SetupCallback(g_FirebaseAnalytics_InstanceIdCallback))
+		{
+			lua_State* L = dmScript::GetCallbackLuaContext(g_FirebaseAnalytics_InstanceIdCallback);
 
-				if (completed_future.error() == 0) {
-					lua_pushstring(L, completed_future.result()->c_str());
-					int ret = lua_pcall(L, 2, 0, 0);
-					if (ret != 0) {
-						lua_pop(L, 1);
-					}
+			if (completed_future.error() == 0) {
+				lua_pushstring(L, completed_future.result()->c_str());
+				int ret = lua_pcall(L, 2, 0, 0);
+				if (ret != 0) {
+					lua_pop(L, 1);
 				}
-				else {
-					dmLogError("%d: %s", completed_future.error(), completed_future.error_message());
-					lua_pushnil(L);
-					lua_pushstring(L, completed_future.error_message());
-					int ret = lua_pcall(L, 3, 0, 0);
-					if (ret != 0) {
-						lua_pop(L, 2);
-					}
-				}
-				dmScript::TeardownCallback(g_FirebaseAnalytics_InstanceIdCallback);
 			}
+			else {
+				dmLogError("%d: %s", completed_future.error(), completed_future.error_message());
+				lua_pushnil(L);
+				lua_pushstring(L, completed_future.error_message());
+				int ret = lua_pcall(L, 3, 0, 0);
+				if (ret != 0) {
+					lua_pop(L, 2);
+				}
+			}
+			dmScript::TeardownCallback(g_FirebaseAnalytics_InstanceIdCallback);
+		}
 
-			dmScript::DestroyCallback(g_FirebaseAnalytics_InstanceIdCallback);
-			g_FirebaseAnalytics_InstanceIdCallback = 0;
-
-		});
+		dmScript::DestroyCallback(g_FirebaseAnalytics_InstanceIdCallback);
+		g_FirebaseAnalytics_InstanceIdCallback = 0;
+	});
 	return 0;
 }
 
