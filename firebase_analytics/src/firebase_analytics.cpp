@@ -1,7 +1,7 @@
 #define LIB_NAME "FirebaseAnalytics"
 #define DLIB_LOG_DOMAIN LIB_NAME
-#include <dmsdk/dlib/log.h>
 #include "luautils.h"
+#include <dmsdk/dlib/log.h>
 #include <dmsdk/sdk.h>
 
 #if defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)

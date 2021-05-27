@@ -2,15 +2,25 @@
 
 #if defined(DM_PLATFORM_IOS)
 
+#include "firebase/app.h"
 #include "firebase/analytics.h"
+#include "firebase/analytics/event_names.h"
+#include "firebase/analytics/parameter_names.h"
+#include "firebase/future.h"
+
+#include "firebase.h"
 #include "firebase_analytics.h"
+
 #import <Foundation/Foundation.h>
 
-void Firebase_Safe_LogEvent(lua_State* L, const char* name, const firebase::analytics::Parameter* params, size_t number_of_parameters)
+using namespace firebase;
+using namespace firebase::analytics;
+
+void FirebaseAnalytics_Safe_LogEvent(lua_State* L, const char* name, const firebase::analytics::Parameter* params, size_t number_of_parameters)
 {
     @try
     {
-        firebase::analytics::LogEvent(name, params, number_of_parameters);
+        LogEvent(name, params, number_of_parameters);
     }
     @catch(...)
     {
