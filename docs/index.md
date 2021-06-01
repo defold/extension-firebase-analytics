@@ -13,7 +13,7 @@ To use this library in your Defold project, add the following URLs to your `game
 
 | Firebase C++ SDK       | Dependencies |
 |------------------------|--------------|
-| Firebase C++ SDK 7.3.0 | [https://github.com/defold/extension-firebase/archive/refs/tags/1.1.3.zip](https://github.com/defold/extension-firebase/archive/refs/tags/1.1.3.zip)<br>[https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.0.1.zip](https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.0.1.zip) |
+| Firebase C++ SDK 7.3.0 | [https://github.com/defold/extension-firebase/archive/refs/tags/1.1.3.zip](https://github.com/defold/extension-firebase/archive/refs/tags/1.1.3.zip)<br>[https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.0.2.zip](https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.0.2.zip) |
 
 
 ## Setup
