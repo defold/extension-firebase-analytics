@@ -20,6 +20,7 @@ using namespace firebase;
 using namespace firebase::analytics;
 
 static dmScript::LuaCallbackInfo* g_FirebaseAnalytics_InstanceIdCallback;
+static bool g_FirebaseAnalytics_Initialized = false;
 
 #if defined(DM_PLATFORM_ANDROID)
 void FirebaseAnalytics_Safe_LogEvent(lua_State*, const char* name, const firebase::analytics::Parameter* params, size_t number_of_parameters)
@@ -33,12 +34,18 @@ static int FirebaseAnalytics_Init(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
 	const firebase::App* app = Firebase_GetFirebaseApp();
 	analytics::Initialize(*app);
+	g_FirebaseAnalytics_Initialized = true;
 	return 0;
 }
 
 
 static int FirebaseAnalytics_Analytics_InstanceId(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	g_FirebaseAnalytics_InstanceIdCallback = dmScript::CreateCallback(L, 1);
 
 	analytics::GetAnalyticsInstanceId()
@@ -80,6 +87,11 @@ static int FirebaseAnalytics_Analytics_InstanceId(lua_State* L) {
 
 static int FirebaseAnalytics_Analytics_Log(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	const char* name = luaL_checkstring(L, 1);
 	LogEvent(name);
 	return 0;
@@ -87,6 +99,11 @@ static int FirebaseAnalytics_Analytics_Log(lua_State* L) {
 
 static int FirebaseAnalytics_Analytics_LogString(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	const char* name = luaL_checkstring(L, 1);
 	const char* parameter_name = luaL_checkstring(L, 2);
 	const char* parameter_value = luaL_checkstring(L, 3);
@@ -96,6 +113,11 @@ static int FirebaseAnalytics_Analytics_LogString(lua_State* L) {
 
 static int FirebaseAnalytics_Analytics_LogInt(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	const char* name = luaL_checkstring(L, 1);
 	const char* parameter_name = luaL_checkstring(L, 2);
 	const int parameter_value = luaL_checkint(L, 3);
@@ -105,6 +127,11 @@ static int FirebaseAnalytics_Analytics_LogInt(lua_State* L) {
 
 static int FirebaseAnalytics_Analytics_LogNumber(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	const char* name = luaL_checkstring(L, 1);
 	const char* parameter_name = luaL_checkstring(L, 2);
 	const lua_Number parameter_value = luaL_checknumber(L, 3);
@@ -116,6 +143,11 @@ const size_t MAX_ELEMENTS = 25; //Specified in Firebase docs
 
 static int FirebaseAnalytics_Analytics_LogTable(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 
 	analytics::Parameter params[MAX_ELEMENTS];
 
@@ -166,20 +198,34 @@ static int FirebaseAnalytics_Analytics_LogTable(lua_State* L) {
 
 static int FirebaseAnalytics_Analytics_Reset(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	ResetAnalyticsData();
 	return 0;
 }
 
 static int FirebaseAnalytics_Analytics_SetEnabled(lua_State* L) {
-	int top = lua_gettop(L);
+	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	int enabled = lua_toboolean(L, 1);
 	SetAnalyticsCollectionEnabled((bool)enabled);
-	assert(top == lua_gettop(L));
 	return 0;
 }
 
 static int FirebaseAnalytics_Analytics_SetScreen(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	const char* screen_name = luaL_checkstring(L, 1);
 	const char* screen_class = luaL_checkstring(L, 2);
 	SetCurrentScreen(screen_name, screen_class);
@@ -188,6 +234,11 @@ static int FirebaseAnalytics_Analytics_SetScreen(lua_State* L) {
 
 static int FirebaseAnalytics_Analytics_SetUserProperty(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	const char* name = luaL_checkstring(L, 1);
 	const char* property = luaL_checkstring(L, 2);
 	SetUserProperty(name, property);
@@ -196,6 +247,11 @@ static int FirebaseAnalytics_Analytics_SetUserProperty(lua_State* L) {
 
 static int FirebaseAnalytics_Analytics_SetUserId(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
+	if (!g_FirebaseAnalytics_Initialized)
+	{
+		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
+		return 0;
+	}
 	const char* user_id = luaL_checkstring(L, 1);
 	SetUserId(user_id);
 	return 0;
