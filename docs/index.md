@@ -38,24 +38,19 @@ function init(self)
     end
 
 	-- initialise analytics
-	firebase.analytics.init(function(self, ok, err)
-		if not ok then
-			print(err)
-			return
-		end
+	firebase.analytics.init()
 
-		-- log data
-		firebase.analytics.set_screen("myscreen", "collection")
-		firebase.analytics.log_string("character", "storm trooper")
-		firebase.analytics.log_int("kills", 152)
-		firebase.analytics.log_number("speed", 1.15)
-		local t = {
-			number = math.random(1,100),
-			boolean = true,
-			string = "some_string"
-		}
-		firebase.analytics.log_table("stats", t)
-	end)
+	-- log data
+	firebase.analytics.set_screen("myscreen", "collection")
+	firebase.analytics.log_string("character", "storm trooper")
+	firebase.analytics.log_int("kills", 152)
+	firebase.analytics.log_number("speed", 1.15)
+	local t = {
+		number = math.random(1,100),
+		boolean = true,
+		string = "some_string"
+	}
+	firebase.analytics.log_table("stats", t)
 end
 ```
 
