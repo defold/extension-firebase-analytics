@@ -1,9 +1,9 @@
-- name: firebase.analytics
+- name: analytics
   type: table
   desc: Functions and constants for interacting with Firebase Analytics
 
   members:
-  - name: analytics.init
+  - name: init
     type: function
     desc: Initialise analytics
 
@@ -12,66 +12,66 @@
       type: function
       desc: Function to invoke when initialised (self, ok, err)
 
-  - name: analytics.log_string
+  - name: log_string
     type: function
-    desc: Log an event with one string parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent)
+    desc: Log an event with one string parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/logevent)
 
     parameters:
     - name: name
       type: string
       desc: Event name
-    - name: parameter_name
+    - name: PARAMeter_name
       type: string
       desc: Parameter name
-    - name: parameter_value
+    - name: PARAMeter_value
       type: string
       desc: Parameter value
 
-  - name: analytics.log_int
+  - name: log_int
     type: function
-    desc: Log an event with one integer parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_4)
+    desc: Log an event with one integer parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/logevent_4)
 
     parameters:
     - name: name
       type: string
       desc: Event name
-    - name: parameter_name
+    - name: PARAMeter_name
       type: string
       desc: Parameter name
-    - name: parameter_value
+    - name: PARAMeter_value
       type: number
       desc: Parameter value
 
-  - name: analytics.log_number
+  - name: log_number
     type: function
-    desc: Log an event with one float parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_2)
+    desc: Log an event with one float parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/logevent_2)
 
     parameters:
     - name: name
       type: string
       desc: Event name
-    - name: parameter_name
+    - name: PARAMeter_name
       type: string
       desc: Parameter name
-    - name: parameter_value
+    - name: PARAMeter_value
       type: number
       desc: Parameter value
 
-  - name: analytics.log_table
+  - name: log_table
     type: function
-    desc: Log an event with table parameters. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#logevent_6)
+    desc: Log an event with table parameters. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/logevent_6)
 
     parameters:
     - name: name
       type: string
       desc: Event name
-    - name: parameters_table
+    - name: PARAMeters_table
       type: table
       desc: Table with parameters (key-value pairs)
 
-  - name: analytics.set_screen
+  - name: set_screen
     type: function
-    desc: Sets the current screen name and screen class, which specifies the current visual context in your app. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setcurrentscreen)
+    desc: Sets the current screen name and screen class, which specifies the current visual context in your app. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/setcurrentscreen)
 
     parameters:
     - name: screen_name
@@ -81,18 +81,18 @@
       type: string
       desc: Screen class
 
-  - name: analytics.set_user_id
+  - name: set_user_id
     type: function
-    desc: Sets the user ID property. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setuserid)
+    desc: Sets the user ID property. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/setuserid)
 
     parameters:
     - name: user_id
       type: string
       desc: User ID property
 
-  - name: analytics.set_user_property
+  - name: set_user_property
     type: function
-    desc: Set a user property to the given value. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#setuserproperty)
+    desc: Set a user property to the given value. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/setuserproperty)
 
     parameters:
     - name: name
@@ -102,14 +102,458 @@
       type: string
       desc: User property value
 
-  - name: analytics.reset
+  - name: reset
     type: function
-    desc: Clears all analytics data for this app from the device and resets the app instance id. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#resetanalyticsdata)
+    desc: Clears all data for this app from the device and resets the app instance id. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/resetata)
 
-  - name: analytics.get_id
+  - name: get_id
     type: function
-    desc: Get the instance ID from the analytics service. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/analytics#getanalyticsinstanceid)
+    desc: Get the instance ID from the service. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/getnstanceid)
 
     return:
     - name: Instance ID
       type: string
+
+#***** EVENTS *****************************************************************************************
+
+  - name: EVENT_ADDPAYMENTINFO
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_ADDTOCART
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_ADDTOWISHLIST
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_ADIMPRESSION
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_APPOPEN
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_BEGINCHECKOUT
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_CAMPAIGNDETAILS
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_CHECKOUTPROGRESS
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_EARNVIRTUALCURRENCY
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_ECOMMERCEPURCHASE
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_GENERATELEAD
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_JOINGROUP
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_LEVELEND
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_LEVELSTART
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_LEVELUP
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_LOGIN
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_POSTSCORE
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_PRESENTOFFER
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_PURCHASEREFUND
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_REMOVEFROMCART
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SCREENVIEW
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SEARCH
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SELECTCONTENT
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SETCHECKOUTOPTION
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SHARE
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SIGNUP
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SPENDVIRTUALCURRENCY
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_TUTORIALBEGIN
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_TUTORIALCOMPLETE
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_UNLOCKACHIEVEMENT
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_VIEWITEM
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_VIEWITEMLIST
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_VIEWSEARCHRESULTS
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_ADDSHIPPINGINFO
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_PURCHASE
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_REFUND
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SELECTITEM
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SELECTPROMOTION
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_VIEWCART
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_VIEWPROMOTION
+    type: string
+    desc: Predefined event
+
+#***** PARAMETERS *****************************************************************************************
+
+  - name: PARAM_ACHIEVEMENTID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ADFORMAT
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ADNETWORKCLICKID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ADPLATFORM
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ADSOURCE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ADUNITNAME
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_AFFILIATION
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CAMPAIGN
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CHARACTER
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CHECKOUTSTEP
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CHECKOUTOPTION
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CONTENT
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CONTENTTYPE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_COUPON
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CP1
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CREATIVENAME
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CREATIVESLOT
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_CURRENCY
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_DESTINATION
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ENDDATE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_FLIGHTNUMBER
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_GROUPID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_INDEX
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMBRAND
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMCATEGORY
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMLOCATIONID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMNAME
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMLIST
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMVARIANT
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_LEVEL
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_LOCATION
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_MEDIUM
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_NUMBEROFNIGHTS
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_NUMBEROFPASSENGERS
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_NUMBEROFROOMS
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ORIGIN
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_PRICE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_QUANTITY
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SCORE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SCREENCLASS
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SCREENNAME
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SEARCHTERM
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SHIPPING
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SIGNUPMETHOD
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_METHOD
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SOURCE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_STARTDATE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_TAX
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_TERM
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_TRANSACTIONID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_TRAVELCLASS
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_VALUE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_VIRTUALCURRENCYNAME
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_LEVELNAME
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SUCCESS
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_EXTENDSESSION
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_DISCOUNT
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMCATEGORY2
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMCATEGORY3
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMCATEGORY4
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMCATEGORY5
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMLISTID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMLISTNAME
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMS
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_LOCATIONID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_PAYMENTTYPE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_PROMOTIONID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_PROMOTIONNAME
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SHIPPINGTIER
+    type: string
+    desc: Predefined parameter
