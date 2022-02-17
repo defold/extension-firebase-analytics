@@ -7,11 +7,6 @@
     type: function
     desc: Initialise analytics
 
-    parameters:
-    - name: callback
-      type: function
-      desc: Function to invoke when initialised (self, ok, err)
-
   - name: log_string
     type: function
     desc: Log an event with one string parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/logevent)
@@ -110,9 +105,10 @@
     type: function
     desc: Get the instance ID from the service. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/getnstanceid)
 
-    return:
-    - name: Instance ID
-      type: string
+    parameters:
+    - name: callback
+      type: function
+      desc: Function to invoke with the id (self, id)
 
 #***** EVENTS *****************************************************************************************
 
