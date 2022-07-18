@@ -170,20 +170,20 @@ static int FirebaseAnalytics_Analytics_LogTable(lua_State* L) {
 		int t = lua_type(L, -1);
 		switch (t) {
 			case LUA_TSTRING:
-				params[size] = analytics::Parameter(k, lua_tostring(L, -1));
+			params[size] = analytics::Parameter(k, lua_tostring(L, -1));
 			break;
 			case LUA_TBOOLEAN:
-				params[size] = analytics::Parameter(k, lua_toboolean(L, -1) != 0);
+			params[size] = analytics::Parameter(k, lua_toboolean(L, -1) != 0);
 			break;
 			case LUA_TNUMBER:
-				params[size] = analytics::Parameter(k, lua_tonumber(L, -1));
+			params[size] = analytics::Parameter(k, lua_tonumber(L, -1));
 			break;
 			default:  /* other values */
-				char msg[256];
-				snprintf(msg, sizeof(msg), "Wrong type for table attribute '%s' , type: '%s'", k, luaL_typename(L, -1));
-				luaL_error(L, msg);
-				lua_pop(L, 3);
-				return 0;
+			char msg[256];
+			snprintf(msg, sizeof(msg), "Wrong type for table attribute '%s' , type: '%s'", k, luaL_typename(L, -1));
+			luaL_error(L, msg);
+			lua_pop(L, 3);
+			return 0;
 			break;
 		}
 		lua_pop(L, 1);
@@ -220,15 +220,7 @@ static int FirebaseAnalytics_Analytics_SetEnabled(lua_State* L) {
 }
 
 static int FirebaseAnalytics_Analytics_SetScreen(lua_State* L) {
-	DM_LUA_STACK_CHECK(L, 0);
-	if (!g_FirebaseAnalytics_Initialized)
-	{
-		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
-		return 0;
-	}
-	const char* screen_name = luaL_checkstring(L, 1);
-	const char* screen_class = luaL_checkstring(L, 2);
-	SetCurrentScreen(screen_name, screen_class);
+	dmLogWarning("set_screen() has been deprecated. Use log_string() and EVENT_SCREENVIEW instead.");
 	return 0;
 }
 
@@ -414,10 +406,10 @@ dmExtension::Result AppInitializeFirebaseAnalyticsExtension(dmExtension::AppPara
 
 dmExtension::Result InitializeFirebaseAnalyticsExtension(dmExtension::Params* params) {
 	#if !defined(DM_PLATFORM_ANDROID) && !defined(DM_PLATFORM_IOS)
-		dmLogInfo("Extension %s is not supported", LIB_NAME);
+	dmLogInfo("Extension %s is not supported", LIB_NAME);
 	#else
-		dmLogInfo("Extension %s is supported", LIB_NAME);
-		LuaInit(params->m_L);
+	dmLogInfo("Extension %s is supported", LIB_NAME);
+	LuaInit(params->m_L);
 	#endif
 	return dmExtension::RESULT_OK;
 }
