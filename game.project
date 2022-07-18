@@ -28,6 +28,7 @@ infoplist = /builtins/manifests/ios/Info.plist
 
 [android]
 package = com.defold.firebase
+minimum_sdk_version = 19
 
 [osx]
 bundle_identifier = com.defold.firebase

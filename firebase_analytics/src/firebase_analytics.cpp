@@ -220,15 +220,7 @@ static int FirebaseAnalytics_Analytics_SetEnabled(lua_State* L) {
 }
 
 static int FirebaseAnalytics_Analytics_SetScreen(lua_State* L) {
-	DM_LUA_STACK_CHECK(L, 0);
-	if (!g_FirebaseAnalytics_Initialized)
-	{
-		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
-		return 0;
-	}
-	const char* screen_name = luaL_checkstring(L, 1);
-	const char* screen_class = luaL_checkstring(L, 2);
-	SetCurrentScreen(screen_name, screen_class);
+	dmLogWarning("set_screen() has been deprecated. Use log_string() and EVENT_SCREENVIEW instead.");
 	return 0;
 }
 
