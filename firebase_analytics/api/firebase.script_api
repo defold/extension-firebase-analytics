@@ -66,15 +66,7 @@
 
   - name: set_screen
     type: function
-    desc: Sets the current screen name and screen class, which specifies the current visual context in your app. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/setcurrentscreen)
-
-    parameters:
-    - name: screen_name
-      type: string
-      desc: Screen name
-    - name: screen_name
-      type: string
-      desc: Screen class
+    desc: DEPRECATED. Use log_string(analytics.EVENT_SCREENVIEW, "screen name", "screen class").
 
   - name: set_user_id
     type: function
