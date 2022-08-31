@@ -409,7 +409,7 @@ static void LuaInit(lua_State* L) {
 
 	lua_pop(L, 1); // pop "firebase" global table
 }
-
+#undef THREAD_ATTACHER()
 #endif
 
 dmExtension::Result AppInitializeFirebaseAnalyticsExtension(dmExtension::AppParams* params) {
