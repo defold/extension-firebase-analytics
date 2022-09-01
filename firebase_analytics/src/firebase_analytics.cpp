@@ -6,6 +6,8 @@
 
 #if defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
 
+#include <dmsdk/dlib/android.h>
+
 #include "firebase/app.h"
 #include "firebase/analytics.h"
 #include "firebase/analytics/event_names.h"
@@ -27,8 +29,10 @@ void FirebaseAnalytics_Safe_LogEvent(lua_State*, const char* name, const firebas
 {
 	LogEvent(name, params, number_of_parameters);
 }
+#define THREAD_ATTACHER() dmAndroid::ThreadAttacher threadAttacher;
+#else
+#define THREAD_ATTACHER()
 #endif
-
 
 static int FirebaseAnalytics_Init(lua_State* L) {
 	DM_LUA_STACK_CHECK(L, 0);
@@ -93,6 +97,7 @@ static int FirebaseAnalytics_Analytics_Log(lua_State* L) {
 		return 0;
 	}
 	const char* name = luaL_checkstring(L, 1);
+	THREAD_ATTACHER();
 	LogEvent(name);
 	return 0;
 }
@@ -107,6 +112,7 @@ static int FirebaseAnalytics_Analytics_LogString(lua_State* L) {
 	const char* name = luaL_checkstring(L, 1);
 	const char* parameter_name = luaL_checkstring(L, 2);
 	const char* parameter_value = luaL_checkstring(L, 3);
+	THREAD_ATTACHER();
 	LogEvent(name, parameter_name, parameter_value);
 	return 0;
 }
@@ -121,6 +127,7 @@ static int FirebaseAnalytics_Analytics_LogInt(lua_State* L) {
 	const char* name = luaL_checkstring(L, 1);
 	const char* parameter_name = luaL_checkstring(L, 2);
 	const int parameter_value = luaL_checkint(L, 3);
+	THREAD_ATTACHER();
 	LogEvent(name, parameter_name, parameter_value);
 	return 0;
 }
@@ -135,6 +142,7 @@ static int FirebaseAnalytics_Analytics_LogNumber(lua_State* L) {
 	const char* name = luaL_checkstring(L, 1);
 	const char* parameter_name = luaL_checkstring(L, 2);
 	const lua_Number parameter_value = luaL_checknumber(L, 3);
+	THREAD_ATTACHER();
 	LogEvent(name, parameter_name, parameter_value);
 	return 0;
 }
@@ -189,7 +197,7 @@ static int FirebaseAnalytics_Analytics_LogTable(lua_State* L) {
 		lua_pop(L, 1);
 		++size;
 	}
-
+	THREAD_ATTACHER();
 	FirebaseAnalytics_Safe_LogEvent(L, name, params, size);
 
 	lua_pop(L, 1);
@@ -203,6 +211,7 @@ static int FirebaseAnalytics_Analytics_Reset(lua_State* L) {
 		dmLogWarning("Firebase Analytics has not been initialized! Make sure to call firebase.analytics.init().");
 		return 0;
 	}
+	THREAD_ATTACHER();
 	ResetAnalyticsData();
 	return 0;
 }
@@ -215,6 +224,7 @@ static int FirebaseAnalytics_Analytics_SetEnabled(lua_State* L) {
 		return 0;
 	}
 	int enabled = lua_toboolean(L, 1);
+	THREAD_ATTACHER();
 	SetAnalyticsCollectionEnabled((bool)enabled);
 	return 0;
 }
@@ -233,6 +243,7 @@ static int FirebaseAnalytics_Analytics_SetUserProperty(lua_State* L) {
 	}
 	const char* name = luaL_checkstring(L, 1);
 	const char* property = luaL_checkstring(L, 2);
+	THREAD_ATTACHER();
 	SetUserProperty(name, property);
 	return 0;
 }
@@ -245,6 +256,7 @@ static int FirebaseAnalytics_Analytics_SetUserId(lua_State* L) {
 		return 0;
 	}
 	const char* user_id = luaL_checkstring(L, 1);
+	THREAD_ATTACHER();
 	SetUserId(user_id);
 	return 0;
 }
@@ -397,7 +409,7 @@ static void LuaInit(lua_State* L) {
 
 	lua_pop(L, 1); // pop "firebase" global table
 }
-
+#undef THREAD_ATTACHER()
 #endif
 
 dmExtension::Result AppInitializeFirebaseAnalyticsExtension(dmExtension::AppParams* params) {
