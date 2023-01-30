@@ -4,7 +4,7 @@ custom_resources =
 bundle_resources = /bundle
 dependencies#0 = https://github.com/britzl/gooey/archive/6.5.0.zip
 dependencies#1 = https://github.com/britzl/monarch/archive/2.13.0.zip
-dependencies#2 = https://github.com/defold/extension-firebase/archive/refs/tags/1.3.0.zip
+dependencies#2 = https://github.com/defold/extension-firebase/archive/refs/heads/dev-podfile.zip
 
 [bootstrap]
 main_collection = /example/analytics.collectionc
