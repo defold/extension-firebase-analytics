@@ -16,17 +16,11 @@ platforms:
   armv7-ios:
     context:
         flags:      ["-std=c++11"]
-        linkFlags:  ["-ObjC"]
-        libs:       ["c++", "z", "sqlite3"]
 
   arm64-ios:
     context:
         flags:      ["-std=c++11"]
-        linkFlags:  ["-ObjC"]
-        libs:       ["c++", "z", "sqlite3"]
 
   x86_64-ios:
     context:
         flags:      ["-std=c++11"]
-        linkFlags:  ["-ObjC"]
-        libs:       ["c++", "z", "sqlite3"]
