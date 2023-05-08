@@ -15,21 +15,12 @@ platforms:
 
   armv7-ios:
     context:
-        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
-        flags:      ["-stdlib=libc++", "-std=c++11"]
-        linkFlags:  ["-ObjC"]
-        libs:       ["c++", "z", "sqlite3"]
+        flags:      ["-std=c++11"]
 
   arm64-ios:
     context:
-        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
-        flags:      ["-stdlib=libc++", "-std=c++11"]
-        linkFlags:  ["-ObjC"]
-        libs:       ["c++", "z", "sqlite3"]
+        flags:      ["-std=c++11"]
 
   x86_64-ios:
     context:
-        frameworks: ["StoreKit", "Security", "SystemConfiguration", "UIKit", "Foundation"]
-        flags:      ["-stdlib=libc++", "-std=c++11"]
-        linkFlags:  ["-ObjC"]
-        libs:       ["c++", "z", "sqlite3"]
+        flags:      ["-std=c++11"]
