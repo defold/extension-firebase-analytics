@@ -14,7 +14,7 @@ To use this library in your Defold project, add the following URLs to your `game
 
 | Firebase C++ SDK        | Firebase iOS SDK        | Dependencies |
 |-------------------------|-------------------------|--------------|
-| Firebase C++ SDK 8.10.0 | Firebase iOS SDK 8.13.0 |[https://github.com/defold/extension-firebase/archive/refs/tags/1.3.0.zip](https://github.com/defold/extension-firebase/archive/refs/tags/1.3.0.zip)<br>[https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.2.0.zip](https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.2.0.zip) |
+| Firebase C++ SDK 8.10.0 | Firebase iOS SDK 8.13.0 |[https://github.com/defold/extension-firebase/archive/refs/tags/1.3.1.zip](https://github.com/defold/extension-firebase/archive/refs/tags/1.3.1.zip)<br>[https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.2.0.zip](https://github.com/defold/extension-firebase-analytics/archive/refs/tags/2.2.1.zip) |
 
 
 ## Setup
