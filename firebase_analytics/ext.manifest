@@ -1,4 +1,4 @@
-name: "FirebaseAnalytics"
+name: "FirebaseAnalyticsExt"
 
 platforms:
   android:
