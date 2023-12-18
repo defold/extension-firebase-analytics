@@ -1,6 +1,6 @@
 #include <dmsdk/sdk.h>
 
-#if defined(DM_PLATFORM_IOS)
+#if defined(DM_PLATFORM_IOS1)
 
 #include "firebase/app.h"
 #include "firebase/analytics.h"
