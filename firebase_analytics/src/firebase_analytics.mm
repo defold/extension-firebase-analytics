@@ -57,10 +57,30 @@ void SetUserProperty(const char* name, const char* value) {
     [FIRAnalytics setUserPropertyString:[NSString stringWithUTF8String:value] forName:[NSString stringWithUTF8String:name]];
 }
 
-void LogEvent(const char* event_name);
-void LogEventString(const char* param_name, const char* param, const char* event_name);
-void LogEventInt(const char* param_name, int param, const char* event_name);
-void LogEventNumber(const char* param_name, double param, const char* event_name);
+void LogEvent(const char* event_name) {
+    [FIRAnalytics logEventWithName:[NSString stringWithUTF8String:event_name]];
+}
+
+void LogEventString(const char* param_name, const char* param, const char* event_name) {
+    [FIRAnalytics logEventWithName:[NSString stringWithUTF8String:event_name]
+                    parameters:@{
+                                [NSString stringWithUTF8String:event_name]: [NSString stringWithUTF8String:param]
+                             }];
+}
+
+void LogEventInt(const char* param_name, int param, const char* event_name) {
+    [FIRAnalytics logEventWithName:[NSString stringWithUTF8String:event_name]
+                    parameters:@{
+                                [NSString stringWithUTF8String:event_name]: @(param)
+                             }];
+}
+
+void LogEventNumber(const char* param_name, double param, const char* event_name) {
+        [FIRAnalytics logEventWithName:[NSString stringWithUTF8String:event_name]
+                    parameters:@{
+                                [NSString stringWithUTF8String:event_name]: @(param)
+                             }];
+}
 
 void ResetAnalyticsData() {
     [FIRAnalytics resetAnalyticsData];
