@@ -3,102 +3,113 @@ local dirtylarry = require "gooey.themes.dirtylarry.dirtylarry"
 
 local STRINGS = { "Yoda", "Luke", "Leia", "Han-Solo", "Darth Vader" }
 local SCREENS = {
-	"A New Hope",
-	"The Empire Strikes Back",
-	"Return of the Jedi",
-	"Phantom Menace",
-	"Attack of the Clones",
-	"Revenge of the Sith",
-	"The Force Awakens",
-	"The Last Jedi"
+    "A New Hope",
+    "The Empire Strikes Back",
+    "Return of the Jedi",
+    "Phantom Menace",
+    "Attack of the Clones",
+    "Revenge of the Sith",
+    "The Force Awakens",
+    "The Last Jedi"
 }
 
 local function random(t)
-	return t[math.random(1, #t)]
+    return t[math.random(1, #t)]
+end
+
+local function analytics_callback(self, message_id, message)
+    if message_id == analytics.MSG_ERROR then
+        print("ERROR: "..message.error)
+    end
 end
 
 function init(self)
-	msg.post(".", "acquire_input_focus")
-	math.randomseed(os.time()) math.random()
-	if firebase then
-		firebase.init()
-	end
-	if analytics then
-		analytics.init()
-	end
-	gui.animate(gui.get_node("pie"), "rotation.z", 360, gui.EASING_LINEAR, 2, 0, function() end, gui.PLAYBACK_LOOP_FORWARD)
+    msg.post(".", "acquire_input_focus")
+    math.randomseed(os.time()) math.random()
+    if firebase then
+        firebase.set_callback(function(self, message_id, message)
+            if message_id == firebase.MSG_INITIALIZED then
+                if analytics then
+                    analytics.set_callback(analytics_callback)
+                    analytics.initialize()
+                end
+            end
+        end)
+        firebase.initialize()
+    end
+    gui.animate(gui.get_node("pie"), "rotation.z", 360, gui.EASING_LINEAR, 2, 0, function() end, gui.PLAYBACK_LOOP_FORWARD)
 end
 
 function on_input(self, action_id, action)
-	dirtylarry.button("set_screen", action_id, action, function()
-		local s = random(SCREENS):gsub(" ", "_")
-		print("set_screen()", s)
-		if analytics then
-			analytics.set_screen(s, "analytics.collection")
-		end
-	end)
-	dirtylarry.button("set_user_id", action_id, action, function()
-		local id = "user_" .. random(STRINGS) .. "_" .. tostring(os.time())
-		print("set_user_id()", id)
-		if analytics then
-			analytics.set_user_id(id)
-		end
-	end)
-	dirtylarry.button("set_user_property", action_id, action, function()
-		local property = "prop1"
-		local value = "value" .. random(STRINGS)
-		print("set_user_property()", property, value)
-		if analytics then
-			analytics.set_user_property(property, value)
-		end
-	end)
+    dirtylarry.button("set_screen", action_id, action, function()
+        local s = random(SCREENS):gsub(" ", "_")
+        print("set_screen()", s)
+        if analytics then
+            analytics.set_screen(s, "analytics.collection")
+        end
+    end)
+    dirtylarry.button("set_user_id", action_id, action, function()
+        local id = "user_" .. random(STRINGS) .. "_" .. tostring(os.time())
+        print("set_user_id()", id)
+        if analytics then
+            analytics.set_user_id(id)
+        end
+    end)
+    dirtylarry.button("set_user_property", action_id, action, function()
+        local property = "prop1"
+        local value = "value" .. random(STRINGS)
+        print("set_user_property()", property, value)
+        if analytics then
+            analytics.set_user_property(property, value)
+        end
+    end)
 
-	dirtylarry.button("log", action_id, action, function()
-		local s = random(STRINGS):gsub(" ", "_")
-		print("log()", s)
-		if analytics then
-			analytics.log(s)
-		end
-	end)
-	dirtylarry.button("log_string", action_id, action, function()
-		local s = random(STRINGS):gsub(" ", "_")
-		print("log_string()", s)
-		if analytics then
-			analytics.log_string("some_event1", "some_string", s)
-		end
-	end)
-	dirtylarry.button("log_number", action_id, action, function()
-		local n = math.random()
-		print("log_number()", n)
-		if analytics then
-			analytics.log_number("some_event2", "some_number", n)
-		end
-	end)
-	dirtylarry.button("log_int", action_id, action, function()
-		local i = math.random(1, 10000)
-		print("log_int()", i)
-		if analytics then
-			analytics.log_int(analytics.EVENT_LEVELUP, analytics.PARAM_LEVEL, i)
-		end
-	end)
-	
-	dirtylarry.button("log_table", action_id, action, function()
-		local tbl = {
-			[analytics.PARAM_SCORE] = 100,
-			[analytics.PARAM_LEVEL] = 1,
-			[analytics.PARAM_CHARACTER] = "Yoda",
-			some_param1 = math.random(1,100),
-			some_param2 = true,
-			some_param3 = "some_string"
-		}
-		pprint("log_table()", tbl)
-		if analytics then
-			analytics.log_table(analytics.EVENT_POSTSCORE, tbl)
-		end
-	end)
+    dirtylarry.button("log", action_id, action, function()
+        local s = random(STRINGS):gsub(" ", "_")
+        print("log()", s)
+        if analytics then
+            analytics.log(s)
+        end
+    end)
+    dirtylarry.button("log_string", action_id, action, function()
+        local s = random(STRINGS):gsub(" ", "_")
+        print("log_string()", s)
+        if analytics then
+            analytics.log_string("some_event1", "some_string", s)
+        end
+    end)
+    dirtylarry.button("log_number", action_id, action, function()
+        local n = math.random()
+        print("log_number()", n)
+        if analytics then
+            analytics.log_number("some_event2", "some_number", n)
+        end
+    end)
+    dirtylarry.button("log_int", action_id, action, function()
+        local i = math.random(1, 10000)
+        print("log_int()", i)
+        if analytics then
+            analytics.log_int(analytics.EVENT_LEVELUP, analytics.PARAM_LEVEL, i)
+        end
+    end)
+    
+    dirtylarry.button("log_table", action_id, action, function()
+        local tbl = {
+            [analytics.PARAM_SCORE] = 100,
+            [analytics.PARAM_LEVEL] = 1,
+            [analytics.PARAM_CHARACTER] = "Yoda",
+            some_param1 = math.random(1,100),
+            some_param2 = true,
+            some_param3 = "some_string"
+        }
+        pprint("log_table()", tbl)
+        if analytics then
+            analytics.log_table(analytics.EVENT_POSTSCORE, tbl)
+        end
+    end)
 end
 
 function on_reload(self)
-	-- Add input-handling code here
-	-- Remove this function if not needed
+    -- Add input-handling code here
+    -- Remove this function if not needed
 end

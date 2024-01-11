@@ -8,11 +8,7 @@ namespace dmFirebaseAnalytics {
 enum Message
 {
     MSG_ERROR               = 0,
-    MSG_INITIALIZED         = 1,
-    MSG_DEFAULTS_SET        = 2,
-    MSG_SETTINGS_UPDATED    = 3,
-    MSG_FETCHED             = 4,
-    MSG_ACTIVATED           = 5,
+    MSG_INSTANCE_ID         = 1,
 };
 
 

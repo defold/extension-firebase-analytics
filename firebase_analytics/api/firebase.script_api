@@ -64,10 +64,6 @@
       type: table
       desc: Table with parameters (key-value pairs)
 
-  - name: set_screen
-    type: function
-    desc: DEPRECATED. Use log_string(analytics.EVENT_SCREENVIEW, "screen name", "screen class").
-
   - name: set_user_id
     type: function
     desc: Sets the user ID property. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/setuserid)
