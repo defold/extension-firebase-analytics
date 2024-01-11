@@ -7,15 +7,17 @@
 
 #include <dmsdk/dlib/log.h>
 #include <dmsdk/sdk.h>
+#include "luautils.h"
 
 #include "firebase_analytics_private.h"
 #include "firebase_analytics_callback.h"
 
+#if defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
+
 #include "cpp_sdk_includes/event_names.h"
 #include "cpp_sdk_includes/parameter_names.h"
 #include "cpp_sdk_includes/user_property_names.h"
-
-#if defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS1)
+using namespace firebase::analytics;
 
 namespace dmFirebaseAnalytics {
 
