@@ -58,7 +58,7 @@ void SetUserProperty(const char* name, const char* value) {
 }
 
 void LogEvent(const char* event_name) {
-    [FIRAnalytics logEventWithName:[NSString stringWithUTF8String:event_name]];
+    [FIRAnalytics logEventWithName:[NSString stringWithUTF8String:event_name] parameters:@{}];
 }
 
 void LogEventString(const char* param_name, const char* param, const char* event_name) {
