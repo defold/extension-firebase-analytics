@@ -100,7 +100,15 @@
 
 #***** EVENTS *****************************************************************************************
 
+  - name: EVENT_ADIMPRESSION
+    type: string
+    desc: Predefined event
+
   - name: EVENT_ADDPAYMENTINFO
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_ADDSHIPPINGINFO
     type: string
     desc: Predefined event
 
@@ -109,10 +117,6 @@
     desc: Predefined event
 
   - name: EVENT_ADDTOWISHLIST
-    type: string
-    desc: Predefined event
-
-  - name: EVENT_ADIMPRESSION
     type: string
     desc: Predefined event
 
@@ -128,15 +132,7 @@
     type: string
     desc: Predefined event
 
-  - name: EVENT_CHECKOUTPROGRESS
-    type: string
-    desc: Predefined event
-
   - name: EVENT_EARNVIRTUALCURRENCY
-    type: string
-    desc: Predefined event
-
-  - name: EVENT_ECOMMERCEPURCHASE
     type: string
     desc: Predefined event
 
@@ -168,11 +164,11 @@
     type: string
     desc: Predefined event
 
-  - name: EVENT_PRESENTOFFER
+  - name: EVENT_PURCHASE
     type: string
     desc: Predefined event
 
-  - name: EVENT_PURCHASEREFUND
+  - name: EVENT_REFUND
     type: string
     desc: Predefined event
 
@@ -192,7 +188,11 @@
     type: string
     desc: Predefined event
 
-  - name: EVENT_SETCHECKOUTOPTION
+  - name: EVENT_SELECTITEM
+    type: string
+    desc: Predefined event
+
+  - name: EVENT_SELECTPROMOTION
     type: string
     desc: Predefined event
 
@@ -220,6 +220,10 @@
     type: string
     desc: Predefined event
 
+  - name: EVENT_VIEWCART
+    type: string
+    desc: Predefined event
+
   - name: EVENT_VIEWITEM
     type: string
     desc: Predefined event
@@ -228,43 +232,15 @@
     type: string
     desc: Predefined event
 
-  - name: EVENT_VIEWSEARCHRESULTS
-    type: string
-    desc: Predefined event
-
-  - name: EVENT_ADDSHIPPINGINFO
-    type: string
-    desc: Predefined event
-
-  - name: EVENT_PURCHASE
-    type: string
-    desc: Predefined event
-
-  - name: EVENT_REFUND
-    type: string
-    desc: Predefined event
-
-  - name: EVENT_SELECTITEM
-    type: string
-    desc: Predefined event
-
-  - name: EVENT_SELECTPROMOTION
-    type: string
-    desc: Predefined event
-
-  - name: EVENT_VIEWCART
-    type: string
-    desc: Predefined event
-
   - name: EVENT_VIEWPROMOTION
     type: string
     desc: Predefined event
 
-#***** PARAMETERS *****************************************************************************************
-
-  - name: PARAM_ACHIEVEMENTID
+  - name: EVENT_VIEWSEARCHRESULTS
     type: string
-    desc: Predefined parameter
+    desc: Predefined event
+
+#***** PARAMETERS *****************************************************************************************
 
   - name: PARAM_ADFORMAT
     type: string
@@ -290,19 +266,19 @@
     type: string
     desc: Predefined parameter
 
+  - name: PARAM_CP1
+    type: string
+    desc: Predefined parameter
+
   - name: PARAM_CAMPAIGN
     type: string
     desc: Predefined parameter
 
+  - name: PARAM_CAMPAIGNID
+    type: string
+    desc: Predefined parameter
+
   - name: PARAM_CHARACTER
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_CHECKOUTSTEP
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_CHECKOUTOPTION
     type: string
     desc: Predefined parameter
 
@@ -318,7 +294,7 @@
     type: string
     desc: Predefined parameter
 
-  - name: PARAM_CP1
+  - name: PARAM_CREATIVEFORMAT
     type: string
     desc: Predefined parameter
 
@@ -338,7 +314,15 @@
     type: string
     desc: Predefined parameter
 
+  - name: PARAM_DISCOUNT
+    type: string
+    desc: Predefined parameter
+
   - name: PARAM_ENDDATE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_EXTENDSESSION
     type: string
     desc: Predefined parameter
 
@@ -362,11 +346,31 @@
     type: string
     desc: Predefined parameter
 
+  - name: PARAM_ITEMCATEGORY2
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMCATEGORY3
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMCATEGORY4
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMCATEGORY5
+    type: string
+    desc: Predefined parameter
+
   - name: PARAM_ITEMID
     type: string
     desc: Predefined parameter
 
-  - name: PARAM_ITEMLOCATIONID
+  - name: PARAM_ITEMLISTID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_ITEMLISTNAME
     type: string
     desc: Predefined parameter
 
@@ -374,11 +378,11 @@
     type: string
     desc: Predefined parameter
 
-  - name: PARAM_ITEMLIST
+  - name: PARAM_ITEMVARIANT
     type: string
     desc: Predefined parameter
 
-  - name: PARAM_ITEMVARIANT
+  - name: PARAM_ITEMS
     type: string
     desc: Predefined parameter
 
@@ -386,11 +390,27 @@
     type: string
     desc: Predefined parameter
 
+  - name: PARAM_LEVELNAME
+    type: string
+    desc: Predefined parameter
+
   - name: PARAM_LOCATION
     type: string
     desc: Predefined parameter
 
+  - name: PARAM_LOCATIONID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_MARKETINGTACTIC
+    type: string
+    desc: Predefined parameter
+
   - name: PARAM_MEDIUM
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_METHOD
     type: string
     desc: Predefined parameter
 
@@ -410,7 +430,19 @@
     type: string
     desc: Predefined parameter
 
+  - name: PARAM_PAYMENTTYPE
+    type: string
+    desc: Predefined parameter
+
   - name: PARAM_PRICE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_PROMOTIONID
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_PROMOTIONNAME
     type: string
     desc: Predefined parameter
 
@@ -438,11 +470,7 @@
     type: string
     desc: Predefined parameter
 
-  - name: PARAM_SIGNUPMETHOD
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_METHOD
+  - name: PARAM_SHIPPINGTIER
     type: string
     desc: Predefined parameter
 
@@ -450,7 +478,15 @@
     type: string
     desc: Predefined parameter
 
+  - name: PARAM_SOURCEPLATFORM
+    type: string
+    desc: Predefined parameter
+
   - name: PARAM_STARTDATE
+    type: string
+    desc: Predefined parameter
+
+  - name: PARAM_SUCCESS
     type: string
     desc: Predefined parameter
 
@@ -478,66 +514,13 @@
     type: string
     desc: Predefined parameter
 
-  - name: PARAM_LEVELNAME
-    type: string
-    desc: Predefined parameter
+#***** PROPERTIES *****************************************************************************************
 
-  - name: PARAM_SUCCESS
+  - name: PROP_ALLOWADPERSONALIZATIONSIGNALS
     type: string
-    desc: Predefined parameter
+    desc: Predefined property
 
-  - name: PARAM_EXTENDSESSION
+  - name: PROP_SIGNUPMETHOD
     type: string
-    desc: Predefined parameter
+    desc: Predefined property
 
-  - name: PARAM_DISCOUNT
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_ITEMCATEGORY2
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_ITEMCATEGORY3
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_ITEMCATEGORY4
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_ITEMCATEGORY5
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_ITEMLISTID
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_ITEMLISTNAME
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_ITEMS
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_LOCATIONID
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_PAYMENTTYPE
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_PROMOTIONID
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_PROMOTIONNAME
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SHIPPINGTIER
-    type: string
-    desc: Predefined parameter

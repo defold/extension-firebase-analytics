@@ -1,162 +1,19 @@
-#define EXTENSION_NAME FirebaseAnalyticsExt
-#define LIB_NAME "FirebaseAnalytics"
-#define MODULE_NAME "firebase"
-#define DLIB_LOG_DOMAIN LIB_NAME
+import re
 
-#include <stdlib.h>
+def parse_multiline_string(input_str):
+    patterns = re.findall(r'lua_pushtablestringstring\(L, "(.*?)", (.*?);', input_str, re.DOTALL)
 
-#include <dmsdk/dlib/log.h>
-#include <dmsdk/sdk.h>
-#include "luautils.h"
+    output_lines = []
+    for name, value in patterns:
+        output_lines.append(f'  - name: {name}\n'
+                           # f'    type: {type(value).__name__}\n'
+                           f'    type: string\n'
+                           f'    desc: Predefined event\n')
 
-#include "firebase_analytics_private.h"
-#include "firebase_analytics_callback.h"
+    return '\n'.join(output_lines)
 
-#if defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS)
-
-#include "firebase/analytics/event_names.h"
-#include "firebase/analytics/parameter_names.h"
-#include "firebase/analytics/user_property_names.h"
-using namespace firebase::analytics;
-
-namespace dmFirebaseAnalytics {
-
-static int Lua_Initialize(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-    Initialize();
-    return 0;
-}
-
-static int Lua_SetCallback(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    SetLuaCallback(L, 1);
-    return 0;
-}
-
-static int Lua_GetInstanceId(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    GetInstanceId();
-    return 0;
-}
-
-static int Lua_Log(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    const char* event_name = luaL_checkstring(L, 1);
-    LogEvent(event_name);
-    return 0;
-}
-
-static int Lua_LogString(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    const char* event_name = luaL_checkstring(L, 1);
-    const char* param_name = luaL_checkstring(L, 2);
-    const char* param = luaL_checkstring(L, 3);
-    LogEventString(param_name, param, event_name);
-    return 0;
-}
-
-static int Lua_LogInt(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    const char* event_name = luaL_checkstring(L, 1);
-    const char* param_name = luaL_checkstring(L, 2);
-    const int param = luaL_checkint(L, 3);
-    LogEventInt(param_name, param, event_name);
-    return 0;
-}
-
-static int Lua_LogNumber(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    const char* event_name = luaL_checkstring(L, 1);
-    const char* param_name = luaL_checkstring(L, 2);
-    const lua_Number param = luaL_checknumber(L, 3);
-    LogEventNumber(param_name, param, event_name);
-    return 0;
-}
-
-static int Lua_LogTable(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    //TODO
-    return 0;
-}
-
-static int Lua_Reset(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    ResetAnalyticsData();
-    return 0;
-}
-
-static int Lua_SetEnabled(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    int enabled = lua_toboolean(L, 1);
-    SetAnalyticsCollectionEnabled(enabled);
-    return 0;
-}
-
-static int Lua_SetUserProperty(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    const char* name = luaL_checkstring(L, 1);
-    const char* property = luaL_checkstring(L, 2);
-    SetUserProperty(name, property);
-    return 0;
-}
-
-static int Lua_SetUserId(lua_State* L)
-{
-    DM_LUA_STACK_CHECK(L, 0);
-    const char* user_id = luaL_checkstring(L, 1);
-    SetUserId(user_id);
-    return 0;
-}
-
-static const luaL_reg Module_methods[] =
-{
-    {"initialize", Lua_Initialize},
-    {"set_callback", Lua_SetCallback},
-
-    {"get_id", Lua_GetInstanceId},
-    {"log", Lua_Log},
-    {"log_string", Lua_LogString},
-    {"log_int", Lua_LogInt},
-    {"log_number", Lua_LogNumber},
-    {"log_table", Lua_LogTable},
-    {"reset", Lua_Reset},
-    {"set_enabled", Lua_SetEnabled},
-    {"set_user_property", Lua_SetUserProperty},
-    {"set_user_id", Lua_SetUserId},
-    {0, 0}
-};
-
-
-static void LuaInit(lua_State* L) {
-    DM_LUA_STACK_CHECK(L, 0);
-
-    // get or create firebase global table
-    lua_getglobal(L, "firebase");
-    if (lua_isnil(L, lua_gettop(L)))
-    {
-        lua_pushstring(L, "firebase");
-        lua_newtable(L);
-        lua_settable(L, LUA_GLOBALSINDEX);
-        lua_pop(L, 1);
-        lua_getglobal(L, "firebase");
-    }
-
-    lua_pushstring(L, "analytics");
-    lua_newtable(L);
-
-    luaL_register(L, NULL, Module_methods);
-
-    // From firebase/analytics/event_names.h
+# Example usage
+multiline_input = """
     lua_pushtablestringstring(L, "EVENT_ADIMPRESSION", kEventAdImpression);
     lua_pushtablestringstring(L, "EVENT_ADDPAYMENTINFO", kEventAddPaymentInfo);
     lua_pushtablestringstring(L, "EVENT_ADDSHIPPINGINFO", kEventAddShippingInfo);
@@ -192,7 +49,6 @@ static void LuaInit(lua_State* L) {
     lua_pushtablestringstring(L, "EVENT_VIEWITEMLIST", kEventViewItemList);
     lua_pushtablestringstring(L, "EVENT_VIEWPROMOTION", kEventViewPromotion);
     lua_pushtablestringstring(L, "EVENT_VIEWSEARCHRESULTS", kEventViewSearchResults);
-    // From firebase/analytics/parameter_names.h
     lua_pushtablestringstring(L, "PARAM_ADFORMAT", kParameterAdFormat);
     lua_pushtablestringstring(L, "PARAM_ADNETWORKCLICKID", kParameterAdNetworkClickID);
     lua_pushtablestringstring(L, "PARAM_ADPLATFORM", kParameterAdPlatform);
@@ -261,76 +117,9 @@ static void LuaInit(lua_State* L) {
     lua_pushtablestringstring(L, "PARAM_TRAVELCLASS", kParameterTravelClass);
     lua_pushtablestringstring(L, "PARAM_VALUE", kParameterValue);
     lua_pushtablestringstring(L, "PARAM_VIRTUALCURRENCYNAME", kParameterVirtualCurrencyName);
-    // From firebase/analytics/user_property_names.h
     lua_pushtablestringstring(L, "PROP_ALLOWADPERSONALIZATIONSIGNALS", kUserPropertyAllowAdPersonalizationSignals);
     lua_pushtablestringstring(L, "PROP_SIGNUPMETHOD", kUserPropertySignUpMethod);
-    
+"""
 
-    #define SETCONSTANT(name) \
-    lua_pushnumber(L, (lua_Number) name); \
-    lua_setfield(L, -2, #name); \
-
-    SETCONSTANT(MSG_ERROR)
-    SETCONSTANT(MSG_INSTANCE_ID)
-
-    #undef SETCONSTANT
-
-    lua_settable(L, -3);
-
-    lua_pop(L, 1);
-}
-
-
-//--------------------------- Extension callbacks -------------------------//
-
-dmExtension::Result AppInitializeFirebaseExtension(dmExtension::AppParams* params) {
-    return dmExtension::RESULT_OK;
-}
-
-dmExtension::Result InitializeFirebaseExtension(dmExtension::Params* params) {
-    dmLogInfo("Initialize Firebase Analytics");
-
-    LuaInit(params->m_L);
-    Initialize_Ext();
-    InitializeCallback();
-
-    return dmExtension::RESULT_OK;
-}
-
-dmExtension::Result AppFinalizeFirebaseExtension(dmExtension::AppParams* params) {
-    return dmExtension::RESULT_OK;
-}
-
-dmExtension::Result FinalizeFirebaseExtension(dmExtension::Params* params) {
-    FinalizeCallback();
-    return dmExtension::RESULT_OK;
-}
-
-dmExtension::Result UpdateFirebaseExtension(dmExtension::Params* params) {
-    UpdateCallback();
-    return dmExtension::RESULT_OK;
-}
-
-} // namespace dmFirebaseAnalytics
-
-DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, dmFirebaseAnalytics::AppInitializeFirebaseExtension, dmFirebaseAnalytics::AppFinalizeFirebaseExtension, dmFirebaseAnalytics::InitializeFirebaseExtension, dmFirebaseAnalytics::UpdateFirebaseExtension, 0, dmFirebaseAnalytics::FinalizeFirebaseExtension)
-
-#else // defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS) 
-
-//-------------------- Not supported for other platforms --------------------//
-
-static  dmExtension::Result InitializeFirebaseAnalytics(dmExtension::Params* params)
-{
-    dmLogInfo("Registered extension Firebase Analytics (null)");
-    return dmExtension::RESULT_OK;
-}
-
-static dmExtension::Result FinalizeFirebaseAnalytics(dmExtension::Params* params)
-{
-    return dmExtension::RESULT_OK;
-}
-
-DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, 0, 0, InitializeFirebaseAnalytics, 0, 0, FinalizeFirebaseAnalytics)
-
-#endif // defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS) 
-
+output = parse_multiline_string(multiline_input)
+print(output)
