@@ -3,13 +3,56 @@
   desc: Functions and constants for interacting with Firebase Analytics
 
   members:
-  - name: init
+  - name: initialize
     type: function
     desc: Initialise analytics
 
+  - name: set_callback
+    type: function
+    desc: Sets a callback function for receiving events from the SDK. Call `firebase.analytics.set_callback(nil)`
+         to remove callback
+    parameters:
+     - name: callback
+       type: function
+       desc: Callback function that is executed on any event in the SDK.
+
+       parameters:
+         - name: self
+           type: object
+           desc: The calling script instance
+
+         - name: message_id
+           type: number
+           desc: "One of message types:
+               `firebase.analytics.MSG_ERROR`
+               `firebase.analytics.MSG_INSTANCE_ID`"
+
+         - name: message
+           type: table
+           desc: A table holding the data
+           fields:
+               - name: error
+                 type: string
+                 optional: true
+                 desc: The error message (if an error occurred or `nil` otherwise)
+
+               - name: instance_id
+                 type: string
+                 optional: true
+                 desc: For message_id MSG_INSTANCE_ID or `nil` otherwise.
+
+  - name: log
+    type: function
+    desc: Log an event without parameters.
+
+    parameters:
+    - name: name
+      type: string
+      desc: Event name
+
   - name: log_string
     type: function
-    desc: Log an event with one string parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/logevent)
+    desc: Log an event with one string parameter.
 
     parameters:
     - name: name
@@ -24,7 +67,7 @@
 
   - name: log_int
     type: function
-    desc: Log an event with one integer parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/logevent_4)
+    desc: Log an event with one integer parameter. 
 
     parameters:
     - name: name
@@ -39,7 +82,7 @@
 
   - name: log_number
     type: function
-    desc: Log an event with one float parameter. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/logevent_2)
+    desc: Log an event with one float parameter. 
 
     parameters:
     - name: name
@@ -54,7 +97,7 @@
 
   - name: log_table
     type: function
-    desc: Log an event with table parameters. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/logevent_6)
+    desc: Log an event with table parameters. 
 
     parameters:
     - name: name
@@ -66,7 +109,7 @@
 
   - name: set_user_id
     type: function
-    desc: Sets the user ID property. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/setuserid)
+    desc: Sets the user ID property. 
 
     parameters:
     - name: user_id
@@ -75,7 +118,7 @@
 
   - name: set_user_property
     type: function
-    desc: Set a user property to the given value. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/setuserproperty)
+    desc: Set a user property to the given value.
 
     parameters:
     - name: name
@@ -87,16 +130,30 @@
 
   - name: reset
     type: function
-    desc: Clears all data for this app from the device and resets the app instance id. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/resetata)
+    desc: Clears all data for this app from the device and resets the app instance id.
 
   - name: get_id
     type: function
-    desc: Get the instance ID from the service. (Official docs https://firebase.google.com/docs/reference/cpp/namespace/firebase/getnstanceid)
+    desc: Get the instance ID from the service. Returned in callback with MSG_INSTANCE_ID message_id.
+
+  - name: set_enabled
+    type: function
+    desc: Sets whether analytics collection is enabled for this app on this device.
 
     parameters:
-    - name: callback
-      type: function
-      desc: Function to invoke with the id (self, id)
+     - name: key
+       type: boolean
+       desc: The value
+
+#***** EVENTS *****************************************************************************************
+
+  - name: MSG_ERROR
+    type: number
+    desc: Event generated when an error occurred.
+
+  - name: MSG_INSTANCE_ID
+    type: number
+    desc: Event generated when instance_id ready after `firebase.analytics.get_id()` call
 
 #***** EVENTS *****************************************************************************************
 
