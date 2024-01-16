@@ -14,6 +14,15 @@ namespace dmFirebaseAnalytics {
     void LogEventNumber(const char* param_name, double param, const char* event_name);
     void ResetAnalyticsData();
     void SetAnalyticsCollectionEnabled(bool enabled);
+
+    void OpenEvent();
+    void AddParamString(const char* param_name, const char* param);
+    void AddParamBoolean(const char* param_name, bool param);
+    void AddParamNumber(const char* param_name, double param);
+    void AddParamInt(const char* param_name, int param);
+    void SendEvent(const char* event_name);
+    void CloseEvent();
+
 } //namespace dmFirebaseAnalytics
 
 #endif

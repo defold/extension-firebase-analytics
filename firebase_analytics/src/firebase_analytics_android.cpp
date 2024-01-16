@@ -29,6 +29,14 @@ namespace dmFirebaseAnalytics {
         jmethodID      m_SetEnabled;
         jmethodID      m_SetUserProperty;
         jmethodID      m_SetUserID;
+
+        jmethodID      m_OpenEvent;
+        jmethodID      m_AddParamBoolean;
+        jmethodID      m_AddParamNumber;
+        jmethodID      m_AddParamInt;
+        jmethodID      m_AddParamString;
+        jmethodID      m_SendEvent;
+        jmethodID      m_CloseEvent;
     };
 
     static FirebaseAnalyticsJNI g_firebaseAnalytics;
@@ -74,6 +82,14 @@ namespace dmFirebaseAnalytics {
         g_firebaseAnalytics.m_LogNumber = env->GetMethodID(cls, "logEventNumber", "(Ljava/lang/String;DLjava/lang/String;)V");
         g_firebaseAnalytics.m_LogInt = env->GetMethodID(cls, "logEventInt", "(Ljava/lang/String;ILjava/lang/String;)V");
         g_firebaseAnalytics.m_LogString = env->GetMethodID(cls, "logEventString", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+
+        g_firebaseAnalytics.m_OpenEvent = env->GetMethodID(cls, "openEvent", "()V");
+        g_firebaseAnalytics.m_AddParamBoolean = env->GetMethodID(cls, "addParamBoolean", "(Ljava/lang/String;Z)V");
+        g_firebaseAnalytics.m_AddParamNumber = env->GetMethodID(cls, "addParamNumber", "(Ljava/lang/String;D)V");
+        g_firebaseAnalytics.m_AddParamInt = env->GetMethodID(cls, "addParamInt", "(Ljava/lang/String;I)V");
+        g_firebaseAnalytics.m_AddParamString = env->GetMethodID(cls, "addParamString", "(Ljava/lang/String;Ljava/lang/String;)V");
+        g_firebaseAnalytics.m_SendEvent = env->GetMethodID(cls, "sendEvent", "(Ljava/lang/String;)V");
+        g_firebaseAnalytics.m_CloseEvent = env->GetMethodID(cls, "closeEvent", "()V");
     }
 
     void Initialize_Ext() 
@@ -158,6 +174,65 @@ namespace dmFirebaseAnalytics {
         dmAndroid::ThreadAttacher threadAttacher;
         JNIEnv* env = threadAttacher.GetEnv();
         env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_SetEnabled, enabled);
+    }
+
+    //---
+    dmAndroid::ThreadAttacher* g_threadAttacher;
+
+    void OpenEvent()
+    {
+        g_threadAttacher = new dmAndroid::ThreadAttacher();
+        JNIEnv* env = g_threadAttacher->GetEnv();
+        env->CallVoidMethod(g_firebaseAnalytics.m_JNI, g_firebaseAnalytics.m_OpenEvent);
+    }
+
+    void AddParamString(const char* param_name, const char* param)
+    {
+        JNIEnv* env = g_threadAttacher->GetEnv();
+        jstring jparam_name = env->NewStringUTF(param_name);
+        jstring jparam = env->NewStringUTF(param);
+        env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_AddParamString, jparam_name, jparam);
+        env->DeleteLocalRef(jparam_name);
+        env->DeleteLocalRef(jparam);
+    }
+
+    void AddParamBoolean(const char* param_name, bool param)
+    {
+        JNIEnv* env = g_threadAttacher->GetEnv();
+        jstring jparam_name = env->NewStringUTF(param_name);
+        env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_AddParamBoolean, jparam_name, param);
+        env->DeleteLocalRef(jparam_name);
+    }
+
+    void AddParamNumber(const char* param_name, double param)
+    {
+        JNIEnv* env = g_threadAttacher->GetEnv();
+        jstring jparam_name = env->NewStringUTF(param_name);
+        env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_AddParamNumber, jparam_name, param);
+        env->DeleteLocalRef(jparam_name);
+    }
+
+    void AddParamInt(const char* param_name, int param)
+    {
+        JNIEnv* env = g_threadAttacher->GetEnv();
+        jstring jparam_name = env->NewStringUTF(param_name);
+        env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_AddParamInt, jparam_name, param);
+        env->DeleteLocalRef(jparam_name);
+    }
+
+    void SendEvent(const char* event_name)
+    {
+        JNIEnv* env = g_threadAttacher->GetEnv();
+        jstring jevent_name = env->NewStringUTF(event_name);
+        env->CallVoidMethod(g_firebaseAnalytics.m_JNI, g_firebaseAnalytics.m_SendEvent, jevent_name);
+        env->DeleteLocalRef(jevent_name);
+    }
+
+    void CloseEvent()
+    {
+        JNIEnv* env = g_threadAttacher->GetEnv();
+        env->CallVoidMethod(g_firebaseAnalytics.m_JNI, g_firebaseAnalytics.m_CloseEvent);
+        delete g_threadAttacher;
     }
 
 } //namespace dmFirebaseAnalytics

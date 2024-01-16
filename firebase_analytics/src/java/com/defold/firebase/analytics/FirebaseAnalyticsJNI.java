@@ -85,6 +85,40 @@ public class FirebaseAnalyticsJNI {
         firebaseAnalytics.setAnalyticsCollectionEnabled(enabled);
     }
 
+    //---
+    private Bundle g_bundle;
+
+    public void openEvent() {
+        g_bundle = new Bundle();
+    }
+
+    public void addParamBoolean(String param_name, boolean param) {
+        g_bundle.putBoolean(param_name, param);
+    }
+
+    public void addParamNumber(String param_name, double param) {
+        g_bundle.putDouble(param_name, param);
+    }
+
+    public void addParamInt(String param_name, int param) {
+        g_bundle.putInt(param_name, param);
+    }
+
+    public void addParamString(String param_name, String param) {
+        g_bundle.putString(param_name, param);
+    }
+
+    public void sendEvent(String event_name) {
+        firebaseAnalytics.logEvent(event_name, g_bundle);
+    }
+
+    public void closeEvent() {
+        g_bundle = null;
+    }
+
+
+    //---
+
     private String getJsonConversionErrorMessage(String errorText) {
         String message = null;
         try {

@@ -21,6 +21,25 @@ using namespace firebase::analytics;
 
 namespace dmFirebaseAnalytics {
 
+// Limitations docs:
+// https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Param
+const size_t MAX_ELEMENTS = 25;
+const size_t MAX_EVENT_NAME_LENGTH = 40;
+const size_t MAX_PARAM_LENGTH = 40;
+const size_t MAX_VALUE_LENGTH = 100;
+
+static bool CheckEventName(const char* name) {
+    // MAX_EVENT_NAME_LENGTH
+}
+
+static bool CheckParamLength(const char* name) {
+    // MAX_PARAM_LENGTH
+}
+
+static bool CheckValueLength(const char* name) {
+    // MAX_VALUE_LENGTH
+}
+
 static int Lua_Initialize(lua_State* L) {
     DM_LUA_STACK_CHECK(L, 0);
     Initialize();
@@ -82,7 +101,47 @@ static int Lua_LogNumber(lua_State* L)
 static int Lua_LogTable(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
-    //TODO
+
+    const char* name = luaL_checkstring(L, 1);
+    luaL_checktype(L, 2, LUA_TTABLE);
+    OpenEvent();
+    lua_pushvalue(L, 2);
+    lua_pushnil(L);
+    int size = 0;
+    while (lua_next(L, -2) != 0)
+    {
+        if (size == MAX_ELEMENTS) {
+            luaL_error(L, "Too many parameters in '%s'", name);
+            lua_pop(L, 2);
+            return 0;
+        }
+        const char* k = lua_tostring(L, -2);
+        int t = lua_type(L, -1);
+        switch (t) {
+            case LUA_TSTRING:
+                AddParamString(k, lua_tostring(L, -1));
+            break;
+            case LUA_TBOOLEAN:
+                AddParamBoolean(k, lua_toboolean(L, -1) != 0);
+            break;
+            case LUA_TNUMBER:
+                AddParamNumber(k, lua_tonumber(L, -1));
+            break;
+            default:  /* other values */
+                luaL_error(L, "Wrong type for table attribute '%s' , type: '%s'", k, luaL_typename(L, -1));
+                lua_pop(L, 3);
+            return 0;
+            break;
+        }
+        lua_pop(L, 1);
+        ++size;
+    }
+
+    SendEvent(name);
+    CloseEvent();
+
+    lua_pop(L, 1);
+
     return 0;
 }
 

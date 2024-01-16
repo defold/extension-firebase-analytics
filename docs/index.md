@@ -65,6 +65,8 @@ function init(self)
 end
 ```
 
+Read about [events](https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Event) and [parameters](https://firebase.google.com/docs/reference/android/com/google/firebase/analytics/FirebaseAnalytics.Param) naming limitations in the official documentation.
+
 ## Source code
 
 The source code is available on [GitHub](https://github.com/defold/extension-firebase-analytics)
