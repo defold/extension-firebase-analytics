@@ -64,7 +64,9 @@ static int Lua_Log(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
     const char* event_name = luaL_checkstring(L, 1);
-    LogEvent(event_name);
+    OpenEvent();
+    SendEvent(event_name);
+    CloseEvent();
     return 0;
 }
 
@@ -74,7 +76,10 @@ static int Lua_LogString(lua_State* L)
     const char* event_name = luaL_checkstring(L, 1);
     const char* param_name = luaL_checkstring(L, 2);
     const char* param = luaL_checkstring(L, 3);
-    LogEventString(param_name, param, event_name);
+    OpenEvent();
+    AddParamString(param_name, param);
+    SendEvent(event_name);
+    CloseEvent();
     return 0;
 }
 
@@ -84,7 +89,10 @@ static int Lua_LogInt(lua_State* L)
     const char* event_name = luaL_checkstring(L, 1);
     const char* param_name = luaL_checkstring(L, 2);
     const int param = luaL_checkint(L, 3);
-    LogEventInt(param_name, param, event_name);
+    OpenEvent();
+    AddParamInt(param_name, param);
+    SendEvent(event_name);
+    CloseEvent();
     return 0;
 }
 
@@ -94,7 +102,10 @@ static int Lua_LogNumber(lua_State* L)
     const char* event_name = luaL_checkstring(L, 1);
     const char* param_name = luaL_checkstring(L, 2);
     const lua_Number param = luaL_checknumber(L, 3);
-    LogEventNumber(param_name, param, event_name);
+    OpenEvent();
+    AddParamNumber(param_name, param);
+    SendEvent(event_name);
+    CloseEvent();
     return 0;
 }
 
@@ -113,6 +124,7 @@ static int Lua_LogTable(lua_State* L)
         if (size == MAX_ELEMENTS) {
             luaL_error(L, "Too many parameters in '%s'", name);
             lua_pop(L, 2);
+            CloseEvent();
             return 0;
         }
         const char* k = lua_tostring(L, -2);
@@ -122,7 +134,7 @@ static int Lua_LogTable(lua_State* L)
                 AddParamString(k, lua_tostring(L, -1));
             break;
             case LUA_TBOOLEAN:
-                AddParamBoolean(k, lua_toboolean(L, -1) != 0);
+                AddParamInt(k, lua_toboolean(L, -1));
             break;
             case LUA_TNUMBER:
                 AddParamNumber(k, lua_tonumber(L, -1));
@@ -130,6 +142,7 @@ static int Lua_LogTable(lua_State* L)
             default:  /* other values */
                 luaL_error(L, "Wrong type for table attribute '%s' , type: '%s'", k, luaL_typename(L, -1));
                 lua_pop(L, 3);
+                CloseEvent();
             return 0;
             break;
         }

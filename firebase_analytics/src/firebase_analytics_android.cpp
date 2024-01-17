@@ -21,17 +21,12 @@ namespace dmFirebaseAnalytics {
         jmethodID      m_Initialize;
         jmethodID      m_GetInstanceId;
         jmethodID      m_GetID;
-        jmethodID      m_Log;
-        jmethodID      m_LogString;
-        jmethodID      m_LogInt;
-        jmethodID      m_LogNumber;
         jmethodID      m_Reset;
         jmethodID      m_SetEnabled;
         jmethodID      m_SetUserProperty;
         jmethodID      m_SetUserID;
 
         jmethodID      m_OpenEvent;
-        jmethodID      m_AddParamBoolean;
         jmethodID      m_AddParamNumber;
         jmethodID      m_AddParamInt;
         jmethodID      m_AddParamString;
@@ -78,13 +73,8 @@ namespace dmFirebaseAnalytics {
         g_firebaseAnalytics.m_SetEnabled = env->GetMethodID(cls, "setAnalyticsCollectionEnabled", "(Z)V");
         g_firebaseAnalytics.m_SetUserProperty = env->GetMethodID(cls, "setUserProperty", "(Ljava/lang/String;Ljava/lang/String;)V");
         g_firebaseAnalytics.m_Reset = env->GetMethodID(cls, "resetAnalyticsData", "()V");
-        g_firebaseAnalytics.m_Log = env->GetMethodID(cls, "logEvent", "(Ljava/lang/String;)V");
-        g_firebaseAnalytics.m_LogNumber = env->GetMethodID(cls, "logEventNumber", "(Ljava/lang/String;DLjava/lang/String;)V");
-        g_firebaseAnalytics.m_LogInt = env->GetMethodID(cls, "logEventInt", "(Ljava/lang/String;ILjava/lang/String;)V");
-        g_firebaseAnalytics.m_LogString = env->GetMethodID(cls, "logEventString", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
 
         g_firebaseAnalytics.m_OpenEvent = env->GetMethodID(cls, "openEvent", "()V");
-        g_firebaseAnalytics.m_AddParamBoolean = env->GetMethodID(cls, "addParamBoolean", "(Ljava/lang/String;Z)V");
         g_firebaseAnalytics.m_AddParamNumber = env->GetMethodID(cls, "addParamNumber", "(Ljava/lang/String;D)V");
         g_firebaseAnalytics.m_AddParamInt = env->GetMethodID(cls, "addParamInt", "(Ljava/lang/String;I)V");
         g_firebaseAnalytics.m_AddParamString = env->GetMethodID(cls, "addParamString", "(Ljava/lang/String;Ljava/lang/String;)V");
@@ -124,46 +114,6 @@ namespace dmFirebaseAnalytics {
         CallVoidMethodCharChar(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_SetUserProperty, name, value);
     }
 
-    void LogEvent(const char* event_name)
-    {
-        CallVoidMethodChar(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_Log, event_name);
-    }
-
-    void LogEventString(const char* param_name, const char* param, const char* event_name)
-    {
-        dmAndroid::ThreadAttacher threadAttacher;
-        JNIEnv* env = threadAttacher.GetEnv();
-        jstring jparam_name = env->NewStringUTF(param_name);
-        jstring jparam = env->NewStringUTF(param);
-        jstring jevent_name = env->NewStringUTF(event_name);
-        env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_LogString, jparam_name, jparam, jevent_name);
-        env->DeleteLocalRef(jparam_name);
-        env->DeleteLocalRef(jparam);
-        env->DeleteLocalRef(jevent_name);
-    }
-
-    void LogEventInt(const char* param_name, int param, const char* event_name)
-    {
-        dmAndroid::ThreadAttacher threadAttacher;
-        JNIEnv* env = threadAttacher.GetEnv();
-        jstring jparam_name = env->NewStringUTF(param_name);
-        jstring jevent_name = env->NewStringUTF(event_name);
-        env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_LogInt, jparam_name, param, jevent_name);
-        env->DeleteLocalRef(jparam_name);
-        env->DeleteLocalRef(jevent_name);
-    }
-
-    void LogEventNumber(const char* param_name, double param, const char* event_name)
-    {
-        dmAndroid::ThreadAttacher threadAttacher;
-        JNIEnv* env = threadAttacher.GetEnv();
-        jstring jparam_name = env->NewStringUTF(param_name);
-        jstring jevent_name = env->NewStringUTF(event_name);
-        env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_LogNumber, jparam_name, param, jevent_name);
-        env->DeleteLocalRef(jparam_name);
-        env->DeleteLocalRef(jevent_name);
-    }
-
     void ResetAnalyticsData()
     {
         CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_Reset);
@@ -194,14 +144,6 @@ namespace dmFirebaseAnalytics {
         env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_AddParamString, jparam_name, jparam);
         env->DeleteLocalRef(jparam_name);
         env->DeleteLocalRef(jparam);
-    }
-
-    void AddParamBoolean(const char* param_name, bool param)
-    {
-        JNIEnv* env = g_threadAttacher->GetEnv();
-        jstring jparam_name = env->NewStringUTF(param_name);
-        env->CallVoidMethod(g_firebaseAnalytics.m_JNI , g_firebaseAnalytics.m_AddParamBoolean, jparam_name, param);
-        env->DeleteLocalRef(jparam_name);
     }
 
     void AddParamNumber(const char* param_name, double param)

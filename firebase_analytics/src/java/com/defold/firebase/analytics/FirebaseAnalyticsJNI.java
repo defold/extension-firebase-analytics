@@ -86,14 +86,11 @@ public class FirebaseAnalyticsJNI {
     }
 
     //---
+    
     private Bundle g_bundle;
 
     public void openEvent() {
         g_bundle = new Bundle();
-    }
-
-    public void addParamBoolean(String param_name, boolean param) {
-        g_bundle.putBoolean(param_name, param);
     }
 
     public void addParamNumber(String param_name, double param) {
@@ -115,7 +112,6 @@ public class FirebaseAnalyticsJNI {
     public void closeEvent() {
         g_bundle = null;
     }
-
 
     //---
 
