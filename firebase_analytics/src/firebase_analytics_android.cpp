@@ -127,10 +127,15 @@ namespace dmFirebaseAnalytics {
     }
 
     //---
-    dmAndroid::ThreadAttacher* g_threadAttacher;
+    dmAndroid::ThreadAttacher* g_threadAttacher = 0x0;
 
     void OpenEvent()
     {
+        if (g_threadAttacher != 0x0)
+        {
+            delete g_threadAttacher;
+            g_threadAttacher = 0x0;
+        }
         g_threadAttacher = new dmAndroid::ThreadAttacher();
         JNIEnv* env = g_threadAttacher->GetEnv();
         env->CallVoidMethod(g_firebaseAnalytics.m_JNI, g_firebaseAnalytics.m_OpenEvent);
@@ -167,7 +172,7 @@ namespace dmFirebaseAnalytics {
         JNIEnv* env = g_threadAttacher->GetEnv();
         jstring jevent_name = env->NewStringUTF(event_name);
         env->CallVoidMethod(g_firebaseAnalytics.m_JNI, g_firebaseAnalytics.m_SendEvent, jevent_name);
-        env->DeleteLocalRef(jevent_name);
+        env->DeleteLocalRef(jevent_name); 
     }
 
     void CloseEvent()
@@ -175,6 +180,7 @@ namespace dmFirebaseAnalytics {
         JNIEnv* env = g_threadAttacher->GetEnv();
         env->CallVoidMethod(g_firebaseAnalytics.m_JNI, g_firebaseAnalytics.m_CloseEvent);
         delete g_threadAttacher;
+        g_threadAttacher = 0x0;
     }
 
 } //namespace dmFirebaseAnalytics

@@ -28,16 +28,25 @@ const size_t MAX_EVENT_NAME_LENGTH = 40;
 const size_t MAX_PARAM_LENGTH = 40;
 const size_t MAX_VALUE_LENGTH = 100;
 
-static bool CheckEventName(const char* name) {
-    // MAX_EVENT_NAME_LENGTH
+static void CheckIfEventNameValid(lua_State* L, const char* event_name) {
+    if (strlen(event_name) > MAX_EVENT_NAME_LENGTH)
+    {
+        luaL_error(L, "Event name '%s' longer than maximum allowed '%d' symbols", event_name, MAX_EVENT_NAME_LENGTH);
+    }
 }
 
-static bool CheckParamLength(const char* name) {
-    // MAX_PARAM_LENGTH
+static void CheckIfParamValid(lua_State* L, const char* param_key, const char* event_name) {
+    if (strlen(param_key) > MAX_PARAM_LENGTH)
+    {
+        luaL_error(L, "Parameter name '%s' for event '%s' longer than maximum allowed '%d' symbols", param_key, event_name, MAX_PARAM_LENGTH);
+    }
 }
 
-static bool CheckValueLength(const char* name) {
-    // MAX_VALUE_LENGTH
+static void CheckIfValueValid(lua_State* L, const char* param_value, const char* event_name, const char* param_key) {
+    if (strlen(param_value) > MAX_VALUE_LENGTH)
+    {
+        luaL_error(L, "Parameter value '%s' with key '%s' for event '%s' longer than maximum allowed '%d' symbols", param_value, param_key, event_name, MAX_VALUE_LENGTH);
+    }
 }
 
 static int Lua_Initialize(lua_State* L) {
@@ -64,6 +73,9 @@ static int Lua_Log(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
     const char* event_name = luaL_checkstring(L, 1);
+
+    CheckIfEventNameValid(L, event_name);
+
     OpenEvent();
     SendEvent(event_name);
     CloseEvent();
@@ -76,6 +88,11 @@ static int Lua_LogString(lua_State* L)
     const char* event_name = luaL_checkstring(L, 1);
     const char* param_name = luaL_checkstring(L, 2);
     const char* param = luaL_checkstring(L, 3);
+
+    CheckIfEventNameValid(L, event_name);
+    CheckIfParamValid(L, param_name, event_name);
+    CheckIfValueValid(L, param, event_name, param_name);
+
     OpenEvent();
     AddParamString(param_name, param);
     SendEvent(event_name);
@@ -89,6 +106,10 @@ static int Lua_LogInt(lua_State* L)
     const char* event_name = luaL_checkstring(L, 1);
     const char* param_name = luaL_checkstring(L, 2);
     const int param = luaL_checkint(L, 3);
+
+    CheckIfEventNameValid(L, event_name);
+    CheckIfParamValid(L, param_name, event_name);
+
     OpenEvent();
     AddParamInt(param_name, param);
     SendEvent(event_name);
@@ -102,6 +123,10 @@ static int Lua_LogNumber(lua_State* L)
     const char* event_name = luaL_checkstring(L, 1);
     const char* param_name = luaL_checkstring(L, 2);
     const lua_Number param = luaL_checknumber(L, 3);
+
+    CheckIfEventNameValid(L, event_name);
+    CheckIfParamValid(L, param_name, event_name);
+
     OpenEvent();
     AddParamNumber(param_name, param);
     SendEvent(event_name);
@@ -113,7 +138,8 @@ static int Lua_LogTable(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
 
-    const char* name = luaL_checkstring(L, 1);
+    const char* event_name = luaL_checkstring(L, 1);
+    CheckIfEventNameValid(L, event_name);
     luaL_checktype(L, 2, LUA_TTABLE);
     OpenEvent();
     lua_pushvalue(L, 2);
@@ -122,35 +148,51 @@ static int Lua_LogTable(lua_State* L)
     while (lua_next(L, -2) != 0)
     {
         if (size == MAX_ELEMENTS) {
-            luaL_error(L, "Too many parameters in '%s'", name);
             lua_pop(L, 2);
             CloseEvent();
+            return luaL_error(L, "Too many parameters in '%s'", event_name);
+        }
+        const char* param_name = lua_tostring(L, -2);
+        // Can't use CheckIfParamValid here, because cleanup needed if it's invalid
+        if (strlen(param_name) > MAX_PARAM_LENGTH)
+        {
+            lua_pop(L, 3);
+            CloseEvent();
+            CheckIfParamValid(L, param_name, event_name);
             return 0;
         }
-        const char* k = lua_tostring(L, -2);
         int t = lua_type(L, -1);
+        const char* param_value;
         switch (t) {
             case LUA_TSTRING:
-                AddParamString(k, lua_tostring(L, -1));
+                param_value = lua_tostring(L, -1);
+                // Can't use CheckIfValueValid here, because cleanup needed if it's invalid
+                if (strlen(param_value) > MAX_VALUE_LENGTH)
+                {
+                    lua_pop(L, 3);
+                    CloseEvent();
+                    CheckIfValueValid(L, param_value, event_name, param_name);
+                    return 0;
+                }
+                AddParamString(param_name, param_value);
             break;
             case LUA_TBOOLEAN:
-                AddParamInt(k, lua_toboolean(L, -1));
+                AddParamInt(param_name, lua_toboolean(L, -1));
             break;
             case LUA_TNUMBER:
-                AddParamNumber(k, lua_tonumber(L, -1));
+                AddParamNumber(param_name, lua_tonumber(L, -1));
             break;
             default:  /* other values */
-                luaL_error(L, "Wrong type for table attribute '%s' , type: '%s'", k, luaL_typename(L, -1));
                 lua_pop(L, 3);
                 CloseEvent();
-            return 0;
+                return luaL_error(L, "Wrong type for table attribute '%s', type: '%s' in event '%s'", param_name, luaL_typename(L, -1), event_name);
             break;
         }
         lua_pop(L, 1);
         ++size;
     }
 
-    SendEvent(name);
+    SendEvent(event_name);
     CloseEvent();
 
     lua_pop(L, 1);
@@ -405,4 +447,3 @@ static dmExtension::Result FinalizeFirebaseAnalytics(dmExtension::Params* params
 DM_DECLARE_EXTENSION(EXTENSION_NAME, LIB_NAME, 0, 0, InitializeFirebaseAnalytics, 0, 0, FinalizeFirebaseAnalytics)
 
 #endif // defined(DM_PLATFORM_ANDROID) || defined(DM_PLATFORM_IOS) 
-
