@@ -1,583 +1,586 @@
-- name: analytics
+- name: firebase
   type: table
-  desc: Functions and constants for interacting with Firebase Analytics
-
+  desc: Functions and constants for interacting with Firebase
   members:
-  - name: initialize
-    type: function
-    desc: Initialise analytics
+  - name: analytics
+    type: table
+    desc: Functions and constants for interacting with Firebase Analytics
 
-  - name: set_callback
-    type: function
-    desc: Sets a callback function for receiving events from the SDK. Call `firebase.analytics.set_callback(nil)`
-         to remove callback
-    parameters:
-     - name: callback
-       type: function
-       desc: Callback function that is executed on any event in the SDK.
+    members:
+    - name: initialize
+      type: function
+      desc: Initialise analytics
 
-       parameters:
-         - name: self
-           type: object
-           desc: The calling script instance
+    - name: set_callback
+      type: function
+      desc: Sets a callback function for receiving events from the SDK. Call `firebase.analytics.set_callback(nil)`
+          to remove callback
+      parameters:
+      - name: callback
+        type: function
+        desc: Callback function that is executed on any event in the SDK.
 
-         - name: message_id
-           type: number
-           desc: "One of message types:
-               `firebase.analytics.MSG_ERROR`
-               `firebase.analytics.MSG_INSTANCE_ID`"
+        parameters:
+          - name: self
+            type: object
+            desc: The calling script instance
 
-         - name: message
-           type: table
-           desc: A table holding the data
-           fields:
-               - name: error
-                 type: string
-                 optional: true
-                 desc: The error message (if an error occurred or `nil` otherwise)
+          - name: message_id
+            type: number
+            desc: "One of message types:
+                `firebase.analytics.MSG_ERROR`
+                `firebase.analytics.MSG_INSTANCE_ID`"
 
-               - name: instance_id
-                 type: string
-                 optional: true
-                 desc: For message_id MSG_INSTANCE_ID or `nil` otherwise.
+          - name: message
+            type: table
+            desc: A table holding the data
+            fields:
+                - name: error
+                  type: string
+                  optional: true
+                  desc: The error message (if an error occurred or `nil` otherwise)
 
-  - name: log
-    type: function
-    desc: Log an event without parameters.
+                - name: instance_id
+                  type: string
+                  optional: true
+                  desc: For message_id MSG_INSTANCE_ID or `nil` otherwise.
 
-    parameters:
-    - name: name
-      type: string
-      desc: Event name
+    - name: log
+      type: function
+      desc: Log an event without parameters.
 
-  - name: log_string
-    type: function
-    desc: Log an event with one string parameter.
+      parameters:
+      - name: name
+        type: string
+        desc: Event name
 
-    parameters:
-    - name: name
-      type: string
-      desc: Event name
-    - name: PARAMeter_name
-      type: string
-      desc: Parameter name
-    - name: PARAMeter_value
-      type: string
-      desc: Parameter value
+    - name: log_string
+      type: function
+      desc: Log an event with one string parameter.
 
-  - name: log_int
-    type: function
-    desc: Log an event with one integer parameter. 
+      parameters:
+      - name: name
+        type: string
+        desc: Event name
+      - name: PARAMeter_name
+        type: string
+        desc: Parameter name
+      - name: PARAMeter_value
+        type: string
+        desc: Parameter value
 
-    parameters:
-    - name: name
-      type: string
-      desc: Event name
-    - name: PARAMeter_name
-      type: string
-      desc: Parameter name
-    - name: PARAMeter_value
+    - name: log_int
+      type: function
+      desc: Log an event with one integer parameter. 
+
+      parameters:
+      - name: name
+        type: string
+        desc: Event name
+      - name: PARAMeter_name
+        type: string
+        desc: Parameter name
+      - name: PARAMeter_value
+        type: number
+        desc: Parameter value
+
+    - name: log_number
+      type: function
+      desc: Log an event with one float parameter. 
+
+      parameters:
+      - name: name
+        type: string
+        desc: Event name
+      - name: PARAMeter_name
+        type: string
+        desc: Parameter name
+      - name: PARAMeter_value
+        type: number
+        desc: Parameter value
+
+    - name: log_table
+      type: function
+      desc: Log an event with table parameters. 
+
+      parameters:
+      - name: name
+        type: string
+        desc: Event name
+      - name: PARAMeters_table
+        type: table
+        desc: Table with parameters (key-value pairs)
+
+    - name: set_user_id
+      type: function
+      desc: Sets the user ID property. 
+
+      parameters:
+      - name: user_id
+        type: string
+        desc: User ID property
+
+    - name: set_user_property
+      type: function
+      desc: Set a user property to the given value.
+
+      parameters:
+      - name: name
+        type: string
+        desc: User property name
+      - name: property
+        type: string
+        desc: User property value
+
+    - name: reset
+      type: function
+      desc: Clears all data for this app from the device and resets the app instance id.
+
+    - name: get_id
+      type: function
+      desc: Get the instance ID from the service. Returned in callback with MSG_INSTANCE_ID message_id.
+
+    - name: set_enabled
+      type: function
+      desc: Sets whether analytics collection is enabled for this app on this device.
+
+      parameters:
+      - name: key
+        type: boolean
+        desc: The value
+
+  #***** EVENTS *****************************************************************************************
+
+    - name: MSG_ERROR
       type: number
-      desc: Parameter value
+      desc: Event generated when an error occurred.
 
-  - name: log_number
-    type: function
-    desc: Log an event with one float parameter. 
-
-    parameters:
-    - name: name
-      type: string
-      desc: Event name
-    - name: PARAMeter_name
-      type: string
-      desc: Parameter name
-    - name: PARAMeter_value
+    - name: MSG_INSTANCE_ID
       type: number
-      desc: Parameter value
+      desc: Event generated when instance_id ready after `firebase.analytics.get_id()` call
 
-  - name: log_table
-    type: function
-    desc: Log an event with table parameters. 
+  #***** EVENTS *****************************************************************************************
 
-    parameters:
-    - name: name
+    - name: EVENT_ADIMPRESSION
       type: string
-      desc: Event name
-    - name: PARAMeters_table
-      type: table
-      desc: Table with parameters (key-value pairs)
+      desc: Predefined event
 
-  - name: set_user_id
-    type: function
-    desc: Sets the user ID property. 
-
-    parameters:
-    - name: user_id
+    - name: EVENT_ADDPAYMENTINFO
       type: string
-      desc: User ID property
+      desc: Predefined event
 
-  - name: set_user_property
-    type: function
-    desc: Set a user property to the given value.
-
-    parameters:
-    - name: name
+    - name: EVENT_ADDSHIPPINGINFO
       type: string
-      desc: User property name
-    - name: property
+      desc: Predefined event
+
+    - name: EVENT_ADDTOCART
       type: string
-      desc: User property value
+      desc: Predefined event
+
+    - name: EVENT_ADDTOWISHLIST
+      type: string
+      desc: Predefined event
+
+    - name: EVENT_APPOPEN
+      type: string
+      desc: Predefined event
+
+    - name: EVENT_BEGINCHECKOUT
+      type: string
+      desc: Predefined event
+
+    - name: EVENT_CAMPAIGNDETAILS
+      type: string
+      desc: Predefined event
+
+    - name: EVENT_EARNVIRTUALCURRENCY
+      type: string
+      desc: Predefined event
+
+    - name: EVENT_GENERATELEAD
+      type: string
+      desc: Predefined event
+
+    - name: EVENT_JOINGROUP
+      type: string
+      desc: Predefined event
 
-  - name: reset
-    type: function
-    desc: Clears all data for this app from the device and resets the app instance id.
+    - name: EVENT_LEVELEND
+      type: string
+      desc: Predefined event
 
-  - name: get_id
-    type: function
-    desc: Get the instance ID from the service. Returned in callback with MSG_INSTANCE_ID message_id.
+    - name: EVENT_LEVELSTART
+      type: string
+      desc: Predefined event
 
-  - name: set_enabled
-    type: function
-    desc: Sets whether analytics collection is enabled for this app on this device.
+    - name: EVENT_LEVELUP
+      type: string
+      desc: Predefined event
 
-    parameters:
-     - name: key
-       type: boolean
-       desc: The value
+    - name: EVENT_LOGIN
+      type: string
+      desc: Predefined event
 
-#***** EVENTS *****************************************************************************************
+    - name: EVENT_POSTSCORE
+      type: string
+      desc: Predefined event
 
-  - name: MSG_ERROR
-    type: number
-    desc: Event generated when an error occurred.
+    - name: EVENT_PURCHASE
+      type: string
+      desc: Predefined event
 
-  - name: MSG_INSTANCE_ID
-    type: number
-    desc: Event generated when instance_id ready after `firebase.analytics.get_id()` call
+    - name: EVENT_REFUND
+      type: string
+      desc: Predefined event
 
-#***** EVENTS *****************************************************************************************
+    - name: EVENT_REMOVEFROMCART
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_ADIMPRESSION
-    type: string
-    desc: Predefined event
+    - name: EVENT_SCREENVIEW
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_ADDPAYMENTINFO
-    type: string
-    desc: Predefined event
+    - name: EVENT_SEARCH
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_ADDSHIPPINGINFO
-    type: string
-    desc: Predefined event
+    - name: EVENT_SELECTCONTENT
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_ADDTOCART
-    type: string
-    desc: Predefined event
+    - name: EVENT_SELECTITEM
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_ADDTOWISHLIST
-    type: string
-    desc: Predefined event
+    - name: EVENT_SELECTPROMOTION
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_APPOPEN
-    type: string
-    desc: Predefined event
+    - name: EVENT_SHARE
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_BEGINCHECKOUT
-    type: string
-    desc: Predefined event
+    - name: EVENT_SIGNUP
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_CAMPAIGNDETAILS
-    type: string
-    desc: Predefined event
+    - name: EVENT_SPENDVIRTUALCURRENCY
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_EARNVIRTUALCURRENCY
-    type: string
-    desc: Predefined event
+    - name: EVENT_TUTORIALBEGIN
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_GENERATELEAD
-    type: string
-    desc: Predefined event
+    - name: EVENT_TUTORIALCOMPLETE
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_JOINGROUP
-    type: string
-    desc: Predefined event
+    - name: EVENT_UNLOCKACHIEVEMENT
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_LEVELEND
-    type: string
-    desc: Predefined event
+    - name: EVENT_VIEWCART
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_LEVELSTART
-    type: string
-    desc: Predefined event
+    - name: EVENT_VIEWITEM
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_LEVELUP
-    type: string
-    desc: Predefined event
+    - name: EVENT_VIEWITEMLIST
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_LOGIN
-    type: string
-    desc: Predefined event
+    - name: EVENT_VIEWPROMOTION
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_POSTSCORE
-    type: string
-    desc: Predefined event
+    - name: EVENT_VIEWSEARCHRESULTS
+      type: string
+      desc: Predefined event
 
-  - name: EVENT_PURCHASE
-    type: string
-    desc: Predefined event
+  #***** PARAMETERS *****************************************************************************************
 
-  - name: EVENT_REFUND
-    type: string
-    desc: Predefined event
+    - name: PARAM_ADFORMAT
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_REMOVEFROMCART
-    type: string
-    desc: Predefined event
+    - name: PARAM_ADNETWORKCLICKID
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_SCREENVIEW
-    type: string
-    desc: Predefined event
+    - name: PARAM_ADPLATFORM
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_SEARCH
-    type: string
-    desc: Predefined event
+    - name: PARAM_ADSOURCE
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_SELECTCONTENT
-    type: string
-    desc: Predefined event
+    - name: PARAM_ADUNITNAME
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_SELECTITEM
-    type: string
-    desc: Predefined event
+    - name: PARAM_AFFILIATION
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_SELECTPROMOTION
-    type: string
-    desc: Predefined event
+    - name: PARAM_CP1
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_SHARE
-    type: string
-    desc: Predefined event
+    - name: PARAM_CAMPAIGN
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_SIGNUP
-    type: string
-    desc: Predefined event
+    - name: PARAM_CAMPAIGNID
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_SPENDVIRTUALCURRENCY
-    type: string
-    desc: Predefined event
+    - name: PARAM_CHARACTER
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_TUTORIALBEGIN
-    type: string
-    desc: Predefined event
+    - name: PARAM_CONTENT
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_TUTORIALCOMPLETE
-    type: string
-    desc: Predefined event
+    - name: PARAM_CONTENTTYPE
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_UNLOCKACHIEVEMENT
-    type: string
-    desc: Predefined event
+    - name: PARAM_COUPON
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_VIEWCART
-    type: string
-    desc: Predefined event
+    - name: PARAM_CREATIVEFORMAT
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_VIEWITEM
-    type: string
-    desc: Predefined event
+    - name: PARAM_CREATIVENAME
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_VIEWITEMLIST
-    type: string
-    desc: Predefined event
+    - name: PARAM_CREATIVESLOT
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_VIEWPROMOTION
-    type: string
-    desc: Predefined event
+    - name: PARAM_CURRENCY
+      type: string
+      desc: Predefined parameter
 
-  - name: EVENT_VIEWSEARCHRESULTS
-    type: string
-    desc: Predefined event
+    - name: PARAM_DESTINATION
+      type: string
+      desc: Predefined parameter
 
-#***** PARAMETERS *****************************************************************************************
+    - name: PARAM_DISCOUNT
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ADFORMAT
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ENDDATE
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ADNETWORKCLICKID
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_EXTENDSESSION
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ADPLATFORM
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_FLIGHTNUMBER
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ADSOURCE
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_GROUPID
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ADUNITNAME
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_INDEX
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_AFFILIATION
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMBRAND
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CP1
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMCATEGORY
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CAMPAIGN
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMCATEGORY2
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CAMPAIGNID
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMCATEGORY3
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CHARACTER
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMCATEGORY4
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CONTENT
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMCATEGORY5
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CONTENTTYPE
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMID
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_COUPON
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMLISTID
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CREATIVEFORMAT
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMLISTNAME
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CREATIVENAME
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMNAME
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CREATIVESLOT
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMVARIANT
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_CURRENCY
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ITEMS
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_DESTINATION
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_LEVEL
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_DISCOUNT
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_LEVELNAME
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ENDDATE
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_LOCATION
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_EXTENDSESSION
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_LOCATIONID
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_FLIGHTNUMBER
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_MARKETINGTACTIC
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_GROUPID
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_MEDIUM
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_INDEX
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_METHOD
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMBRAND
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_NUMBEROFNIGHTS
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMCATEGORY
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_NUMBEROFPASSENGERS
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMCATEGORY2
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_NUMBEROFROOMS
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMCATEGORY3
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_ORIGIN
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMCATEGORY4
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_PAYMENTTYPE
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMCATEGORY5
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_PRICE
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMID
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_PROMOTIONID
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMLISTID
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_PROMOTIONNAME
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMLISTNAME
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_QUANTITY
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMNAME
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_SCORE
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMVARIANT
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_SCREENCLASS
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ITEMS
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_SCREENNAME
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_LEVEL
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_SEARCHTERM
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_LEVELNAME
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_SHIPPING
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_LOCATION
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_SHIPPINGTIER
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_LOCATIONID
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_SOURCE
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_MARKETINGTACTIC
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_SOURCEPLATFORM
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_MEDIUM
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_STARTDATE
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_METHOD
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_SUCCESS
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_NUMBEROFNIGHTS
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_TAX
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_NUMBEROFPASSENGERS
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_TERM
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_NUMBEROFROOMS
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_TRANSACTIONID
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_ORIGIN
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_TRAVELCLASS
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_PAYMENTTYPE
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_VALUE
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_PRICE
-    type: string
-    desc: Predefined parameter
+    - name: PARAM_VIRTUALCURRENCYNAME
+      type: string
+      desc: Predefined parameter
 
-  - name: PARAM_PROMOTIONID
-    type: string
-    desc: Predefined parameter
+  #***** PROPERTIES *****************************************************************************************
 
-  - name: PARAM_PROMOTIONNAME
-    type: string
-    desc: Predefined parameter
+    - name: PROP_ALLOWADPERSONALIZATIONSIGNALS
+      type: string
+      desc: Predefined property
 
-  - name: PARAM_QUANTITY
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SCORE
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SCREENCLASS
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SCREENNAME
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SEARCHTERM
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SHIPPING
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SHIPPINGTIER
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SOURCE
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SOURCEPLATFORM
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_STARTDATE
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_SUCCESS
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_TAX
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_TERM
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_TRANSACTIONID
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_TRAVELCLASS
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_VALUE
-    type: string
-    desc: Predefined parameter
-
-  - name: PARAM_VIRTUALCURRENCYNAME
-    type: string
-    desc: Predefined parameter
-
-#***** PROPERTIES *****************************************************************************************
-
-  - name: PROP_ALLOWADPERSONALIZATIONSIGNALS
-    type: string
-    desc: Predefined property
-
-  - name: PROP_SIGNUPMETHOD
-    type: string
-    desc: Predefined property
-
+    - name: PROP_SIGNUPMETHOD
+      type: string
+      desc: Predefined property
