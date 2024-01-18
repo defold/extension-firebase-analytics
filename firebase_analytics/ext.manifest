@@ -1,26 +1,9 @@
-name: "FirebaseAnalytics"
+name: "FirebaseAnalyticsExt"
 
 platforms:
   android:
     context:
         aaptExtraPackages: ['com.google.android.gms.common']
-
-  arm64-android:
-    context:
-        flags:      ["-std=c++11"]
-
-  armv7-android:
-    context:
-        flags:      ["-std=c++11"]
-
-  armv7-ios:
-    context:
-        flags:      ["-std=c++11"]
-
-  arm64-ios:
-    context:
-        flags:      ["-std=c++11"]
-
-  x86_64-ios:
-    context:
-        flags:      ["-std=c++11"]
+  ios:
+      context:
+          linkFlags:  ["-ObjC"]
