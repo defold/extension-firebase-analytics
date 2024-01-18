@@ -23,13 +23,13 @@ Follow the [main setup guide for integration of Firebase in Defold](https://www.
 
 ```lua
 local function firebase_analytics_callback(self, message_id, message)
-    if message_id == remoteconfig.MSG_ERROR then
+    if message_id == firebase.analytics.MSG_ERROR then
         -- an error was detected when performing an analytics config operation
         print("Firebase Analytics Config error: ", message.error)
         return
     end
 
-    if message_id == remoteconfig.MSG_INSTANCE_ID then
+    if message_id == firebase.analytics.MSG_INSTANCE_ID then
         -- result of the firebase.analytics.get_id() call
         print("Firebase Analytics Config instance_id: ", message.instance_id)
         return
@@ -45,7 +45,7 @@ function init(self)
     -- initialise firebase and check that it was successful
     firebase.set_callback(function(self, message_id, message)
         if message_id == firebase.MSG_INITIALIZED then
-            firebase.remoteconfig.set_callback(firebase_analytics_callback)
+            firebase.analytics.set_callback(firebase_analytics_callback)
             firebase.analytics.initialize()
 
             -- log data
@@ -62,6 +62,7 @@ function init(self)
             firebase.analytics.get_id()
         end
     end)
+    firebase.initialize()
 end
 ```
 
