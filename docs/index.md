@@ -9,7 +9,7 @@ This extension allows you to interact with Firebase Analytics in a uniform way f
 
 
 ## Installation
-To use Firabase in your Defold project, add a version of the Firebase extension to your `game.project` dependencies from the list of available [Firebase Releases](https://github.com/defold/extension-firebase/releases) and corresponding [Firebase Config Release](https://github.com/defold/extension-firebase-remoteconfig/releases).
+To use Firabase in your Defold project, add a version of the Firebase extension to your `game.project` dependencies from the list of available [Firebase Releases](https://github.com/defold/extension-firebase/releases) and corresponding [Firebase Analytics Release](https://github.com/defold/extension-firebase-analytics/releases).
 Find the version you want for both extensions, copy the URLs to ZIP archive of the release and add it to the project dependencies.
 
 ![](add-dependency.png)
