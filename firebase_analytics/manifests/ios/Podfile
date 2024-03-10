@@ -1,1 +1,3 @@
-pod 'FirebaseAnalytics', '10.19.0'
+platform :ios '11.0'
+
+pod 'FirebaseAnalytics', '10.22.0'
