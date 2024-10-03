@@ -19,7 +19,6 @@
       - name: callback
         type: function
         desc: Callback function that is executed on any event in the SDK.
-
         parameters:
           - name: self
             type: object
@@ -48,7 +47,6 @@
     - name: log
       type: function
       desc: Log an event without parameters.
-
       parameters:
       - name: name
         type: string
@@ -57,7 +55,6 @@
     - name: log_string
       type: function
       desc: Log an event with one string parameter.
-
       parameters:
       - name: name
         type: string
@@ -72,7 +69,6 @@
     - name: log_int
       type: function
       desc: Log an event with one integer parameter. 
-
       parameters:
       - name: name
         type: string
@@ -87,7 +83,6 @@
     - name: log_number
       type: function
       desc: Log an event with one float parameter. 
-
       parameters:
       - name: name
         type: string
@@ -102,19 +97,25 @@
     - name: log_table
       type: function
       desc: Log an event with table parameters. 
-
       parameters:
       - name: name
         type: string
         desc: Event name
-      - name: PARAMeters_table
+      - name: parameters_table
         type: table
         desc: Table with parameters (key-value pairs)
+
+    - name: set_default_event_params
+      type: function
+      desc: Log an event with table parameters. 
+      parameters:
+      - name: default_params
+        type: table
+        desc: Table with default parameters (key-value pairs)
 
     - name: set_user_id
       type: function
       desc: Sets the user ID property. 
-
       parameters:
       - name: user_id
         type: string
@@ -123,7 +124,6 @@
     - name: set_user_property
       type: function
       desc: Set a user property to the given value.
-
       parameters:
       - name: name
         type: string
@@ -143,7 +143,6 @@
     - name: set_enabled
       type: function
       desc: Sets whether analytics collection is enabled for this app on this device.
-
       parameters:
       - name: key
         type: boolean

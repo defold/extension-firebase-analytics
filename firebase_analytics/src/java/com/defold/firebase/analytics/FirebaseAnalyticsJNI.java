@@ -87,30 +87,58 @@ public class FirebaseAnalyticsJNI {
 
     //---
     
-    private Bundle g_bundle;
+    private Bundle g_EventParams;
 
     public void openEvent() {
-        g_bundle = new Bundle();
+        g_EventParams = new Bundle();
     }
 
-    public void addParamNumber(String param_name, double param) {
-        g_bundle.putDouble(param_name, param);
+    public void addEventParamNumber(String param_name, double param) {
+        g_EventParams.putDouble(param_name, param);
     }
 
-    public void addParamInt(String param_name, int param) {
-        g_bundle.putInt(param_name, param);
+    public void addEventParamInt(String param_name, int param) {
+        g_EventParams.putInt(param_name, param);
     }
 
-    public void addParamString(String param_name, String param) {
-        g_bundle.putString(param_name, param);
+    public void addEventParamString(String param_name, String param) {
+        g_EventParams.putString(param_name, param);
     }
 
     public void sendEvent(String event_name) {
-        firebaseAnalytics.logEvent(event_name, g_bundle);
+        firebaseAnalytics.logEvent(event_name, g_EventParams);
     }
 
     public void closeEvent() {
-        g_bundle = null;
+        g_EventParams = null;
+    }
+
+    //---
+    
+    private Bundle g_DefaultEventParams;
+
+    public void openDefaultEventParams() {
+        g_DefaultEventParams = new Bundle();
+    }
+
+    public void addDefaultEventParamNumber(String param_name, double param) {
+        g_DefaultEventParams.putDouble(param_name, param);
+    }
+
+    public void addDefaultEventParamInt(String param_name, int param) {
+        g_DefaultEventParams.putInt(param_name, param);
+    }
+
+    public void addDefaultEventParamString(String param_name, String param) {
+        g_DefaultEventParams.putString(param_name, param);
+    }
+
+    public void setDefaultEventParams() {
+        firebaseAnalytics.setDefaultEventParameters(g_DefaultEventParams);
+    }
+
+    public void closeDefaultEventParams() {
+        g_DefaultEventParams = null;
     }
 
     //---
