@@ -94,7 +94,7 @@ static int Lua_LogString(lua_State* L)
     CheckIfValueValid(L, param, event_name, param_name);
 
     OpenEvent();
-    AddParamString(param_name, param);
+    AddEventParamString(param_name, param);
     SendEvent(event_name);
     CloseEvent();
     return 0;
@@ -111,7 +111,7 @@ static int Lua_LogInt(lua_State* L)
     CheckIfParamValid(L, param_name, event_name);
 
     OpenEvent();
-    AddParamInt(param_name, param);
+    AddEventParamInt(param_name, param);
     SendEvent(event_name);
     CloseEvent();
     return 0;
@@ -128,7 +128,7 @@ static int Lua_LogNumber(lua_State* L)
     CheckIfParamValid(L, param_name, event_name);
 
     OpenEvent();
-    AddParamNumber(param_name, param);
+    AddEventParamNumber(param_name, param);
     SendEvent(event_name);
     CloseEvent();
     return 0;
@@ -174,13 +174,13 @@ static int Lua_LogTable(lua_State* L)
                     CheckIfValueValid(L, param_value, event_name, param_name);
                     return 0;
                 }
-                AddParamString(param_name, param_value);
+                AddEventParamString(param_name, param_value);
             break;
             case LUA_TBOOLEAN:
-                AddParamInt(param_name, lua_toboolean(L, -1));
+                AddEventParamInt(param_name, lua_toboolean(L, -1));
             break;
             case LUA_TNUMBER:
-                AddParamNumber(param_name, lua_tonumber(L, -1));
+                AddEventParamNumber(param_name, lua_tonumber(L, -1));
             break;
             default:  /* other values */
                 lua_pop(L, 3);
@@ -224,6 +224,71 @@ static int Lua_SetUserProperty(lua_State* L)
     return 0;
 }
 
+static int Lua_SetDefaultEventParameters(lua_State* L)
+{
+    DM_LUA_STACK_CHECK(L, 0);
+
+    char* event_name = "default";
+
+    luaL_checktype(L, 1, LUA_TTABLE);
+    OpenDefaultEventParams();
+    lua_pushvalue(L, 1);
+    lua_pushnil(L);
+    int size = 0;
+    while (lua_next(L, -2) != 0)
+    {
+        if (size == MAX_ELEMENTS) {
+            lua_pop(L, 1);
+            CloseDefaultEventParams();
+            return luaL_error(L, "Too many parameters in '%s'", event_name);
+        }
+        const char* param_name = lua_tostring(L, -2);
+        // Can't use CheckIfParamValid here, because cleanup needed if it's invalid
+        if (strlen(param_name) > MAX_PARAM_LENGTH)
+        {
+            lua_pop(L, 2);
+            CloseDefaultEventParams();
+            CheckIfParamValid(L, param_name, event_name);
+            return 0;
+        }
+        int t = lua_type(L, -1);
+        const char* param_value;
+        switch (t) {
+            case LUA_TSTRING:
+                param_value = lua_tostring(L, -1);
+                // Can't use CheckIfValueValid here, because cleanup needed if it's invalid
+                if (strlen(param_value) > MAX_VALUE_LENGTH)
+                {
+                    lua_pop(L, 2);
+                    CloseDefaultEventParams();
+                    CheckIfValueValid(L, param_value, event_name, param_name);
+                    return 0;
+                }
+                AddDefaultEventParamString(param_name, param_value);
+            break;
+            case LUA_TBOOLEAN:
+                AddDefaultEventParamInt(param_name, lua_toboolean(L, -1));
+            break;
+            case LUA_TNUMBER:
+                AddDefaultEventParamNumber(param_name, lua_tonumber(L, -1));
+            break;
+            default:  /* other values */
+                lua_pop(L, 2);
+                CloseDefaultEventParams();
+                return luaL_error(L, "Wrong type for table attribute '%s', type: '%s' in event '%s'", param_name, luaL_typename(L, -1), event_name);
+            break;
+        }
+        lua_pop(L, 1);
+        ++size;
+    }
+
+    CloseDefaultEventParams();
+
+    lua_pop(L, 1);
+
+    return 0;
+}
+
 static int Lua_SetUserId(lua_State* L)
 {
     DM_LUA_STACK_CHECK(L, 0);
@@ -246,6 +311,7 @@ static const luaL_reg Module_methods[] =
     {"reset", Lua_Reset},
     {"set_enabled", Lua_SetEnabled},
     {"set_user_property", Lua_SetUserProperty},
+    {"set_default_event_parameters", Lua_SetDefaultEventParameters},
     {"set_user_id", Lua_SetUserId},
     {0, 0}
 };

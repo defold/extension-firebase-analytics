@@ -67,52 +67,91 @@ void SetAnalyticsCollectionEnabled(bool enabled) {
 
 // ---
 
-NSMutableDictionary *g_bundle;
+NSMutableDictionary *g_EventParams;
+NSMutableDictionary *g_DefaultEventParams;
 
-static void ReleaseBundle() {
-    for (NSString *key in g_bundle)
+static void ReleaseDictionary(NSMutableDictionary *dict) {
+    for (NSString *key in dict)
     {
-        [[g_bundle objectForKey:key] release];
+        [[dict objectForKey:key] release];
         [key release];
     }
-    [g_bundle release];
-    g_bundle = nil;
+    [dict release];
+}
+
+static void ReleaseEventParams() {
+    ReleaseDictionary(g_EventParams);
+    g_EventParams = nil;
+}
+static void ReleaseDefaultEventParams() {
+    ReleaseDictionary(g_DefaultEventParams);
+    g_DefaultEventParams = nil;
 }
 
 void OpenEvent() {
-    if (g_bundle != nil)
+    if (g_EventParams != nil)
     {
-        ReleaseBundle();
+        ReleaseEventParams();
     }
-    g_bundle = [[NSMutableDictionary alloc] init];
+    g_EventParams = [[NSMutableDictionary alloc] init];
+}
+void OpenDefaultEventParams() {
+    if (g_DefaultEventParams != nil)
+    {
+        ReleaseDefaultEventParams();
+    }
+    g_DefaultEventParams = [[NSMutableDictionary alloc] init];
 }
 
-void AddParamString(const char* param_name, const char* param) {
+void AddParamStringToDict(NSMutableDictionary *dict, const char* param_name, const char* param) {
     NSString *key = [[NSString alloc] initWithUTF8String:param_name];
     NSString *value = [[NSString alloc] initWithUTF8String:param];
-    [g_bundle setObject:value forKey:key];
+    [dict setObject:value forKey:key];
 }
-
-void AddParamNumber(const char* param_name, double param) {
+void AddParamNumberToDict(NSMutableDictionary *dict, const char* param_name, double param) {
     NSString *key = [[NSString alloc] initWithUTF8String:param_name];
     NSNumber *value = [[NSNumber alloc] initWithDouble:param];
-    [g_bundle setObject:value forKey:key];
+    [dict setObject:value forKey:key];
 }
-
-void AddParamInt(const char* param_name, int param) {
+void AddParamIntToDict(NSMutableDictionary *dict, const char* param_name, int param) {
     NSString *key = [[NSString alloc] initWithUTF8String:param_name];
     NSNumber *value = [[NSNumber alloc] initWithInt:param];
-    [g_bundle setObject:value forKey:key];
+    [dict setObject:value forKey:key];
+}
+
+void AddEventParamString(const char* param_name, const char* param) {
+    AddParamStringToDict(g_EventParams, param_name, param);
+}
+void AddDefaultEventParamString(const char* param_name, const char* param) {
+    AddParamStringToDict(g_DefaultEventParams, param_name, param);
+}
+void AddEventParamNumber(const char* param_name, double param) {
+    AddParamNumberToDict(g_EventParams, param_name, param);
+}
+void AddDefaultEventParamNumber(const char* param_name, double param) {
+    AddParamNumberToDict(g_DefaultEventParams, param_name, param);
+}
+void AddEventParamInt(const char* param_name, int param) {
+    AddParamIntToDict(g_EventParams, param_name, param);
+}
+void AddDefaultEventParamInt(const char* param_name, int param) {
+    AddParamIntToDict(g_DefaultEventParams, param_name, param);
 }
 
 void SendEvent(const char* event_name) {
     NSString *name = [[NSString alloc] initWithUTF8String:event_name];
-    [FIRAnalytics logEventWithName:name parameters:g_bundle];
+    [FIRAnalytics logEventWithName:name parameters:g_EventParams];
     [name release];
+}
+void SetDefaultEventParameters() {
+    [FIRAnalytics setDefaultEventParameters:g_DefaultEventParams];
 }
 
 void CloseEvent() {
-    ReleaseBundle();
+    ReleaseEventParams();
+}
+void CloseDefaultEventParams() {
+    ReleaseDefaultEventParams();
 }
 
 // ---
