@@ -49,10 +49,10 @@ function init(self)
             firebase.analytics.initialize()
 
             -- log data
-            firebase.analytics.log_string("character", "storm trooper")
-            firebase.analytics.log_int("kills", 152)
+            firebase.analytics.log_string("choose_character", "character", "storm trooper")
+            firebase.analytics.log_int("kills", "kills", 152)
             firebase.analytics.log("tutorial_done")
-            firebase.analytics.log_number("speed", 1.15)
+            firebase.analytics.log_number("game_speed", "speed", 1.15)
             local t = {
                 number = math.random(1,100),
                 boolean = true,
