@@ -71,6 +71,3 @@ Read about [events](https://firebase.google.com/docs/reference/android/com/googl
 ## Source code
 
 The source code is available on [GitHub](https://github.com/defold/extension-firebase-analytics)
-
-
-## API reference
