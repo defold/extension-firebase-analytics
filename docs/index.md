@@ -1,6 +1,6 @@
 ---
 title: Defold Firebase Analytics documentation
-brief: This manual covers how to set up and use Firebase Analytics in Defold.
+brief: This manual covers how to setup and use Firebase Analytics in Defold.
 ---
 
 # Defold Firebase Analytics documentation
