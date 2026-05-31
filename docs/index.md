@@ -1,6 +1,6 @@
 ---
 title: Defold Firebase Analytics documentation
-brief: This manual covers how to setup and use Firebase Analytics in Defold.
+brief: This manual covers how to set up and use Firebase Analytics in Defold.
 ---
 
 # Defold Firebase Analytics documentation
@@ -9,8 +9,8 @@ This extension allows you to interact with Firebase Analytics in a uniform way f
 
 
 ## Installation
-To use Firabase in your Defold project, add a version of the Firebase extension to your `game.project` dependencies from the list of available [Firebase Releases](https://github.com/defold/extension-firebase/releases) and corresponding [Firebase Analytics Release](https://github.com/defold/extension-firebase-analytics/releases).
-Find the version you want for both extensions, copy the URLs to ZIP archive of the release and add it to the project dependencies.
+To use Firebase in your Defold project, add a version of the Firebase extension to your `game.project` dependencies from the list of available [Firebase Releases](https://github.com/defold/extension-firebase/releases) and corresponding [Firebase Analytics Release](https://github.com/defold/extension-firebase-analytics/releases).
+Find the version you want for both extensions, copy the URLs to the ZIP archives of the releases and add them to the project dependencies.
 
 ![](add-dependency.png)
 
@@ -47,6 +47,9 @@ function init(self)
         if message_id == firebase.MSG_INITIALIZED then
             firebase.analytics.set_callback(firebase_analytics_callback)
             firebase.analytics.initialize()
+            firebase.analytics.set_default_event_parameters({
+                screen = "main_menu"
+            })
 
             -- log data
             firebase.analytics.log_string("choose_character", "character", "storm trooper")
