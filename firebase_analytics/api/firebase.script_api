@@ -48,7 +48,7 @@
       type: function
       desc: Log an event without parameters.
       parameters:
-      - name: name
+      - name: event_name
         type: string
         desc: Event name
 
@@ -56,13 +56,13 @@
       type: function
       desc: Log an event with one string parameter.
       parameters:
-      - name: name
+      - name: event_name
         type: string
         desc: Event name
-      - name: PARAMeter_name
+      - name: param_name
         type: string
         desc: Parameter name
-      - name: PARAMeter_value
+      - name: param
         type: string
         desc: Parameter value
 
@@ -70,13 +70,13 @@
       type: function
       desc: Log an event with one integer parameter. 
       parameters:
-      - name: name
+      - name: event_name
         type: string
         desc: Event name
-      - name: PARAMeter_name
+      - name: param_name
         type: string
         desc: Parameter name
-      - name: PARAMeter_value
+      - name: param
         type: number
         desc: Parameter value
 
@@ -84,13 +84,13 @@
       type: function
       desc: Log an event with one float parameter. 
       parameters:
-      - name: name
+      - name: event_name
         type: string
         desc: Event name
-      - name: PARAMeter_name
+      - name: param_name
         type: string
         desc: Parameter name
-      - name: PARAMeter_value
+      - name: param
         type: number
         desc: Parameter value
 
@@ -98,18 +98,18 @@
       type: function
       desc: Log an event with table parameters. 
       parameters:
-      - name: name
+      - name: event_name
         type: string
         desc: Event name
-      - name: parameters_table
+      - name: parameters
         type: table
         desc: Table with parameters (key-value pairs)
 
-    - name: set_default_event_params
+    - name: set_default_event_parameters
       type: function
-      desc: Log an event with table parameters. 
+      desc: Set default parameters that will be included with future events.
       parameters:
-      - name: default_params
+      - name: parameters
         type: table
         desc: Table with default parameters (key-value pairs)
 
@@ -144,11 +144,11 @@
       type: function
       desc: Sets whether analytics collection is enabled for this app on this device.
       parameters:
-      - name: key
+      - name: enabled
         type: boolean
         desc: The value
 
-  #***** EVENTS *****************************************************************************************
+  #***** MESSAGES *****************************************************************************************
 
     - name: MSG_ERROR
       type: number
