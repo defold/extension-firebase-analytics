@@ -14,6 +14,8 @@ Find the version you want for both extensions, copy the URLs to the ZIP archives
 
 ![](add-dependency.png)
 
+Firebase Android SDK 34.x requires Android API level 23 or newer. Firebase Apple SDK 12.x requires iOS 15.0 or newer.
+
 
 ## Setup
 Follow the [main setup guide for integration of Firebase in Defold](https://www.defold.com/extension-firebase).
