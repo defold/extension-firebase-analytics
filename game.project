@@ -21,6 +21,7 @@ shared_state = 1
 
 [library]
 include_dirs = firebase_analytics
+defold_min_version = 1.13.0
 
 [ios]
 bundle_identifier = com.defold.firebase
